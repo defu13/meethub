@@ -18379,18 +18379,23 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Home\\Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\User\\Home.cshtml",
+      "TargetPath": "Views\\User\\Home.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\User\\Index.cshtml",
+      "TargetPath": "Views\\User\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -18406,11 +18411,6 @@
     {
       "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Home\\home.cshtml",
-      "TargetPath": "Views\\Home\\home.cshtml",
       "FileKind": "mvc"
     }
   ],

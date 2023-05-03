@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MeetHub</title>
+
+    @{
+        Layout = null;
+    }
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/mystyles.css"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-image: url('/images/fondoprueba.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+    </style>
+</head>
+
+<body style="background-color: #e7e9ec;">
+    <div class="h-100 w-100">
+        <div class="row h-100 m-0">
+            <div class="col-md-4 col-lg-4 col-1 h-100"></div>
+            <div class="col-md-4 col-lg-4 col-10 h-100 d-flex align-items-center justify-content-center">
+                <div class="h-50 d-flex flex-column justify-content-center" style="max-width: 20rem; min-width: 15rem;">
+                    <img src="~/images/logo.png" class="img-fluid">
+                    <label class="form-label mt-5 fs-5 text-start">Bienvenido</label>
+
+                    <form class="needs-validation" novalidate action="/User/Login" method="post">
+                        <input type="email" id="validationCustom03" class="form-control mt-2 rounded-3 border-0"
+                            aria-describedby="emailHelp" placeholder="Correo electrónico" required name="email">
+                        <div class="invalid-feedback">
+                            Introduce un correo válido.
+                        </div>
+
+                        <div class="mt-2 input-group w-100">
+                            <input type="password" id="password" name="password" class="form-control rounded-3 border-0"
+                                aria-labelledby="passwordHelpBlock" placeholder="Contraseña" required>
+                            <span class="input-group-text input-group-append m-1" id="show-password">
+                                <i class="far fa-eye-slash position-absolute end-0 me-1"></i>
+                            </span>
+                            <div class="invalid-feedback">
+                                Campo vacío.
+                            </div>
+                        </div>
+
+                        <p class="fs-6 fst-italic text-end mt-1"><a
+                                class="link-offset-2 link-underline link-primary link-underline-opacity-0"
+                                href="#">¿Olvidaste la contraseña?</a></p>
+                        <div class="d-flex flex-column align-items-center">
+                            <button type="submit" class="btn btn-primary mt-4 rounded-4 border-0 w-75">Entrar</button>
+                        </div>
+                    </form>
+
+                    <div class="d-flex flex-column align-items-center mt-3">
+                        <p class="fs-6 fst-italic text-end mt-1">¿No tienes cuenta?
+                            <a class="link-offset-2 link-underline link-danger link-underline-opacity-0"
+                                href="#">Registrate</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-1 h-100"></div>
+        </div>
+    </div>
+
+
+
+
+    <!-- SCRIPTS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- CUSTOM JS -->
+    <script>
+        $(document).ready(() => {
+            $('#show-password').click(function () {
+                var passwordField = $('#password');
+                var passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType == 'password') {
+                    passwordField.attr('type', 'text');
+                    $('#show-password i').removeClass('far fa-eye-slash').addClass('far fa-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    $('#show-password i').removeClass('far fa-eye').addClass('far fa-eye-slash');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,7 +1,14 @@
+using System.Configuration;
+using Microsoft.EntityFrameworkCore;
+using mvc_pruebas.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MeethubdbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("Connection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql")));
 
 var app = builder.Build();
 
@@ -22,6 +29,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Login}/{id?}");
+
+// app.MapControllerRoute(
+//     name: "user",
+//     pattern: "{controller=User}/{action=Login}/{id?}");
 
 app.Run();

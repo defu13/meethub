@@ -21,9 +21,7 @@ C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\staticwebass
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\scopedcss\bundle\mvc-pruebas.styles.css
-C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\scopedcss\projectbundle\mvc-pruebas.bundle.scp.css
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\mvc-pruebas.dll
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\refint\mvc-pruebas.dll
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\mvc-pruebas.pdb
@@ -281,3 +279,5 @@ C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\bin\Debug\net6.0\zh-Hans\Micr
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\bin\Debug\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\bin\Debug\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Yubal\Desktop\cosas clase\tfg\mvc-pruebas\obj\Debug\net6.0\scopedcss\projectbundle\mvc-pruebas.bundle.scp.css

@@ -1,0 +1,132 @@
+.input-group-text {
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.1s;
+    user-select: none;
+}
+
+.input-group-text i:hover {
+    transform: scale(1.1);
+}
+
+.input-group-text i {
+    font-size: 1rem;
+}
+
+@media (min-width: 625px) {
+    .content-home {
+        width: calc(100% - 5rem);
+        height: 100%;
+    }
+
+    .offcanvas.offcanvas-custom {
+        top: 0;
+        right: 0;
+        width: var(--bs-offcanvas-width);
+        border-left: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 624px) {
+    .content-home {
+        height: calc(100% - 5rem);
+        width: 100%;
+    }
+
+    .offcanvas.offcanvas-custom {
+        right: 0;
+        left: 0;
+        height: 25%;
+        max-height: 100%;
+        border-top: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
+        transform: translateY(100%);
+    }
+}
+
+.boton-menu svg.bi {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.event-card {
+    max-width: 30rem;
+    min-width: 30rem;
+}
+
+@media (min-width: 1025px) {
+    .col-lg-6-modify {
+        flex: 0 0 auto;
+        width: 50% !important;
+    }
+
+    .event-container {
+        width: 1024px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .event-container {
+        width: 512px;
+    }
+}
+
+.circle-button {
+    width: 35px;
+    height: 35px;
+}
+
+.event-card-icon {
+    font-size: 20px;
+}
+
+.event-container-element {
+    max-width: 64rem;
+}
+
+.search-bar-input {
+    font-family: Helvetica, FontAwesome;
+    max-width: 20rem;
+}
+
+.d-flex-notimportant {
+    display: flex;
+}
+
+.event-card-container.full-width {
+    width: 100% !important;
+}
+
+.offcanvas-body button:hover i.fa-regular {
+    font-weight: 900;
+}
+
+/* .create-event-button {
+    box-shadow: 0 4px #10366e;
+    transition: none !important;
+}
+
+.create-event-button:active {
+    box-shadow: 0 0px #10366e;
+    transform: translateY(4px);
+} */
+
+.mb-1-custom{
+    margin-bottom: 0.1rem;
+}
+
+.container-numero-aforomax{
+    width: 60%;
+}
+
+.modal .form-check.form-switch{
+    height: 58px;
+}
+
+.collapse-horizontal{
+    transition: width 0.3s ease-in-out;
+}

@@ -17,32 +17,18 @@ public class UserController : Controller
         _context = context;
     }
 
-    [Authorize]
-    [HttpGet]
-    public IActionResult Home()
-    {
-        return View();
-    }
-
-    [Authorize]
-    [HttpGet]
-    public IActionResult Index()
-    {
-        return View();
-    }
-
     [HttpGet]
     public IActionResult Login()
     {
+        ClaimsPrincipal c = HttpContext.User;
+        if (c.Identity != null)
+        {
+            if (c.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "User");
+            }
+        }
         return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Logout()
-    {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Login", "User");
     }
 
     [HttpPost]
@@ -50,21 +36,41 @@ public class UserController : Controller
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
-        if (user != null)
+        try
         {
-            // Autenticación exitosa, redirigir a la vista deseada
-            return RedirectToAction("Index", "User");
-
-            var claims = new List<Claim>
+            if (user != null)
             {
-                new Claim(ClaimTypes.Name, user.Email),
-            };
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                // Autenticación exitosa, redirigir a la vista deseada
+
+                List<Claim> claims = new List<Claim>(){
+                    new Claim(ClaimTypes.Name, user.Email),
+                };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                AuthenticationProperties p = new();
+                p.AllowRefresh = true;
+                p.IsPersistent = user.MantenerSesion;
+
+                if (!user.MantenerSesion)
+                {
+                    p.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1);
+                }
+                else
+                {
+                    p.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
+                }
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, p);
+                return RedirectToAction("Index", "Home");
+            }
+            Console.WriteLine("Credenciales inválidas");
+            return View();
         }
-        Console.WriteLine("Credenciales inválidas");
-        return View();
+        catch (System.Exception e)
+        {
+            return View();
+        }
+
 
     }
 }

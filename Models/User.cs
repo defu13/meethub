@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mvc_pruebas.Models;
 
@@ -16,4 +17,7 @@ public partial class User
     public string Password { get; set; } = null!;
 
     public virtual ICollection<Event> Events { get; set; } = new List<Event>();
+
+    [NotMapped]
+    public bool MantenerSesion {get; set;}
 }

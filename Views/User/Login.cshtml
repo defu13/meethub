@@ -1,3 +1,5 @@
+@model User
+
 <!DOCTYPE html>
 <html>
 
@@ -6,13 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MeetHub</title>
 
+    
     @{
         Layout = null;
     }
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/mystyles.css"/>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/css/mystyles.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
         html,
@@ -38,7 +41,7 @@
                     <img src="~/images/logo.png" class="img-fluid">
                     <label class="form-label mt-5 fs-5 text-start">Bienvenido</label>
 
-                    <form class="needs-validation" novalidate action="/User/Login" method="post">
+                    <form class="needs-validation" novalidate asp-action="Login" method="post">
                         <input type="email" id="validationCustom03" class="form-control mt-2 rounded-3 border-0"
                             aria-describedby="emailHelp" placeholder="Correo electrónico" required name="email">
                         <div class="invalid-feedback">
@@ -53,6 +56,15 @@
                             </span>
                             <div class="invalid-feedback">
                                 Campo vacío.
+                            </div>
+                        </div>
+
+                        <div class="mt-2 input-group w-100">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="MantenerSesion" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Mantener sesión iniciada
+                                </label>
                             </div>
                         </div>
 

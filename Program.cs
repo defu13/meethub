@@ -17,6 +17,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/User/Login";
         options.LogoutPath = "/Home/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
 
 var app = builder.Build();

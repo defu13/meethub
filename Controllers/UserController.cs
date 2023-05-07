@@ -32,26 +32,33 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password)
+    public IActionResult DeleteTempData(string key)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+        TempData.Remove(key);
+        return Ok();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(User user)
+    {
+        var usuario = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
 
         try
         {
-            if (user != null)
+            if (usuario != null)
             {
                 // Autenticación exitosa, redirigir a la vista deseada
 
                 List<Claim> claims = new List<Claim>(){
-                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Name, usuario.Email),
                 };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
                 AuthenticationProperties p = new();
                 p.AllowRefresh = true;
-                p.IsPersistent = user.MantenerSesion;
+                p.IsPersistent = usuario.MantenerSesion;
 
-                if (!user.MantenerSesion)
+                if (!usuario.MantenerSesion)
                 {
                     p.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1);
                 }
@@ -59,18 +66,20 @@ public class UserController : Controller
                 {
                     p.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
                 }
-
+                
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, p);
                 return RedirectToAction("Index", "Home");
             }
-            Console.WriteLine("Credenciales inválidas");
-            return View();
+            else
+            {
+                Console.WriteLine("Credenciales inválidas");
+                TempData["MensajeError"] = "Credenciales inválidas";
+                return View();
+            }
         }
         catch (System.Exception e)
         {
             return View();
         }
-
-
     }
 }

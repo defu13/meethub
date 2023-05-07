@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MeetHub</title>
 
-    
+
     @{
         Layout = null;
     }
@@ -42,15 +42,17 @@
                     <label class="form-label mt-5 fs-5 text-start">Bienvenido</label>
 
                     <form class="needs-validation" novalidate asp-action="Login" method="post">
-                        <input type="email" id="validationCustom03" class="form-control mt-2 rounded-3 border-0"
-                            aria-describedby="emailHelp" placeholder="Correo electrónico" required name="email">
+                        <input asp-for="Email" type="email" id="validationCustom03"
+                            class="form-control mt-2 rounded-3 border-0" aria-describedby="emailHelp"
+                            placeholder="Correo electrónico" required name="email">
                         <div class="invalid-feedback">
                             Introduce un correo válido.
                         </div>
 
                         <div class="mt-2 input-group w-100">
-                            <input type="password" id="password" name="password" class="form-control rounded-3 border-0"
-                                aria-labelledby="passwordHelpBlock" placeholder="Contraseña" required>
+                            <input asp-for="Password" type="password" id="password" name="password"
+                                class="form-control rounded-3 border-0" aria-labelledby="passwordHelpBlock"
+                                placeholder="Contraseña" required>
                             <span class="input-group-text input-group-append m-1" id="show-password">
                                 <i class="far fa-eye-slash position-absolute end-0 me-1"></i>
                             </span>
@@ -61,7 +63,8 @@
 
                         <div class="mt-2 input-group w-100">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" asp-for="MantenerSesion" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" asp-for="MantenerSesion"
+                                    id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Mantener sesión iniciada
                                 </label>
@@ -88,14 +91,44 @@
         </div>
     </div>
 
-
-
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="errorModalLabel">Alerta de inicio de sesión</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Correo electrónico o contraseña incorrectos
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- SCRIPTS -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- CUSTOM JS -->
+    @if (TempData["MensajeError"] != null)
+    {
+        <script>
+            function deleteTempData(key) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteTempData", "User")",
+                    data: { key: key },
+                    success: function () { },
+                    error: function () { }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#errorModal').modal('show');
+                deleteTempData("MensajeError");
+            });
+        </script>
+    }
     <script>
         $(document).ready(() => {
             $('#show-password').click(function () {

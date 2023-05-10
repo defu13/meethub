@@ -28,11 +28,12 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
+            background-color: #e7e9ec;
         }
     </style>
 </head>
 
-<body style="background-color: #e7e9ec;">
+<body>
     <div class="h-100 w-100">
         <div class="row h-100 m-0">
             <div class="col-md-4 col-lg-4 col-1 h-100"></div>
@@ -41,7 +42,7 @@
                     <img src="~/images/logo.png" class="img-fluid">
                     <label class="form-label mt-5 fs-5 text-start">Bienvenido</label>
 
-                    <form class="needs-validation" novalidate asp-action="Login" method="post">
+                    <form id="login-form" class="needs-validation" novalidate asp-action="Login" method="post">
                         <input asp-for="Email" type="email" id="validationCustom03"
                             class="form-control mt-2 rounded-3 border-0" aria-describedby="emailHelp"
                             placeholder="Correo electrónico" required name="email">
@@ -71,9 +72,10 @@
                             </div>
                         </div>
 
-                        <p class="fs-6 fst-italic text-end mt-1"><a
-                                class="link-offset-2 link-underline link-primary link-underline-opacity-0"
-                                href="#">¿Olvidaste la contraseña?</a></p>
+                        @* <p class="fs-6 fst-italic text-end mt-1"><a
+                                class="link-offset-2 link-underl
+                                ine link-primary link-underline-opacity-0"
+                                href="#">¿Olvidaste la contraseña?</a></p> *@
                         <div class="d-flex flex-column align-items-center">
                             <button type="submit" class="btn btn-primary mt-4 rounded-4 border-0 w-75">Entrar</button>
                         </div>

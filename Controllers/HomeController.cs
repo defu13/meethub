@@ -17,6 +17,16 @@ public class HomeController : Controller
         _context = context;
     }
 
+    public IActionResult Stats()
+    {
+        return View();
+    }
+
+    public IActionResult Profile()
+    {
+        return View();
+    }
+
     public IActionResult Home()
     {
         return View();

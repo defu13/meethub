@@ -18379,6 +18379,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Home\\Profile.cshtml",
+      "TargetPath": "Views\\Home\\Profile.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -18389,13 +18394,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\User\\Login.cshtml",
-      "TargetPath": "Views\\User\\Login.cshtml",
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Home\\Stats.cshtml",
+      "TargetPath": "Views\\Home\\Stats.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\Views\\User\\Login.cshtml",
+      "TargetPath": "Views\\User\\Login.cshtml",
       "FileKind": "mvc"
     },
     {

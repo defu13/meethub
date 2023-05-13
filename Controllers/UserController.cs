@@ -25,7 +25,7 @@ public class UserController : Controller
         {
             if (c.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Login", "User");
             }
         }
         return View();

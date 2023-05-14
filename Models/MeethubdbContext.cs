@@ -27,7 +27,7 @@ public partial class MeethubdbContext : DbContext
 
     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //     => optionsBuilder.UseMySql("server=localhost;port=3306;database=meethubdb;uid=admin;pwd=1234", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql"));
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySql(_configuration.GetConnectionString("Connection"),
@@ -61,6 +61,9 @@ public partial class MeethubdbContext : DbContext
             entity.Property(e => e.Telefono)
                 .HasMaxLength(12)
                 .HasColumnName("telefono");
+            entity.Property(e => e.QrCode)
+                .HasColumnType("text")
+                .HasColumnName("qr_code");
         });
 
         modelBuilder.Entity<Event>(entity =>
@@ -95,6 +98,9 @@ public partial class MeethubdbContext : DbContext
             entity.Property(e => e.Titulo)
                 .HasMaxLength(255)
                 .HasColumnName("titulo");
+            entity.Property(e => e.Enlace)
+                .HasColumnType("text")
+                .HasColumnName("enlace");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Events)
                 .HasForeignKey(d => d.IdUser)

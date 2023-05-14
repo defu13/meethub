@@ -134,7 +134,8 @@
 
         <!-- CONTENIDO -->
         <div id="contenedor-paginas" class="content-home justify-content-center align-items-start d-flex w-100">
-            @Html.Partial("Home")
+            @* @Html.Partial("Home") *@
+            <partial name="Home" model="@Model" />
         </div>
     </div>
 

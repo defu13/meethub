@@ -1,8 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using mvc_pruebas.Models;
 
 namespace mvc_pruebas.Controllers;
@@ -27,9 +30,57 @@ public class HomeController : Controller
         return View();
     }
 
+    public async Task<List<Event>> obtenerEventos(User usuario)
+    {
+        if (usuario == null)
+        {
+            // Manejar el caso en el que el usuario no existe
+            return null;
+        }
+        Debug.WriteLine(usuario.IdUser);
+
+        // Realiza la consulta a la base de datos
+        var eventos = _context.Events
+            .Where(e => e.IdUser == usuario.IdUser)
+            .Select(e => new Event
+            {
+                IdEvent = e.IdEvent,
+                IdUser = e.IdUser,
+                Image = e.Image,
+                Titulo = e.Titulo,
+                Descripcion = e.Descripcion,
+                Aforo = e.Aforo,
+                Direccion = e.Direccion,
+                FechaInicio = e.FechaInicio,
+                FechaFin = e.FechaFin,
+                Tipo = e.Tipo,
+                Enlace = e.Enlace
+            })
+            .ToList();
+            Debug.WriteLine(eventos);
+        return eventos;
+    }
+
     public IActionResult Home()
     {
-        return View();
+        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        {
+            var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+
+            Debug.WriteLine("Id de usuario: "+usuario.IdUser);
+
+            var eventos = obtenerEventos(usuario);
+
+            if (eventos == null)
+            {
+                Debug.WriteLine("Error: el evento es null");
+            }
+
+            return View(eventos);
+        }
+
+        // Si no se encuentra el usuario en la cookie, redirige a la página de inicio de sesión
+        return RedirectToAction("Login", "User");
     }
 
     public IActionResult Index()

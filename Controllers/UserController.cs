@@ -1,6 +1,7 @@
 
 
 using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -20,14 +21,14 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult Login()
     {
-        ClaimsPrincipal c = HttpContext.User;
-        if (c.Identity != null)
-        {
-            if (c.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "User");
-            }
-        }
+        // ClaimsPrincipal c = HttpContext.User;
+        // if (c.Identity != null)
+        // {
+        //     if (c.Identity.IsAuthenticated)
+        //     {
+        //         return RedirectToAction("Login", "User");
+        //     }
+        // }
         return View();
     }
 
@@ -66,13 +67,16 @@ public class UserController : Controller
                 {
                     p.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
                 }
-                
+
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, p);
+
+                // Almacena el usuario en una cookie
+                Response.Cookies.Append("Usuario", JsonSerializer.Serialize(usuario));
+
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                Console.WriteLine("Credenciales inválidas");
                 TempData["MensajeError"] = "Credenciales inválidas";
                 return View();
             }

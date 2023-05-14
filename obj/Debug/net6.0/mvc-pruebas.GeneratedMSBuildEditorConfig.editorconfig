@@ -8,45 +8,45 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = mvc_pruebas
 build_property.RootNamespace = mvc_pruebas
-build_property.ProjectDir = D:\proyects\mvc-pruebas\
+build_property.ProjectDir = d:\proyects\mvc-pruebas\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\proyects\mvc-pruebas
+build_property.MSBuildProjectDirectory = d:\proyects\mvc-pruebas
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/proyects/mvc-pruebas/Views/Home/Home.cshtml]
+[d:/proyects/mvc-pruebas/Views/Home/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/Home/Index.cshtml]
+[d:/proyects/mvc-pruebas/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/Home/Profile.cshtml]
+[d:/proyects/mvc-pruebas/Views/Home/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/Home/Stats.cshtml]
+[d:/proyects/mvc-pruebas/Views/Home/Stats.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGF0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/Shared/_ValidationScriptsPartial.cshtml]
+[d:/proyects/mvc-pruebas/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/User/Login.cshtml]
+[d:/proyects/mvc-pruebas/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/_ViewImports.cshtml]
+[d:/proyects/mvc-pruebas/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/_ViewStart.cshtml]
+[d:/proyects/mvc-pruebas/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/proyects/mvc-pruebas/Views/Shared/_Layout.cshtml]
+[d:/proyects/mvc-pruebas/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-3y8a3m1zpo

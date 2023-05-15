@@ -60,7 +60,7 @@
     min-width: 30rem;
 }
 
-@media (min-width: 1120px) {
+@media (min-width: 1200px) {
     .col-lg-6-modify {
         flex: 0 0 auto;
         width: 50% !important;
@@ -71,7 +71,7 @@
     }
 }
 
-@media (max-width: 1119px) {
+@media (max-width: 1199px) {
     .event-container {
         width: 512px;
     }
@@ -87,6 +87,11 @@
 }
 
 .event-container-element {
+    max-width: 64rem;
+    overflow: auto;
+}
+
+.event-container-header{
     max-width: 64rem;
 }
 

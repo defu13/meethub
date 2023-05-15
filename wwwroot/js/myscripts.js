@@ -16,30 +16,11 @@ $(document).ready(() => {
         menuAdjust();
     });
 
-    $('.menu-button').on('click', (event) => {
-
-        //Muestra los iconos vacios
-        $('.icon-fill').addClass('d-none');
-        $('.icon-empty').removeClass('d-none');
-
-        // CONTROL DE BOTONES DEL MENU
-        if ($(event.target).closest('.menu-button').hasClass('menu-button-user')) {
-            $('.menu-button-user svg.icon-fill').removeClass('d-none');
-            $('.menu-button-user svg.icon-empty').addClass('d-none');
-            console.log('user');
-            $('#contenedor-paginas').load('Profile');
-        } else if ($(event.target).closest('.menu-button').hasClass('menu-button-barchart')) {
-            $('.menu-button-barchart svg.icon-fill').removeClass('d-none');
-            $('.menu-button-barchart svg.icon-empty').addClass('d-none');
-            console.log('stats');
-            $('#contenedor-paginas').load('Stats');
-        } else if ($(event.target).closest('.menu-button').hasClass('menu-button-home')) {
-            $('.menu-button-home svg.icon-fill').removeClass('d-none');
-            $('.menu-button-home svg.icon-empty').addClass('d-none');
-            console.log('home');
-            $('#contenedor-paginas').load('Home');
-        }
-    });
+    // function resetModal() {
+    //     // Restablecer los estilos del fondo del modal
+    //     $('.modal-backdrop').remove();
+    // }
+    // resetModal();
 
     function eliminarTildes(texto) {
         return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
@@ -84,9 +65,49 @@ $(document).ready(() => {
     $('.options-button').off('click').on('click', function () {
         var eventTitle = $(this).closest('.event-card').find('span.event-title').text();
         $('#menu-opciones .offcanvas-title').text(eventTitle);
-        
-        if($('.offcanvas-backdrop').length == 2){
-            $('.offcanvas-backdrop:eq(0)').remove();
+
+        if ($('.offcanvas-backdrop').length > 1) {
+            $('.offcanvas-backdrop').not(':first').remove();
+        }
+    });
+
+    $('.create-event-button').on('click', () => {
+        if ($('.modal-backdrop').length > 1) {
+            $('.modal-backdrop').not(':first').remove();
+        }
+    });
+
+    $('.delete-file-button').on('click', () => {
+        $('#inputGroupFile').val('');
+    });
+
+    $('#inputGroupFile').on('change', function () {
+        var file = $(this).prop('files')[0];
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Extensiones permitidas: jpg, jpeg, png
+
+        if (!allowedExtensions.exec(file.name)) {
+            alert('Solo se permiten archivos de imagen (jpg, jpeg, png).');
+            $(this).val(''); // Restablecer el valor del input file si no es una imagen válida
+            return false;
+        }
+    });
+
+    $('#aforo-switch').on('change', function () {
+        var isChecked = $(this).is(':checked');
+        $('#aforo-input').prop('disabled', !isChecked);
+    });
+
+    $('#inscripcion-input').on('change', function() {
+        if ($(this).is(':checked')) {
+            var textInscripcion = 'Con el tipo inscripción puedes compartir tu enlace de evento con la gente que quieras sin necesidad de confirmación del asistente.';
+            $('.text-help').text(textInscripcion);
+        }
+    });
+
+    $('#invitacion-input').on('change', function() {
+        if ($(this).is(':checked')) {
+            var textInvitacion = 'Con el tipo invitación las personas que se registren en tu evento deberán esperar a que tu les confirmes o rechaces la asistencia.';
+            $('.text-help').text(textInvitacion);
         }
     });
 });

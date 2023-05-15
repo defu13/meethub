@@ -14,30 +14,46 @@ namespace mvc_pruebas.Controllers;
 public class HomeController : Controller
 {
     private readonly MeethubdbContext _context;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
-    public HomeController(MeethubdbContext context)
+    public HomeController(MeethubdbContext context, IWebHostEnvironment hostEnvironment)
     {
         _context = context;
+        _hostEnvironment = hostEnvironment;
     }
 
     public IActionResult Stats()
     {
-        return View();
+        return PartialView("_Stats");
     }
 
     public IActionResult Profile()
     {
-        return View();
+        return PartialView("_Profile");
     }
 
-    public async Task<List<Event>> obtenerEventos(User usuario)
+    private byte[] GetDefaultImage()
+    {
+        string path = Path.Combine(_hostEnvironment.WebRootPath, "images", "fondoprueba.jpg");
+
+        using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                fileStream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+    }
+
+    public List<Event> obtenerEventos(User usuario)
     {
         if (usuario == null)
         {
             // Manejar el caso en el que el usuario no existe
             return null;
         }
-        Debug.WriteLine(usuario.IdUser);
+        Debug.WriteLine("Id usuario: "+usuario.IdUser);
 
         // Realiza la consulta a la base de datos
         var eventos = _context.Events
@@ -46,44 +62,37 @@ public class HomeController : Controller
             {
                 IdEvent = e.IdEvent,
                 IdUser = e.IdUser,
-                Image = e.Image,
+                Image = e.Image ?? GetDefaultImage(),
                 Titulo = e.Titulo,
                 Descripcion = e.Descripcion,
-                Aforo = e.Aforo,
+                Aforo = e.Aforo ?? 0,
                 Direccion = e.Direccion,
                 FechaInicio = e.FechaInicio,
                 FechaFin = e.FechaFin,
                 Tipo = e.Tipo,
-                Enlace = e.Enlace
+                Enlace = e.Enlace ?? "EnlaceNull"
             })
             .ToList();
-        Debug.WriteLine(eventos);
         return eventos;
     }
 
-    // public IActionResult Home()
-    // {
-    //     return View();
-    // }
+    public IActionResult Home()
+    {
+        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        {
+            var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+            var eventos = obtenerEventos(usuario);
+
+            return PartialView("_Home", eventos);
+        }
+        else
+        {
+            return RedirectToAction("Login", "User");
+        }
+    }
 
     public IActionResult Index()
     {
-        // if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
-        // {
-        //     var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
-
-        //     Debug.WriteLine("Id de usuario: " + usuario.IdUser);
-
-        //     var eventos = obtenerEventos(usuario);
-
-        //     if (eventos == null)
-        //     {
-        //         Debug.WriteLine("Error: el evento es null");
-        //     }
-
-        //     return View(eventos);
-        // }
-        // return RedirectToAction("Login", "User");
         return View();
     }
 

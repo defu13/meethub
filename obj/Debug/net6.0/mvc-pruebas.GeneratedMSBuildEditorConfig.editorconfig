@@ -20,12 +20,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Yubal/Desktop/cosas clase/tfg/mvc-pruebas/Views/Home/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9maWxlLmNzaHRtbA==
+[C:/Users/Yubal/Desktop/cosas clase/tfg/mvc-pruebas/Views/Home/_Home.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfSG9tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Yubal/Desktop/cosas clase/tfg/mvc-pruebas/Views/Home/Stats.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGF0cy5jc2h0bWw=
+[C:/Users/Yubal/Desktop/cosas clase/tfg/mvc-pruebas/Views/Home/_Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Yubal/Desktop/cosas clase/tfg/mvc-pruebas/Views/Home/_Stats.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfU3RhdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Yubal/Desktop/cosas clase/tfg/mvc-pruebas/Views/Shared/Components/Home/Home.cshtml]

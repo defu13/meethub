@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -12,8 +13,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/mystyles.css"/>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/css/mystyles.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body style="background-color: #e7e9ec;" class="vh-100">
@@ -22,8 +23,7 @@
 
         <div class="h-100 m-0">
             <!-- MENÚ LATERAL -->
-            <div class="menu-big bg-light d-flex flex-column h-100 w-100"
-                style="max-width: 5rem; min-width: 5rem;">
+            <div class="menu-big bg-light d-flex flex-column h-100 w-100" style="max-width: 5rem; min-width: 5rem;">
                 <ul class="nav flex-column mt-2">
                     <li class="nav-item d-flex justify-content-center">
                         <button type="button" class="menu-button menu-button-home nav-link btn btn-transparent w-100"
@@ -134,8 +134,7 @@
 
         <!-- CONTENIDO -->
         <div id="contenedor-paginas" class="content-home justify-content-center align-items-start d-flex w-100">
-            @* @Html.Partial("Home") *@
-            <partial name="Home" model="@Model" />
+            @await Component.InvokeAsync(typeof(HomeViewComponent))
         </div>
     </div>
 

@@ -132,3 +132,7 @@
 .collapse-horizontal{
     transition: width 0.3s ease-in-out;
 }
+
+.label-input-file{
+    pointer-events: none;
+}

@@ -51,10 +51,9 @@
                     <label class="form-label mb-3">Los campos obligatorios están marcados con <span
                             class="text-danger fw-semibold">*</span></label>
                     <div class="input-group d-flex flex-column mb-3">
-                        <label for="inputGroupFile" class="form-label">Imagen</label>
+                        <label for="inputGroupFile" class="form-label label-input-file">Imagen</label>
                         <div class="d-flex input-group">
-                            <input type="file" class="form-control" id="inputGroupFile"
-                                aria-describedby="inputGroupFile" aria-label="Erase">
+                            <input type="file" class="form-control" id="inputGroupFile" aria-label="Erase" title="Imagen">
                             <button class="btn btn-outline-danger" type="button" id="inputGroupFile">Eliminar</button>
                         </div>
                     </div>
@@ -108,10 +107,10 @@
                     @foreach (var evento in Model)
                     {
                         <div class="event-card-container col-lg-6-modify p-4 pb-1 justify-content-center d-flex-notimportant">
-                            <div class="card event-card rounded-4 overflow-hidden">
+                            <div class="w-100 card event-card rounded-4 overflow-hidden">
                                 <!-- HEADER -->
                                 <div class="flex-column d-flex card-header bg-image position-relative"
-                                    style="background-image: url('../resources/images/fondo1.jpg'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
+                                    style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
                                     <!-- Boton opciones -->
                                     <div class="event-card-element d-flex align-items-center justify-content-start">
                                         <button
@@ -143,7 +142,7 @@
                                         <i class="event-card-icon bi bi-clock-fill ms-2" style="color: #ff9d46;"></i>
                                         <span class="ms-2">@evento.FechaInicio - @evento.FechaFin</span>
                                     </div>
-                                    @if (@evento.Aforo != null)
+                                    @if (@evento.Aforo != 0)
                                     {
                                         <div class="d-flex ms-auto align-items-center">
                                             <i class=" event-card-icon bi bi-people-fill" style="color: #ff9d46;"></i>
@@ -154,7 +153,9 @@
                             </div>
                         </div>
                     }
-                }else{
+                }
+                else
+                {
                     <span class="fw-medium">Sin eventos creados. Prueba a crear uno pulsando el botón "Nuevo"</span>
                 }
                 <!-- EVENT CARD -->
@@ -162,14 +163,12 @@
                 d-flex-notimportant">
                 <div class="card event-card rounded-4 overflow-hidden">
                 <!-- HEADER -->
-                <div class="flex-column d-flex card-header bg-image position-relative"
-                style="background-image: url('../resources/images/fondo1.jpg'); background-size: cover;
+                <div class="flex-column d-flex card-header bg-image position-relative" style="background-image:
+                url('../resources/images/fondo1.jpg'); background-size: cover;
                 background-repeat: no-repeat; height: 9rem;">
                 <div class="event-card-element d-flex align-items-center justify-content-start">
-                <button
-                class="options-button circle-button rounded-circle btn-primary btn d-flex align-items-center
-                justify-content-center"
-                type="button" data-bs-toggle="offcanvas" data-bs-target="#menu-opciones"
+                <button class="options-button circle-button rounded-circle btn-primary btn d-flex align-items-center
+                justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu-opciones"
                 aria-controls="offcanvasBottom">
                 <i class="event-card-icon bi bi-three-dots-vertical text-white"></i>
                 </button>

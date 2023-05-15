@@ -81,10 +81,12 @@ $(document).ready(() => {
         }
     });
 
-    $('.options-button').on('click', function () {
+    $('.options-button').off('click').on('click', function () {
         var eventTitle = $(this).closest('.event-card').find('span.event-title').text();
         $('#menu-opciones .offcanvas-title').text(eventTitle);
+        
+        if($('.offcanvas-backdrop').length == 2){
+            $('.offcanvas-backdrop:eq(0)').remove();
+        }
     });
-
-    
 });

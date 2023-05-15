@@ -57,34 +57,33 @@ public class HomeController : Controller
                 Enlace = e.Enlace
             })
             .ToList();
-            Debug.WriteLine(eventos);
+        Debug.WriteLine(eventos);
         return eventos;
     }
 
-    public IActionResult Home()
-    {
-        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
-        {
-            var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
-
-            Debug.WriteLine("Id de usuario: "+usuario.IdUser);
-
-            var eventos = obtenerEventos(usuario);
-
-            if (eventos == null)
-            {
-                Debug.WriteLine("Error: el evento es null");
-            }
-
-            return View(eventos);
-        }
-
-        // Si no se encuentra el usuario en la cookie, redirige a la página de inicio de sesión
-        return RedirectToAction("Login", "User");
-    }
+    // public IActionResult Home()
+    // {
+    //     return View();
+    // }
 
     public IActionResult Index()
     {
+        // if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        // {
+        //     var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+
+        //     Debug.WriteLine("Id de usuario: " + usuario.IdUser);
+
+        //     var eventos = obtenerEventos(usuario);
+
+        //     if (eventos == null)
+        //     {
+        //         Debug.WriteLine("Error: el evento es null");
+        //     }
+
+        //     return View(eventos);
+        // }
+        // return RedirectToAction("Login", "User");
         return View();
     }
 

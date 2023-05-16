@@ -95,6 +95,9 @@ $(document).ready(() => {
     $('#aforo-switch').on('change', function () {
         var isChecked = $(this).is(':checked');
         $('#aforo-input').prop('disabled', !isChecked);
+        if(!$(this).isChecked){
+            $('#aforo-input').val('');
+        }
     });
 
     $('#inscripcion-input').on('change', function() {

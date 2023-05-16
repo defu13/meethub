@@ -1,4 +1,4 @@
-@model List<Event>
+@model HomeViewModel
 
 <!DOCTYPE html>
 <html>
@@ -21,25 +21,9 @@
 <body style="background-color: #e7e9ec;" class="vh-100">
 
     <!-- Menu opciones -->
-    <div class="offcanvas offcanvas-custom" data-bs-theme="dark" tabindex="-1" id="menu-opciones"
-        aria-labelledby="offcanvasBottomLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold" id="offcanvasBottomLabel">Opciones</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <button class="btn btn-dark btn-lg w-100 text-start rounded-3">
-                <i class="fa-regular fa-pen-to-square me-2"></i>
-                <span>Editar</span>
-            </button>
-            <button class="btn btn-dark btn-lg w-100 text-start rounded-3">
-                <i class="fa-regular fa-trash-can me-2"></i>
-                <span>Eliminar</span>
-            </button>
-        </div>
-    </div>
 
-    <!-- Modal -->
+
+    <!-- Create Modal -->
     <div class="modal fade" id="create-modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -47,72 +31,92 @@
                     <h1 class="modal-title fs-5" id="ModalLabel">Crear evento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <label class="form-label mb-4 fw-light">Los campos obligatorios están marcados con <span
-                            class="text-danger fw-semibold">*</span></label>
-                    <div class="input-group d-flex flex-column mb-3">
-                        <label for="inputGroupFile" class="form-label label-input-file">Imagen</label>
-                        <div class="d-flex input-group">
-                            <input type="file" class="form-control" id="inputGroupFile" aria-label="Erase"
-                                title="Imagen">
-                            <button class="btn btn-outline-danger delete-file-button" type="button"
-                                id="inputGroupFile">Eliminar</button>
-                        </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="titulo-input" placeholder="Título">
-                        <label for="titulo-input">Título <span class="text-danger fw-semibold">*</span></label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="descripcion-input" placeholder="Descripción">
-                        <label for="descripcion-input">Descripción <span
+                <form id="create-event-form" class="needs-validation" novalidate asp-action="CreateEvent" method="post">
+                    <div class="modal-body">
+                        <label class="form-label mb-4 fw-light">Los campos obligatorios están marcados con <span
                                 class="text-danger fw-semibold">*</span></label>
-                    </div>
-                    <div class="form-check form-switch d-flex align-items-center mb-3">
-                        <input class="form-check-input me-2" type="checkbox" role="switch" id="aforo-switch">
-                        <label class="form-check-label flex-shrink-0" for="aforo-switch">Aforo máximo</label>
-                        <div class="container-numero-aforomax ms-auto form-floating">
-                            <input type="number" class="form-control" id="aforo-input" placeholder="Descripción"
-                                disabled>
-                            <label for="aforo-input">Número</label>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="inputGroupFile" class="form-label label-input-file">Imagen</label>
+                            <div class="d-flex input-group">
+                                <input asp-for="@Model.NewEvent.Image" type="file" class="form-control"
+                                    id="inputGroupFile" aria-label="Erase" title="Imagen">
+                                <button class="btn btn-outline-danger delete-file-button" type="button"
+                                    id="inputGroupFile">Eliminar</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="direccion-input" placeholder="Dirección">
-                        <label for="direccion-input">Dirección <span class="text-danger fw-semibold">*</span></label>
-                    </div>
-                    <div class="flex-column flex-sm-row d-flex align-items-center mb-3 gap-3">
-                        <div class="w-100 me-sm-auto form-floating d-flex">
-                            <input type="datetime-local" class="form-control" id="inicio-input" placeholder="Inicio">
-                            <label for="inicio-input">Inicio <span class="text-danger fw-semibold">*</span></label>
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.NewEvent.Titulo" type="text" class="form-control" id="titulo-input"
+                                placeholder="Título" required>
+                            <label for="titulo-input">Título <span class="text-danger fw-semibold">*</span></label>
+                            <div class="invalid-tooltip">
+                                Campo vacío.
+                            </div>
                         </div>
-                        <div class="w-100 ms-sm-auto form-floating d-flex">
-                            <input type="datetime-local" class="form-control" id="fin-input" placeholder="Fin">
-                            <label for="fin-input">Fin <span class="text-danger fw-semibold">*</span></label>
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.NewEvent.Descripcion" type="text" class="form-control"
+                                id="descripcion-input" placeholder="Descripción" required>
+                            <label for="descripcion-input">Descripción <span
+                                    class="text-danger fw-semibold">*</span></label>
+                            <div class="invalid-tooltip">
+                                Campo vacío.
+                            </div>
                         </div>
-                    </div>
-                    <label class="mb-2">Tipo de evento <span class="text-danger fw-semibold">*</span></label>
-                    <div class="d-flex align-items-center mb-3 gap-3">
-                        <input type="radio" class="btn-check" name="options-outlined" id="inscripcion-input"
-                            autocomplete="off" checked>
-                        <label class="btn btn-outline-success" for="inscripcion-input">Inscripción</label>
+                        <div class="form-check form-switch d-flex align-items-center mb-3">
+                            <input class="form-check-input me-2" type="checkbox" role="switch" id="aforo-switch">
+                            <label class="form-check-label flex-shrink-0" for="aforo-switch">Aforo máximo</label>
+                            <div class="container-numero-aforomax ms-auto form-floating">
+                                <input asp-for="@Model.NewEvent.Aforo" type="number" class="form-control"
+                                    id="aforo-input" placeholder="Descripción" disabled>
+                                <label for="aforo-input">Número</label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.NewEvent.Direccion" type="text" class="form-control"
+                                id="direccion-input" placeholder="Dirección" required>
+                            <label for="direccion-input">Dirección <span
+                                    class="text-danger fw-semibold">*</span></label>
+                            <div class="invalid-tooltip">
+                                Campo vacío.
+                            </div>
+                        </div>
+                        <div class="fechas-container flex-column flex-sm-row d-flex align-items-center mb-3 gap-3">
+                            <div class="w-100 me-sm-auto form-floating d-flex">
+                                <input asp-for="@Model.NewEvent.FechaInicio" type="datetime-local" class="form-control"
+                                    id="inicio-input" placeholder="Inicio"
+                                    value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required>
+                                <label for="inicio-input">Inicio <span class="text-danger fw-semibold">*</span></label>
+                            </div>
+                            <div class="w-100 ms-sm-auto form-floating d-flex">
+                                <input asp-for="@Model.NewEvent.FechaFin" type="datetime-local" class="form-control"
+                                    id="fin-input" placeholder="Fin" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                                    required>
+                                <label for="fin-input">Fin <span class="text-danger fw-semibold">*</span></label>
+                            </div>
+                        </div>
+                        <label class="mb-2">Tipo de evento <span class="text-danger fw-semibold">*</span></label>
+                        <div class="d-flex align-items-center mb-3 gap-3">
+                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="options-outlined"
+                                id="inscripcion-input" autocomplete="off" checked value="inscripcion" required>
+                            <label class="btn btn-outline-success" for="inscripcion-input">Inscripción</label>
 
-                        <input type="radio" class="btn-check" name="options-outlined" id="invitacion-input"
-                            autocomplete="off">
-                        <label class="btn btn-outline-success" for="invitacion-input">Invitación</label>
-                    </div>
-                    <div class="text-help-container d-flex">
-                        <div class="card card-body text-help">
-                            Con el tipo inscripción puedes compartir tu enlace de evento con la gente que quieras
-                            sin necesidad de confirmación del asistente.
+                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="options-outlined"
+                                id="invitacion-input" autocomplete="off" value="invitacion" required>
+                            <label class="btn btn-outline-success" for="invitacion-input">Invitación</label>
+                        </div>
+                        <div class="text-help-container d-flex">
+                            <div class="card card-body text-help">
+                                Con el tipo inscripción puedes compartir tu enlace de evento con la gente que quieras
+                                sin necesidad de confirmación del asistente.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-transparent text-primary me-auto"
-                        data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-transparent text-primary fw-bold ms-auto">Guardar</button>
-                </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-transparent text-primary me-auto"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-transparent text-primary fw-bold ms-auto">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -135,7 +139,7 @@
                 <!-- EVENT CARDS -->
                 @if (Model != null)
                 {
-                    @foreach (var evento in Model)
+                    @foreach (var evento in Model.EventList)
                     {
                         <div class="event-card-container col-lg-6-modify p-4 pt-0 justify-content-center d-flex-notimportant">
                             <div class="w-100 card event-card rounded-4 overflow-hidden">
@@ -146,8 +150,7 @@
                                     <div class="event-card-element d-flex align-items-center justify-content-start">
                                         <button
                                             class="options-button circle-button rounded-circle btn-primary btn d-flex align-items-center justify-content-center"
-                                            type="button" data-bs-toggle="offcanvas" data-bs-target="#menu-opciones"
-                                            aria-controls="offcanvasBottom">
+                                            type="button">
                                             <i class="event-card-icon bi bi-three-dots-vertical text-white"></i>
                                         </button>
                                     </div>
@@ -199,6 +202,27 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/myscripts.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        });
+    </script>
 </body>
 
 </html>

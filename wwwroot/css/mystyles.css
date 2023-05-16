@@ -22,29 +22,12 @@
         width: calc(100% - 5rem);
         height: 100%;
     }
-
-    .offcanvas.offcanvas-custom {
-        top: 0;
-        right: 0;
-        width: var(--bs-offcanvas-width);
-        border-left: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-        transform: translateX(100%);
-    }
 }
 
 @media (max-width: 624px) {
     .content-home {
         height: calc(100% - 5rem);
         width: 100%;
-    }
-
-    .offcanvas.offcanvas-custom {
-        right: 0;
-        left: 0;
-        height: 25%;
-        max-height: 100%;
-        border-top: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-        transform: translateY(100%);
     }
 }
 
@@ -108,20 +91,6 @@
     width: 100% !important;
 }
 
-.offcanvas-body button:hover i.fa-regular {
-    font-weight: 900;
-}
-
-/* .create-event-button {
-    box-shadow: 0 4px #10366e;
-    transition: none !important;
-}
-
-.create-event-button:active {
-    box-shadow: 0 0px #10366e;
-    transform: translateY(4px);
-} */
-
 .mb-1-custom{
     margin-bottom: 0.1rem;
 }
@@ -140,4 +109,17 @@
 
 .label-input-file{
     pointer-events: none;
+}
+
+#create-modal #inscripcion-input.was-validated.form-control:valid,
+#create-modal #invitacion-input.was-validated.form-control:valid{
+    background-position: top 5px;
+    padding-right: 0;
+}
+
+@media (min-width: 576px){
+    .fechas-container div{
+        width: 225px;
+        max-width: 225px;
+    }
 }

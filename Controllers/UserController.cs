@@ -21,14 +21,6 @@ public class UserController : Controller
     [HttpGet]
     public IActionResult Login()
     {
-        // ClaimsPrincipal c = HttpContext.User;
-        // if (c.Identity != null)
-        // {
-        //     if (c.Identity.IsAuthenticated)
-        //     {
-        //         return RedirectToAction("Login", "User");
-        //     }
-        // }
         return View();
     }
 

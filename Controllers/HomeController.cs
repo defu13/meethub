@@ -78,12 +78,18 @@ public class HomeController : Controller
 
     public IActionResult Home()
     {
+        
         if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
         {
             var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
-            var eventos = obtenerEventos(usuario);
+            // var eventos = obtenerEventos(usuario);
+            var viewModel = new HomeViewModel
+            {
+                NewEvent = new Event(),
+                EventList = obtenerEventos(usuario)
+            };
 
-            return PartialView("_Home", eventos);
+            return PartialView("_Home", viewModel);
         }
         else
         {

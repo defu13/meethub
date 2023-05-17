@@ -21,8 +21,6 @@ public partial class MeethubdbContext : DbContext
 
     public virtual DbSet<Event> Events { get; set; }
 
-    public virtual DbSet<EventsAssistant> EventsAssistants { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -106,29 +104,6 @@ public partial class MeethubdbContext : DbContext
                 .HasForeignKey(d => d.IdUser)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("events_ibfk_1");
-        });
-
-        modelBuilder.Entity<EventsAssistant>(entity =>
-        {
-            entity.HasKey(e => e.IdEventAssistant).HasName("PRIMARY");
-
-            entity.ToTable("events_assistants");
-
-            entity.HasIndex(e => e.IdAssistant, "id_assistant");
-
-            entity.HasIndex(e => e.IdEvent, "id_event");
-
-            entity.Property(e => e.IdEventAssistant).HasColumnName("id_event_assistant");
-            entity.Property(e => e.IdAssistant).HasColumnName("id_assistant");
-            entity.Property(e => e.IdEvent).HasColumnName("id_event");
-
-            entity.HasOne(d => d.IdAssistantNavigation).WithMany(p => p.EventsAssistants)
-                .HasForeignKey(d => d.IdAssistant)
-                .HasConstraintName("events_assistants_ibfk_2");
-
-            entity.HasOne(d => d.IdEventNavigation).WithMany(p => p.EventsAssistants)
-                .HasForeignKey(d => d.IdEvent)
-                .HasConstraintName("events_assistants_ibfk_1");
         });
 
         modelBuilder.Entity<User>(entity =>

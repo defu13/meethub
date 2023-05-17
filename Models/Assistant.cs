@@ -20,6 +20,4 @@ public partial class Assistant
     public bool Confirmado { get; set; }
 
     public string QrCode { get; set; }
-
-    public virtual ICollection<EventsAssistant> EventsAssistants { get; set; } = new List<EventsAssistant>();
 }

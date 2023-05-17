@@ -95,22 +95,34 @@ $(document).ready(() => {
     $('#aforo-switch').on('change', function () {
         var isChecked = $(this).is(':checked');
         $('#aforo-input').prop('disabled', !isChecked);
-        if(!$(this).isChecked){
+        if (!$(this).isChecked) {
             $('#aforo-input').val('');
         }
     });
 
-    $('#inscripcion-input').on('change', function() {
+    $('#inscripcion-input').on('change', function () {
         if ($(this).is(':checked')) {
             var textInscripcion = 'Con el tipo inscripción puedes compartir tu enlace de evento con la gente que quieras sin necesidad de confirmación del asistente.';
             $('.text-help').text(textInscripcion);
         }
     });
 
-    $('#invitacion-input').on('change', function() {
+    $('#invitacion-input').on('change', function () {
         if ($(this).is(':checked')) {
             var textInvitacion = 'Con el tipo invitación las personas que se registren en tu evento deberán esperar a que tu les confirmes o rechaces la asistencia.';
             $('.text-help').text(textInvitacion);
+        }
+    });
+
+    $("#create-event-form").submit(function (event) {
+        // Obtener valores de las fechas de inicio y fin
+        var fechaInicio = new Date($("#inicio-input").val());
+        var fechaFin = new Date($("#fin-input").val());
+
+        // Validar la fecha de fin
+        if (fechaFin <= fechaInicio) {
+            event.preventDefault(); // Evitar el envío del formulario
+            alert("La fecha de fin debe ser posterior a la fecha de inicio");
         }
     });
 });

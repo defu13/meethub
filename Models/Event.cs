@@ -27,7 +27,5 @@ public partial class Event
 
     public string Enlace { get; set; }
 
-    public virtual ICollection<EventsAssistant> EventsAssistants { get; set; } = new List<EventsAssistant>();
-
     public virtual User IdUserNavigation { get; set; } = null!;
 }

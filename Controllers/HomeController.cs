@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -53,7 +54,7 @@ public class HomeController : Controller
             // Manejar el caso en el que el usuario no existe
             return null;
         }
-        Debug.WriteLine("Id usuario: "+usuario.IdUser);
+        Debug.WriteLine("Id usuario: " + usuario.IdUser);
 
         // Realiza la consulta a la base de datos
         var eventos = _context.Events
@@ -78,7 +79,7 @@ public class HomeController : Controller
 
     public IActionResult Home()
     {
-        
+
         if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
         {
             var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
@@ -112,5 +113,71 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateEvent(HomeViewModel model)
+    {
+        User usuario = null;
+
+        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        {
+            usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+        }
+
+        if (usuario == null)
+        {
+            TempData["TempMessage"] = "Usuario no valido";
+            return RedirectToAction("Index");
+        }
+
+        // VALIDACION DE LA IMAGEN
+        if (model.NewEvent.Image != null && model.NewEvent.Image.Length > 0)
+        {
+            using (var ms = new MemoryStream())
+            {
+                await ms.WriteAsync(model.NewEvent.Image);
+                model.NewEvent.Image = ms.ToArray();
+            }
+        }
+        else
+        {
+            model.NewEvent.Image = null;
+        }
+
+        // VALIDACION DE AFORO
+        if (!model.NewEvent.Aforo.HasValue || model.NewEvent.Aforo == 0)
+        {
+            model.NewEvent.Aforo = null;
+        }
+
+        // CREACION DEL MODELO
+        var newEvent = new Event
+        {
+            IdUser = usuario.IdUser,
+            Image = model.NewEvent.Image,
+            Titulo = model.NewEvent.Titulo,
+            Descripcion = model.NewEvent.Descripcion,
+            Aforo = model.NewEvent.Aforo,
+            Direccion = model.NewEvent.Direccion,
+            FechaInicio = model.NewEvent.FechaInicio,
+            FechaFin = model.NewEvent.FechaFin,
+            Tipo = model.NewEvent.Tipo,
+            Enlace = "enlace de prueba"
+        };
+
+        // Guardar el nuevo evento en la base de datos
+        try
+        {
+            _context.Events.Add(newEvent);
+            _context.SaveChanges();
+            // Redirigir a la página de éxito o realizar alguna otra acción
+            TempData["TempMessage"] = "Evento creado correctamente";
+        }
+        catch (Exception e)
+        {
+            TempData["TempMessage"] = "Error al crear el evento";
+        }
+        return RedirectToAction("Index");
     }
 }

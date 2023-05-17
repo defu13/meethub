@@ -20,6 +20,8 @@
 
 <body style="background-color: #e7e9ec;" class="vh-100">
 
+
+
     <!-- Menu opciones -->
 
 
@@ -31,7 +33,8 @@
                     <h1 class="modal-title fs-5" id="ModalLabel">Crear evento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="create-event-form" class="needs-validation" novalidate asp-action="CreateEvent" method="post">
+                <form id="create-event-form" class="needs-validation" novalidate asp-controller="Home"
+                    asp-action="CreateEvent" method="post">
                     <div class="modal-body">
                         <label class="form-label mb-4 fw-light">Los campos obligatorios están marcados con <span
                                 class="text-danger fw-semibold">*</span></label>
@@ -95,12 +98,12 @@
                         </div>
                         <label class="mb-2">Tipo de evento <span class="text-danger fw-semibold">*</span></label>
                         <div class="d-flex align-items-center mb-3 gap-3">
-                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="options-outlined"
-                                id="inscripcion-input" autocomplete="off" checked value="inscripcion" required>
+                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="radio-tipo" id="inscripcion-input"
+                                autocomplete="off" checked value="inscripcion">
                             <label class="btn btn-outline-success" for="inscripcion-input">Inscripción</label>
 
-                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="options-outlined"
-                                id="invitacion-input" autocomplete="off" value="invitacion" required>
+                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="radio-tipo" id="invitacion-input"
+                                autocomplete="off" value="invitacion">
                             <label class="btn btn-outline-success" for="invitacion-input">Invitación</label>
                         </div>
                         <div class="text-help-container d-flex">
@@ -194,7 +197,21 @@
                 }
             </div>
         </div>
+    </div>
 
+    <div class="modal fade" id="createEventModal" tabindex="-1" aria-labelledby="createEventModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createEventModalLabel">Crear evento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @TempData["TempMessage"]
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -223,6 +240,26 @@
             });
         });
     </script>
+
+    @if (TempData["TempMessage"] != null)
+    {
+        <script>
+            function deleteTempData(key) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteTempData", "Home")",
+                    data: { key: key },
+                    success: function () { },
+                    error: function () { }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#createEventModal').modal('show');
+                deleteTempData("TempMessage");
+            });
+        </script>
+    }
 </body>
 
 </html>

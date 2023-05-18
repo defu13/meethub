@@ -7,14 +7,10 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración del puerto
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(20065);
-});
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// builder.WebHost.ConfigureKestrel(options =>
+// {
+//     options.ListenAnyIP(20065);
+// });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

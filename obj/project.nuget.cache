@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8d2Fgr871wSMQFXvfdaCzEFE4pspyw5cOviUNXeQi0fDqheijd79tJoD0jBB2HNfxvobx2YCfcOrVIcmni/mNQ==",
+  "dgSpecHash": "Qaz3xFxJ5J8C9FM3/d/bIdYy0fohmXFmSjPaFaxDTQ2gk1lP4PkVCN1ngaq9NNU2nv1yFwUSsOZel2TG3MeJPg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\mvc-pruebas\\mvc-pruebas.csproj",
+  "projectFilePath": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\meethub.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yubal\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\Yubal\\.nuget\\packages\\google.protobuf\\3.11.4\\google.protobuf.3.11.4.nupkg.sha512",

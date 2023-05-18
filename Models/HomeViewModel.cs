@@ -1,6 +1,6 @@
 
 
-namespace mvc_pruebas.Models;
+namespace meethub.Models;
 public partial class HomeViewModel
 {
     public Event NewEvent { get; set; }

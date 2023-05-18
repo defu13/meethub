@@ -1,4 +1,4 @@
-namespace mvc_pruebas.Models;
+namespace meethub.Models;
 
 public class ErrorViewModel
 {

@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mvc_pruebas.Models;
+using meethub.Models;
 
 public class HomeViewComponent : ViewComponent
 {

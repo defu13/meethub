@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace mvc_pruebas.Models;
+namespace meethub.Models;
 
 public partial class MeethubdbContext : DbContext
 {

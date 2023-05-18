@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/mvc-pruebas.csproj",
+                "${workspaceFolder}/meethub.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/mvc-pruebas.csproj",
+                "${workspaceFolder}/meethub.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/mvc-pruebas.csproj"
+                "${workspaceFolder}/meethub.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mvc_pruebas.Models;
+using meethub.Models;
 
-namespace mvc_pruebas.Controllers;
+namespace meethub.Controllers;
 
 [Authorize]
 public class HomeController : Controller

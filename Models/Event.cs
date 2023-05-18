@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mvc_pruebas.Models;
+namespace meethub.Models;
 
 public partial class Event
 {

@@ -98,13 +98,14 @@
                         </div>
                         <label class="mb-2">Tipo de evento <span class="text-danger fw-semibold">*</span></label>
                         <div class="d-flex align-items-center mb-3 gap-3">
-                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="radio-tipo" id="inscripcion-input"
+                            <input type="radio" class="btn-check" name="radio-tipo" id="inscripcion-input"
                                 autocomplete="off" checked value="inscripcion">
                             <label class="btn btn-outline-success" for="inscripcion-input">Inscripción</label>
 
-                            <input asp-for="@Model.NewEvent.Tipo" type="radio" class="btn-check" name="radio-tipo" id="invitacion-input"
+                            <input type="radio" class="btn-check" name="radio-tipo" id="invitacion-input"
                                 autocomplete="off" value="invitacion">
                             <label class="btn btn-outline-success" for="invitacion-input">Invitación</label>
+                            <input asp-for="@Model.NewEvent.Tipo" type="hidden" id="Tipo"/>
                         </div>
                         <div class="text-help-container d-flex">
                             <div class="card card-body text-help">
@@ -124,7 +125,7 @@
         </div>
     </div>
 
-    <div class="h-100 justify-content-center align-items-start d-flex" style="background-color: #e7e9ec;">
+    <div class="w-100 h-100 justify-content-center align-items-start d-flex" style="background-color: #e7e9ec;">
         <div class="event-container h-100 d-flex flex-column align-items-center">
             <div class="event-container-header d-flex w-100 btn-add-event px-4 pt-4 m-0 mb-4">
                 <!-- boton nuevo evento -->
@@ -138,7 +139,7 @@
                 <input class="search-bar-input form-control ms-auto rounded-5" type="search"
                     placeholder="&#xf002; Buscar" aria-label="Search">
             </div>
-            <div class="event-container-element row m-0 pb-4">
+            <div class="event-container-element row m-0 mb-2">
                 <!-- EVENT CARDS -->
                 @if (Model != null)
                 {
@@ -151,11 +152,7 @@
                                     style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
                                     <!-- Boton opciones -->
                                     <div class="event-card-element d-flex align-items-center justify-content-start">
-                                        <button
-                                            class="options-button circle-button rounded-circle btn-primary btn d-flex align-items-center justify-content-center"
-                                            type="button">
-                                            <i class="event-card-icon bi bi-three-dots-vertical text-white"></i>
-                                        </button>
+                                        <span class="badge estado-evento"></span>
                                     </div>
                                     <div class="event-card-element flex-grow-1 d-flex justify-content-start align-items-end">
                                         <div class="d-flex rounded-3 p-2 align-items-center" style="background-color: #e7e9ec;">
@@ -177,7 +174,7 @@
                                 <div class="card-footer d-flex text-body-secondary ">
                                     <div class="d-flex align-items-center">
                                         <i class="event-card-icon bi bi-clock-fill ms-2" style="color: #ff9d46;"></i>
-                                        <span class="ms-2">@evento.FechaInicio - @evento.FechaFin</span>
+                                        <span class="ms-2 me-1 fecha-evento-inicio">@evento.FechaInicio.ToString("dd/MM/yyyy HH:mm")</span>-<span class="ms-1 fecha-evento-fin">@evento.FechaFin.ToString("dd/MM/yyyy HH:mm")</span>
                                     </div>
                                     @if (@evento.Aforo != 0)
                                     {
@@ -260,6 +257,39 @@
             });
         </script>
     }
+
+    <script>
+        $(document).ready(function() {
+            var currentDate = new Date();
+
+            $(".event-card-container").each(function() {
+                var fechaInicio = getDateFromFormattedString($(this).find(".fecha-evento-inicio").text());
+                var fechaFin = getDateFromFormattedString($(this).find(".fecha-evento-fin").text());
+
+                if (currentDate >= fechaInicio && currentDate <= fechaFin) {
+                    $(this).find(".estado-evento").text("En curso");
+                    $(this).find(".estado-evento").addClass('text-bg-success');
+                } else if (currentDate > fechaFin) {
+                    $(this).find(".estado-evento").text("Finalizado");
+                    $(this).find(".estado-evento").addClass('text-bg-secondary');
+                } else {
+                    $(this).find(".estado-evento").text("Programado");
+                    $(this).find(".estado-evento").addClass('text-bg-warning');
+                }
+            });
+
+            function getDateFromFormattedString(dateString) {
+                var parts = dateString.split(/[\s/:]+/);
+                var day = parseInt(parts[0], 10);
+                var month = parseInt(parts[1], 10) - 1;
+                var year = parseInt(parts[2], 10);
+                var hour = parseInt(parts[3], 10);
+                var minute = parseInt(parts[4], 10);
+
+                return new Date(year, month, day, hour, minute);
+            }
+        });
+    </script>
 </body>
 
 </html>

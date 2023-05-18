@@ -91,7 +91,7 @@ public partial class MeethubdbContext : DbContext
                 .HasColumnType("blob")
                 .HasColumnName("image");
             entity.Property(e => e.Tipo)
-                .HasColumnType("enum('inscripcion','invitacion')")
+                .HasColumnType("text")
                 .HasColumnName("tipo");
             entity.Property(e => e.Titulo)
                 .HasMaxLength(255)

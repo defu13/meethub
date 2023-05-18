@@ -74,7 +74,7 @@
     overflow: auto;
 }
 
-.event-container-header{
+.event-container-header {
     max-width: 64rem;
 }
 
@@ -91,35 +91,56 @@
     width: 100% !important;
 }
 
-.mb-1-custom{
+.mb-1-custom {
     margin-bottom: 0.1rem;
 }
 
-.container-numero-aforomax{
+.container-numero-aforomax {
     width: 60%;
 }
 
-.modal .form-check.form-switch{
+.modal .form-check.form-switch {
     height: 58px;
 }
 
-.collapse-horizontal{
+.collapse-horizontal {
     transition: width 0.3s ease-in-out;
 }
 
-.label-input-file{
+.label-input-file {
     pointer-events: none;
 }
 
 #create-modal #inscripcion-input.was-validated.form-control:valid,
-#create-modal #invitacion-input.was-validated.form-control:valid{
+#create-modal #invitacion-input.was-validated.form-control:valid {
     background-position: top 5px;
     padding-right: 0;
 }
 
-@media (min-width: 576px){
-    .fechas-container div{
+@media (min-width: 576px) {
+    .fechas-container div {
         width: 225px;
         max-width: 225px;
     }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0d6efd;
+    border-radius: 1.5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0b5ed7;
+    border-radius: 1.5rem;
+    cursor: grab;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 1.5rem;
 }

@@ -124,5 +124,14 @@ $(document).ready(() => {
             event.preventDefault(); // Evitar el envío del formulario
             alert("La fecha de fin debe ser posterior a la fecha de inicio");
         }
+
+        // Aplicar valor a tipo segun seleccionado
+        if($('#inscripcion-input').is(':checked')){
+            $('#Tipo').val('inscripcion');
+        }
+        if($('#invitacion-input').is(':checked')){
+            $('#Tipo').val('invitacion');
+        }
+
     });
 });

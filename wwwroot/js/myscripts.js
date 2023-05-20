@@ -39,7 +39,6 @@ $(document).ready(() => {
             }
         });
 
-
         var containersVisibles = $('.event-card-container:visible').length;
         // console.log(containersVisibles);
 
@@ -54,6 +53,12 @@ $(document).ready(() => {
         }
     });
 
+    if ($('.event-card-container:visible').length === 1) {
+        $('.event-card-container:visible').addClass('full-width');
+    } else {
+        $('.event-card-container:visible').removeClass('full-width');
+    }
+
     $('.search-bar-input').on('input', function () {
         if ($(this).val() === '') {
             // El input está vacío
@@ -62,19 +67,19 @@ $(document).ready(() => {
         }
     });
 
-    $('.options-button').off('click').on('click', function () {
-        var eventTitle = $(this).closest('.event-card').find('span.event-title').text();
-        $('#menu-opciones .offcanvas-title').text(eventTitle);
-
-        if ($('.offcanvas-backdrop').length > 1) {
-            $('.offcanvas-backdrop').not(':first').remove();
-        }
-    });
-
     $('.create-event-button').on('click', () => {
         if ($('.modal-backdrop').length > 1) {
             $('.modal-backdrop').not(':first').remove();
         }
+        $('#inputGroupFile').val('');
+        $('#titulo-input').val('');
+        $('#descripcion-input').val('');
+        $('#aforo-switch').prop('checked', false);
+        $('#aforo-input').val('');
+        $('#direccion-input').val('');
+        $('#direccion-input').val('');
+        $('#inscripcion-input').prop('checked', true);
+        $('#invitacion-input').prop('checked', false);
     });
 
     $('.delete-file-button').on('click', () => {
@@ -126,12 +131,11 @@ $(document).ready(() => {
         }
 
         // Aplicar valor a tipo segun seleccionado
-        if($('#inscripcion-input').is(':checked')){
+        if ($('#inscripcion-input').is(':checked')) {
             $('#Tipo').val('inscripcion');
         }
-        if($('#invitacion-input').is(':checked')){
+        if ($('#invitacion-input').is(':checked')) {
             $('#Tipo').val('invitacion');
         }
-
     });
 });

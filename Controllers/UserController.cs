@@ -68,7 +68,7 @@ public class UserController : Controller
             }
             else
             {
-                TempData["MensajeError"] = "Credenciales inválidas";
+                TempData["MensajeError"] = "Correo electrónico o contraseña incorrectos.";
                 return View();
             }
         }
@@ -76,5 +76,34 @@ public class UserController : Controller
         {
             return View();
         }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(User model)
+    {
+        // Verificar si el usuario ya existe en la base de datos por el email
+        var existingUser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
+        if (existingUser != null)
+        {
+            // El usuario ya existe, mostrar un mensaje de error o redireccionar a una página de error
+            TempData["MensajeError"] = "El usuario ya existe.";
+            return RedirectToAction("Login");
+        }
+
+        var user = new User
+        {
+            Nombre = model.Nombre,
+            Apellidos = model.Apellidos,
+            Email = model.Email,
+            Password = model.Password
+            // Otros campos del usuario si es necesario
+        };
+
+        // Guardar el usuario en la base de datos (código según tu implementación)
+        _context.Users.Add(user);
+        _context.SaveChanges();
+
+        // Redireccionar al usuario a una página de éxito o realizar alguna acción adicional
+        return RedirectToAction("Login");
     }
 }

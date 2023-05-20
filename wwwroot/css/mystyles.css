@@ -27,7 +27,7 @@
 @media (max-width: 624px) {
     .content-home {
         padding-top: 2rem;
-        padding-bottom: 5rem;
+        padding-bottom: 4rem;
     }
 }
 
@@ -143,4 +143,14 @@
 ::-webkit-scrollbar-track {
     background-color: #f1f1f1;
     border-radius: 1.5rem;
+}
+
+.btn-custom {
+    background-color: #ff9d46 !important;
+    border-color: #ff9d46 !important;
+}
+
+.btn-custom:hover {
+    background-color: #e0883b !important;
+    border-color: #e0883b !important;
 }

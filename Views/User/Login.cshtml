@@ -34,6 +34,85 @@
 </head>
 
 <body>
+
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="register-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: #e7e9ec;">
+                <form id="register-form" class="needs-validation w-100" novalidate asp-action="Register" method="post">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="register-modal-label">Regístrate</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="p-2 rounded-3 mb-3">
+                            <div class="form-floating mb-3">
+                                <input asp-for="Nombre" type="text" class="form-control" id="nombre-input-register"
+                                    placeholder="Nombre" required name="nombre">
+                                <label for="nombre-input-register">Nombre</label>
+                                <div class="invalid-feedback">
+                                    Campo vacío.
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Apellidos" type="text" class="form-control"
+                                    id="apellidos-input-register" placeholder="Apellidos" required name="apellidos">
+                                <label for="apellidos-input-register">Apellidos</label>
+                                <div class="invalid-feedback">
+                                    Campo vacío.
+                                </div>
+                            </div>
+
+                            <div class="form-floating">
+                                <input asp-for="Email" type="email" id="email-input-register"
+                                    class="form-control mt-2 rounded-3 border-0" aria-describedby="emailHelp"
+                                    placeholder="Correo electrónico" required name="email">
+                                <label for="email-input-register">Correo electrónico</label>
+                                <div class="invalid-feedback">
+                                    Introduce un correo válido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 rounded-3">
+                            <div class="form-floating mb-3">
+                                <div class="input-group w-100 gap-2">
+                                    <input asp-for="Password" type="password" id="password" name="password"
+                                        class="form-control rounded-3 border-0" aria-labelledby="passwordHelpBlock"
+                                        placeholder="Contraseña" required>
+                                    <span class="input-group-text input-group-append bg-transparent border-0"
+                                        id="show-password">
+                                        <i class="far fa-eye-slash position-absolute end-0 me-1"></i>
+                                    </span>
+                                    <div class="invalid-feedback">
+                                        Campo vacío.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-floating">
+                                <div class="mt-2 input-group w-100 gap-2">
+                                    <input type="password" id="password-repeat" name="password-repeat"
+                                        class="form-control rounded-3 border-0" aria-labelledby="passwordHelpBlock"
+                                        placeholder="Repetir contraseña" required data-bs-match="#password">
+                                    <div class="invalid-feedback error-container">
+                                        La contraseña debe coincidir
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary me-auto"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary ms-auto">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
     <div class="h-100 w-100">
         <div class="row h-100 m-0">
             <div class="col-md-4 col-lg-4 col-1 h-100"></div>
@@ -72,10 +151,6 @@
                             </div>
                         </div>
 
-                        @* <p class="fs-6 fst-italic text-end mt-1"><a
-                                class="link-offset-2 link-underl
-                                ine link-primary link-underline-opacity-0"
-                                href="#">¿Olvidaste la contraseña?</a></p> *@
                         <div class="d-flex flex-column align-items-center">
                             <button type="submit" class="btn btn-primary mt-4 rounded-4 border-0 w-75">Entrar</button>
                         </div>
@@ -83,8 +158,8 @@
 
                     <div class="d-flex flex-column align-items-center mt-3">
                         <p class="fs-6 fst-italic text-end mt-1">¿No tienes cuenta?
-                            <a class="link-offset-2 link-underline link-danger link-underline-opacity-0"
-                                href="#">Registrate</a>
+                            <a class="link-offset-2 link-underline link-danger link-underline-opacity-0" href="#"
+                                data-bs-toggle="modal" data-bs-target="#register-modal">Regístrate</a>
                         </p>
                     </div>
                 </div>
@@ -101,7 +176,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Correo electrónico o contraseña incorrectos
+                    @TempData["MensajeError"]
                 </div>
             </div>
         </div>
@@ -133,15 +208,41 @@
     }
     <script>
         $(document).ready(() => {
-            $('#show-password').click(function () {
-                var passwordField = $('#password');
+            $('#login-form #show-password').click(function () {
+                var passwordField = $('#login-form #password');
                 var passwordFieldType = passwordField.attr('type');
                 if (passwordFieldType == 'password') {
                     passwordField.attr('type', 'text');
-                    $('#show-password i').removeClass('far fa-eye-slash').addClass('far fa-eye');
+                    $('#login-form #show-password i').removeClass('far fa-eye-slash').addClass('far fa-eye');
                 } else {
                     passwordField.attr('type', 'password');
-                    $('#show-password i').removeClass('far fa-eye').addClass('far fa-eye-slash');
+                    $('#login-form #show-password i').removeClass('far fa-eye').addClass('far fa-eye-slash');
+                }
+            });
+
+            $('#register-form #show-password').click(function () {
+                var passwordField = $('#register-form #password');
+                var passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType == 'password') {
+                    passwordField.attr('type', 'text');
+                    $('#register-form #show-password i').removeClass('far fa-eye-slash').addClass('far fa-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    $('#register-form #show-password i').removeClass('far fa-eye').addClass('far fa-eye-slash');
+                }
+            });
+
+            $('#password-repeat, #password').on('input', function () {
+                var password = $('#password').val();
+                var confirmPassword = $('#password-repeat').val();
+                var errorContainer = $('.error-container');
+
+                if (password !== confirmPassword) {
+                    errorContainer.text('La contraseña debe coincidir.');
+                    $('#password-repeat').addClass('is-invalid');
+                } else {
+                    errorContainer.text('');
+                    $('#password-repeat').removeClass('is-invalid');
                 }
             });
         });

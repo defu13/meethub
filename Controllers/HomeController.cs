@@ -74,7 +74,10 @@ public class HomeController : Controller
                 Enlace = e.Enlace ?? "EnlaceNull"
             })
             .ToList();
+        if (eventos != null)
+        {
             eventos.Reverse();
+        }
         return eventos;
     }
 

@@ -17,17 +17,17 @@
     height: 16px;
 }
 
-@media (min-width: 625px) {
+/* @media (min-width: 625px) {
     .content-home {
         width: calc(100% - 5rem);
         height: 100%;
     }
-}
+} */
 
 @media (max-width: 624px) {
     .content-home {
-        height: calc(100% - 5rem);
-        width: 100%;
+        padding-top: 2rem;
+        padding-bottom: 5rem;
     }
 }
 

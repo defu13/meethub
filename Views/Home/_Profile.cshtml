@@ -1,3 +1,5 @@
+@model User
+
 <!DOCTYPE html>
 <html>
 
@@ -10,14 +12,43 @@
     }
     <!-- CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/mystyles.css"/>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/css/mystyles.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body style="background-color: #e7e9ec;" class="vh-100">
 
-    <div class="content-home justify-content-center align-items-start d-flex" style="background-color: #e7e9ec;">
-        <span class="fs-1">Profile</span>
+    <div class="w-100 h-100 justify-content-center d-flex" style="background-color: #e7e9ec;">
+        <div class="p-3 align-items-center justify-content-center d-flex flex-column" style="width: 350px;">
+            <div class="d-flex w-100 align-items-end mb-3">
+                <div class="me-auto d-flex">
+                    <i class="bi bi-person-circle" style="font-size: 80px;"></i>
+                </div>
+                <div class="ms-3 mb-3 d-flex flex-column align-items-start">
+                    <span class="nombre-usuario fw-medium fs-5 mb-2 text-truncate"
+                        style="max-width: 250px;">@Model.Email</span>
+                    <button class="btn btn-sm btn-dark btn-editar" type="button">Editar perfil</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100">
+                <form asp-action="EditarUsuario" method="post" class="w-100">
+                    <div class="form-floating mb-3">
+                        <input value="@Model.Nombre" type="text" class="form-control" id="nombre-input-edit"
+                            placeholder="Nombre" disabled name="Nombre">
+                        <label for="nombre-input-edit">Nombre</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input value="@Model.Apellidos" type="text" class="form-control" id="apellidos-input-edit"
+                            placeholder="Apellidos" disabled name="Apellidos">
+                        <label for="apellidos-input-edit">Apellidos</label>
+                    </div>
+                    <div class="w-100" id="editable-content" style="display: none;">
+                        <button type="button" class="btn btn-secondary me-auto btn-cancelar">Cancelar</button>
+                        <button type="submit" class="btn btn-primary ms-auto btn-guardar">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -25,6 +56,34 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/myscripts.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var nombre = '@Model.Nombre';
+            var apellidos = '@Model.Apellidos';
+            $('.btn-editar').on('click', function () {
+                if (!$('#editable-content').is(':visible')) {
+                    $('#editable-content').show();
+                    $('#editable-content').addClass('d-flex');
+                    $('#nombre-input-edit').prop('disabled', false);
+                    $('#apellidos-input-edit').prop('disabled', false);
+                }
+            });
+
+            $('.btn-cancelar').on('click', function () {
+                cancelar();
+            });
+
+            function cancelar() {
+                $('#editable-content').hide();
+                $('#editable-content').removeClass('d-flex');
+                $('#nombre-input-edit').prop('disabled', true);
+                $('#apellidos-input-edit').prop('disabled', true);
+                $('#nombre-input-edit').val(nombre);
+                $('#apellidos-input-edit').val(apellidos);
+            }
+        });
+    </script>
 </body>
 
 </html>

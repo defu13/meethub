@@ -30,7 +30,12 @@ public class HomeController : Controller
 
     public IActionResult Profile()
     {
-        return PartialView("_Profile");
+        User usuario = null;
+        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        {
+            usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+        }
+        return PartialView("_Profile", usuario);
     }
 
     private byte[] GetDefaultImage()
@@ -181,6 +186,37 @@ public class HomeController : Controller
         catch (Exception e)
         {
             TempData["TempMessage"] = "Error al crear el evento";
+        }
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult EditarUsuario(string nombre, string apellidos)
+    {
+        User usuario = null;
+        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        {
+            usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+        }
+
+        if (usuario != null)
+        {
+            try
+            {
+                usuario.Nombre = nombre;
+                usuario.Apellidos = apellidos;
+                _context.Users.Update(usuario);
+                _context.SaveChanges();
+
+                string usuarioActualizadoJson = JsonSerializer.Serialize(usuario);
+                Response.Cookies.Append("Usuario", usuarioActualizadoJson);
+                
+                TempData["TempMessage"] = "Usuario actualizado";
+            }
+            catch (Exception e)
+            {
+                TempData["TempMessage"] = "Error al actualizar usuario";
+            }
         }
         return RedirectToAction("Index");
     }

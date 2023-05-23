@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace meethub.Models;
 
@@ -9,6 +10,7 @@ public partial class Event
 
     public int IdUser { get; set; }
 
+    [Column(TypeName = "LONGBLOB")]
     public byte[]? Image { get; set; }
 
     public string Titulo { get; set; } = null!;

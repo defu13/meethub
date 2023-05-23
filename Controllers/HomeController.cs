@@ -125,7 +125,7 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateEvent(HomeViewModel model)
+    public async Task<IActionResult> CreateEvent(HomeViewModel model, IFormFile image)
     {
         User usuario = null;
 
@@ -141,12 +141,12 @@ public class HomeController : Controller
         }
 
         // VALIDACION DE LA IMAGEN
-        if (model.NewEvent.Image != null && model.NewEvent.Image.Length > 0)
+        if (image != null && image.Length > 0)
         {
-            using (var ms = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-                await ms.WriteAsync(model.NewEvent.Image);
-                model.NewEvent.Image = ms.ToArray();
+                image.CopyTo(memoryStream);
+                model.NewEvent.Image = memoryStream.ToArray();
             }
         }
         else
@@ -210,7 +210,7 @@ public class HomeController : Controller
 
                 string usuarioActualizadoJson = JsonSerializer.Serialize(usuario);
                 Response.Cookies.Append("Usuario", usuarioActualizadoJson);
-                
+
                 TempData["TempMessage"] = "Usuario actualizado";
             }
             catch (Exception e)

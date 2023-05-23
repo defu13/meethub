@@ -29,6 +29,10 @@
         padding-top: 2rem;
         padding-bottom: 4rem;
     }
+    #create-modal .modal-dialog{
+        margin-top: 3rem!important;
+        margin-bottom: 3rem!important;
+    }
 }
 
 .boton-menu svg.bi {

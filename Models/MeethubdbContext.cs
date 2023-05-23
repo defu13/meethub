@@ -88,7 +88,7 @@ public partial class MeethubdbContext : DbContext
                 .HasColumnName("fecha_inicio");
             entity.Property(e => e.IdUser).HasColumnName("id_user");
             entity.Property(e => e.Image)
-                .HasColumnType("blob")
+                .HasColumnType("longblob")
                 .HasColumnName("image");
             entity.Property(e => e.Tipo)
                 .HasColumnType("text")

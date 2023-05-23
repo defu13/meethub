@@ -112,6 +112,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpPost]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

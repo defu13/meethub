@@ -18,8 +18,29 @@
 
 <body style="background-color: #e7e9ec;" class="vh-100">
 
+    <!-- Confirmar Modal -->
+    <div class="modal fade" id="confirm-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">¿Estás seguro?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer d-flex">
+                    <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal"
+                        style="width: 100px;">No</button>
+                    <form asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn-primary ms-auto confirm-button"
+                            style="width: 100px;">Si</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="w-100 h-100 justify-content-center d-flex" style="background-color: #e7e9ec;">
-        <div class="p-3 align-items-center justify-content-center d-flex flex-column" style="width: 350px;">
+        <div class="position-relative p-3 align-items-center justify-content-center d-flex flex-column"
+            style="width: 350px;">
             <div class="d-flex w-100 align-items-end mb-3">
                 <div class="me-auto d-flex">
                     <i class="bi bi-person-circle" style="font-size: 80px;"></i>
@@ -47,6 +68,10 @@
                         <button type="submit" class="btn btn-primary ms-auto btn-guardar">Guardar</button>
                     </div>
                 </form>
+            </div>
+            <div class="justify-content-center p-3 d-flex w-100 position-absolute logout-container">
+                <button class="btn btn-outline-danger logout-button" data-bs-toggle="modal"
+                    data-bs-target="#confirm-modal">Cerrar sesión</button>
             </div>
         </div>
     </div>

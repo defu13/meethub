@@ -82,6 +82,12 @@ $(document).ready(() => {
         $('#invitacion-input').prop('checked', false);
     });
 
+    $('.logout-button').on('click', function(){
+        if ($('.modal-backdrop').length > 1) {
+            $('.modal-backdrop').not(':first').remove();
+        }
+    });
+
     $('.delete-file-button').on('click', () => {
         $('#inputGroupFile').val('');
     });

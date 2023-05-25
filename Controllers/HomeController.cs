@@ -75,8 +75,7 @@ public class HomeController : Controller
                 Direccion = e.Direccion,
                 FechaInicio = e.FechaInicio,
                 FechaFin = e.FechaFin,
-                Tipo = e.Tipo,
-                Enlace = e.Enlace ?? "EnlaceNull"
+                Tipo = e.Tipo
             })
             .ToList();
         if (eventos != null)
@@ -126,6 +125,13 @@ public class HomeController : Controller
     }
 
     [HttpPost]
+    public IActionResult DeleteTempData(string key)
+    {
+        TempData.Remove(key);
+        return Ok();
+    }
+
+    [HttpPost]
     public async Task<IActionResult> CreateEvent(HomeViewModel model, IFormFile image)
     {
         User usuario = null;
@@ -172,8 +178,7 @@ public class HomeController : Controller
             Direccion = model.NewEvent.Direccion,
             FechaInicio = model.NewEvent.FechaInicio,
             FechaFin = model.NewEvent.FechaFin,
-            Tipo = model.NewEvent.Tipo,
-            Enlace = "enlace de prueba"
+            Tipo = model.NewEvent.Tipo
         };
 
         // Guardar el nuevo evento en la base de datos
@@ -181,6 +186,7 @@ public class HomeController : Controller
         {
             _context.Events.Add(newEvent);
             _context.SaveChanges();
+
             // Redirigir a la página de éxito o realizar alguna otra acción
             TempData["TempMessage"] = "Evento creado correctamente";
         }

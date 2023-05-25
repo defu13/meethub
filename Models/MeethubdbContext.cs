@@ -35,7 +35,7 @@ public partial class MeethubdbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("utf8mb4_0900_ai_ci")
+            .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<Assistant>(entity =>
@@ -44,7 +44,11 @@ public partial class MeethubdbContext : DbContext
 
             entity.ToTable("assistants");
 
-            entity.Property(e => e.IdAssistant).HasColumnName("id_assistant");
+            entity.HasIndex(e => e.IdEvent, "id_event");
+
+            entity.Property(e => e.IdAssistant)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_assistant");
             entity.Property(e => e.Apellidos)
                 .HasMaxLength(50)
                 .HasColumnName("apellidos");
@@ -53,15 +57,23 @@ public partial class MeethubdbContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.IdEvent)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_event");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .HasColumnName("nombre");
+            entity.Property(e => e.QrCode)
+                .HasMaxLength(255)
+                .HasColumnName("qr_code");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(12)
                 .HasColumnName("telefono");
-            entity.Property(e => e.QrCode)
-                .HasColumnType("text")
-                .HasColumnName("qr_code");
+
+            entity.HasOne(d => d.IdEventNavigation).WithMany(p => p.Assistants)
+                .HasForeignKey(d => d.IdEvent)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("assistants_ibfk_1");
         });
 
         modelBuilder.Entity<Event>(entity =>
@@ -72,8 +84,12 @@ public partial class MeethubdbContext : DbContext
 
             entity.HasIndex(e => e.IdUser, "id_user");
 
-            entity.Property(e => e.IdEvent).HasColumnName("id_event");
-            entity.Property(e => e.Aforo).HasColumnName("aforo");
+            entity.Property(e => e.IdEvent)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_event");
+            entity.Property(e => e.Aforo)
+                .HasColumnType("int(11)")
+                .HasColumnName("aforo");
             entity.Property(e => e.Descripcion)
                 .HasColumnType("text")
                 .HasColumnName("descripcion");
@@ -86,19 +102,16 @@ public partial class MeethubdbContext : DbContext
             entity.Property(e => e.FechaInicio)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha_inicio");
-            entity.Property(e => e.IdUser).HasColumnName("id_user");
-            entity.Property(e => e.Image)
-                .HasColumnType("longblob")
-                .HasColumnName("image");
+            entity.Property(e => e.IdUser)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_user");
+            entity.Property(e => e.Image).HasColumnName("image");
             entity.Property(e => e.Tipo)
-                .HasColumnType("text")
+                .HasMaxLength(25)
                 .HasColumnName("tipo");
             entity.Property(e => e.Titulo)
                 .HasMaxLength(255)
                 .HasColumnName("titulo");
-            entity.Property(e => e.Enlace)
-                .HasColumnType("text")
-                .HasColumnName("enlace");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Events)
                 .HasForeignKey(d => d.IdUser)
@@ -112,7 +125,9 @@ public partial class MeethubdbContext : DbContext
 
             entity.ToTable("users");
 
-            entity.Property(e => e.IdUser).HasColumnName("id_user");
+            entity.Property(e => e.IdUser)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_user");
             entity.Property(e => e.Apellidos)
                 .HasMaxLength(50)
                 .HasColumnName("apellidos");

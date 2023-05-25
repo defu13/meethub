@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MeetHub</title>
+
+    @{
+        Layout = null;
+    }
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/mystyles.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-image: url('/images/fondoprueba.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-color: #e7e9ec;
+        }
+
+        #assistant-form label {
+            color: #ababab;
+        }
+    </style>
+</head>
+
+<body class="vh-100">
+    <div class="h-100 w-100 justify-content-center align-items-center d-flex py-5 px-3">
+        <div class="d-flex flex-column rounded-5 bg-light align-items-center justify-content-center"
+            style="width: 400px; height: fit-content;">
+
+            <div class="modal fade" id="success-message" tabindex="-1" aria-labelledby="success-messageLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="success-messageLabel">Registro</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @TempData["TempMessage"]
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="~/lib/fontawesome/fontawesome.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/myscripts.js"></script>
+    @if (TempData["TempMessage"] != null)
+    {
+        <script>
+            function deleteTempData(key) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteTempData", "AssistantForm")",
+                    data: { key: key },
+                    success: function () { },
+                    error: function () { }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#success-message').modal('show');
+                deleteTempData("TempMessage");
+            });
+        </script>
+    }
+
+</body>
+
+</html>

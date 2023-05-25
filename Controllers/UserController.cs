@@ -48,16 +48,16 @@ public class UserController : Controller
                 var principal = new ClaimsPrincipal(identity);
                 AuthenticationProperties p = new();
                 p.AllowRefresh = true;
-                p.IsPersistent = usuario.MantenerSesion;
+                // p.IsPersistent = usuario.MantenerSesion;
 
-                if (!usuario.MantenerSesion)
-                {
-                    p.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1);
-                }
-                else
-                {
-                    p.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
-                }
+                // if (!usuario.MantenerSesion)
+                // {
+                //     p.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1);
+                // }
+                // else
+                // {
+                //     p.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
+                // }
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, p);
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace meethub.Models;
 
@@ -10,7 +9,6 @@ public partial class Event
 
     public int IdUser { get; set; }
 
-    [Column(TypeName = "LONGBLOB")]
     public byte[]? Image { get; set; }
 
     public string Titulo { get; set; } = null!;
@@ -27,7 +25,7 @@ public partial class Event
 
     public string Tipo { get; set; } = null!;
 
-    public string Enlace { get; set; }
+    public virtual ICollection<Assistant> Assistants { get; set; } = new List<Assistant>();
 
     public virtual User IdUserNavigation { get; set; } = null!;
 }

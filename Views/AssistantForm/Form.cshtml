@@ -1,0 +1,132 @@
+@model Event
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MeetHub</title>
+
+    @{
+        Layout = null;
+    }
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/mystyles.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-image: url('/images/fondoprueba.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-color: #e7e9ec;
+        }
+
+        #assistant-form label {
+            color: #ababab;
+        }
+    </style>
+</head>
+
+<body class="vh-100">
+    <div class="h-100 w-100 justify-content-center align-items-center d-flex py-5 px-3">
+        <div class="d-flex flex-column rounded-5 bg-light align-items-center justify-content-center"
+            style="width: 400px; height: fit-content;">
+            @if (Model != null)
+            {
+                <div class="d-flex flex-column justify-content-center my-4" style="width: 300px;">
+                    <span class="fw-bold fs-3 mb-2">@Model.Titulo</span>
+                    <span class="fw-medium fs-5 mb-2">@Model.Descripcion</span>
+                    <div class="w-100 d-flex mb-2">
+                        <i class="bi bi-clock-fill" style="color: #ff9d46;"></i>
+                        <span class="ms-2 me-1">@Model.FechaInicio.ToString("dd/MM/yyyy HH:mm")</span>
+                        -<span class="ms-1">@Model.FechaFin.ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+                    <div class="d-flex w-100">
+                        <i class="bi bi-geo-alt-fill" style="color: #ff9d46;"></i>
+                        <span class="fw-semibold fs-6 ms-2">@Model.Direccion</span>
+                    </div>
+                </div>
+            }
+            <form asp-action="RegisterToEvent" method="post" class="mb-4 needs-validation" id="assistant-form"
+                novalidate style="width: 300px;">
+                <div class="form-floating mb-3">
+                    <input name="nombre" type="text" class="form-control" id="assistant-nombre" placeholder="Nombre"
+                        required>
+                    <label for="assistant-nombre">Nombre</label>
+                    <div class="invalid-feedback">
+                        Escribe tu nombre.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input name="apellidos" type="text" class="form-control" id="assistant-apellidos"
+                        placeholder="Apellidos" required>
+                    <label for="assistant-apellidos">Apellidos</label>
+                    <div class="invalid-feedback">
+                        Escribe tus apellidos.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input name="email" type="email" class="form-control" id="floatingInput"
+                        placeholder="name@example.com" required>
+                    <label for="floatingInput">Correo electrónico</label>
+                    <div class="invalid-feedback">
+                        Introduce un correo electrónico válido.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input name="telefono" type="text" class="form-control" id="assistant-telefono"
+                        placeholder="635372277" required>
+                    <label for="assistant-telefono">Teléfono de contacto</label>
+                    <div class="invalid-feedback">
+                        Introduce tu número de teléfono.
+                    </div>
+                </div>
+
+                <div class="d-flex w-100">
+                    <button type="submit" class="btn btn-outline-success ms-auto">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="~/lib/fontawesome/fontawesome.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/myscripts.js"></script>
+    <script>
+        $(document).ready(() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -7,6 +7,8 @@ public partial class Assistant
 {
     public int IdAssistant { get; set; }
 
+    public int IdEvent { get; set; }
+
     public string Nombre { get; set; } = null!;
 
     public string Apellidos { get; set; } = null!;
@@ -19,5 +21,7 @@ public partial class Assistant
 
     public bool Confirmado { get; set; }
 
-    public string QrCode { get; set; }
+    public string? QrCode { get; set; }
+
+    public virtual Event IdEventNavigation { get; set; } = null!;
 }

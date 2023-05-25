@@ -91,7 +91,6 @@ public class HomeController : Controller
         if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
         {
             var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
-            // var eventos = obtenerEventos(usuario);
             var viewModel = new HomeViewModel
             {
                 NewEvent = new Event(),

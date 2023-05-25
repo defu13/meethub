@@ -18404,6 +18404,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\Views\\Home\\Event.cshtml",
+      "TargetPath": "Views\\Home\\Event.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"

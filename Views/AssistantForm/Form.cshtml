@@ -58,6 +58,7 @@
             }
             <form asp-action="RegisterToEvent" method="post" class="mb-4 needs-validation" id="assistant-form"
                 novalidate style="width: 300px;">
+                <input type="hidden" name="id" value="@Model.IdEvent" />
                 <div class="form-floating mb-3">
                     <input name="nombre" type="text" class="form-control" id="assistant-nombre" placeholder="Nombre"
                         required>
@@ -86,11 +87,11 @@
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input name="telefono" type="text" class="form-control" id="assistant-telefono"
+                    <input name="telefono" type="number" class="form-control" id="assistant-telefono"
                         placeholder="635372277" required>
                     <label for="assistant-telefono">Teléfono de contacto</label>
                     <div class="invalid-feedback">
-                        Introduce tu número de teléfono.
+                        Introduce un número de teléfono válido.
                     </div>
                 </div>
 
@@ -123,6 +124,29 @@
 
                     form.classList.add('was-validated');
                 }, false);
+            });
+        });
+
+        $(document).ready(function () {
+            $('#assistant-telefono').on('input', function () {
+                var telefono = $(this).val();
+                var regex = /^\d{9}$/;
+
+                if (regex.test(telefono)) {
+                    $(this).removeClass('is-invalid');
+                } else {
+                    $(this).addClass('is-invalid');
+                }
+            });
+
+            $('#assistant-form').on('submit', function (event) {
+                var telefono = $('#assistant-telefono').val();
+                var regex = /^\d{9}$/;
+
+                if (!regex.test(telefono)) {
+                    $('#assistant-telefono').addClass('is-invalid');
+                    event.preventDefault(); // Evita que se envíe el formulario
+                }
             });
         });
     </script>

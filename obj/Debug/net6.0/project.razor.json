@@ -18399,6 +18399,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\Views\\AssistantForm\\Failed.cshtml",
+      "TargetPath": "Views\\AssistantForm\\Failed.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"

@@ -12,13 +12,6 @@ public class AssistantFormController : Controller
         _context = context;
     }
 
-    [HttpPost]
-    public IActionResult DeleteTempData(string key)
-    {
-        TempData.Remove(key);
-        return Ok();
-    }
-
     [Route("AssistantForm/Form/{id?}")]
     public IActionResult Form(int id)
     {
@@ -31,8 +24,18 @@ public class AssistantFormController : Controller
         return View(evento);
     }
 
+    public IActionResult Success()
+    {
+        return View();
+    }
+
+    public IActionResult Failed()
+    {
+        return View();
+    }
+
     [HttpPost]
-    public async Task<IActionResult> RegisterToEvent(Assistant assistant, int id)
+    public async Task<IActionResult> RegisterToEvent(String nombre, String apellidos, String email, String telefono, int id)
     {
         // COMPROBAR TIPO DE EVENTO
         var evento = _context.Events.FirstOrDefault(e => e.IdEvent == id);
@@ -49,28 +52,32 @@ public class AssistantFormController : Controller
         var newAssistant = new Assistant
         {
             IdEvent = id,
-            Nombre = assistant.Nombre,
-            Apellidos = assistant.Apellidos,
-            Email = assistant.Email,
-            Telefono = assistant.Telefono,
+            Nombre = nombre,
+            Apellidos = apellidos,
+            Email = email,
+            Telefono = telefono,
             Aprobado = aprobacion,
             Confirmado = false,
             QrCode = ""
         };
 
-        // Guardar el nuevo asistente en la base de datos
-        _context.Assistants.Add(newAssistant);
-        _context.SaveChanges();
+        try
+        {
+            // Guardar el nuevo asistente en la base de datos
+            _context.Assistants.Add(newAssistant);
+            _context.SaveChanges();
 
-        // CREACION DE QR
-        String qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|3&chl=" + newAssistant.IdAssistant;
-        newAssistant.QrCode = qrUrl;
-        _context.Assistants.Update(newAssistant);
-        _context.SaveChanges();
+            // CREACION DE QR
+            String qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|3&chl=" + newAssistant.IdAssistant;
+            newAssistant.QrCode = qrUrl;
+            _context.Assistants.Update(newAssistant);
+            _context.SaveChanges();
 
-        TempData["TempMessage"] = "Te has registrado correctamente";
-
-        // Redirigir a la página de éxito o a otra vista que desees
-        return RedirectToAction("Success");
+            return RedirectToAction("Success");
+        }
+        catch (Exception e)
+        {
+            return RedirectToAction("Failed");
+        }
     }
 }

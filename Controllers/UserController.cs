@@ -58,7 +58,7 @@ public class UserController : Controller
                     IsEssential = true,
                     Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(15))
                 };
-                Response.Cookies.Append("Usuario", JsonSerializer.Serialize(usuario), cookieOptions);
+                Response.Cookies.Append(".AspNetCore.User", JsonSerializer.Serialize(usuario), cookieOptions);
                 return RedirectToAction("Index", "Home");
             }
             else

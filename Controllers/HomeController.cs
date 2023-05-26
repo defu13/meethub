@@ -31,7 +31,7 @@ public class HomeController : Controller
     public IActionResult Profile()
     {
         User usuario = null;
-        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
         {
             usuario = JsonSerializer.Deserialize<User>(usuarioJson);
         }
@@ -88,7 +88,7 @@ public class HomeController : Controller
     public IActionResult Home()
     {
 
-        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
         {
             var usuario = JsonSerializer.Deserialize<User>(usuarioJson);
             var viewModel = new HomeViewModel
@@ -114,8 +114,8 @@ public class HomeController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        // Eliminar la cookie "Usuario"
-        Response.Cookies.Delete("Usuario");
+        // Eliminar la cookie de usuario
+        Response.Cookies.Delete(".AspNetCore.User");
         return RedirectToAction("Login", "User");
     }
 
@@ -137,7 +137,7 @@ public class HomeController : Controller
     {
         User usuario = null;
 
-        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
         {
             usuario = JsonSerializer.Deserialize<User>(usuarioJson);
         }
@@ -202,7 +202,7 @@ public class HomeController : Controller
     public IActionResult EditarUsuario(string nombre, string apellidos)
     {
         User usuario = null;
-        if (Request.Cookies.TryGetValue("Usuario", out string usuarioJson))
+        if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
         {
             usuario = JsonSerializer.Deserialize<User>(usuarioJson);
         }
@@ -217,7 +217,7 @@ public class HomeController : Controller
                 _context.SaveChanges();
 
                 string usuarioActualizadoJson = JsonSerializer.Serialize(usuario);
-                Response.Cookies.Append("Usuario", usuarioActualizadoJson);
+                Response.Cookies.Append(".AspNetCore.User", usuarioActualizadoJson);
 
                 TempData["TempMessage"] = "Usuario actualizado";
             }

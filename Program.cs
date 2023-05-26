@@ -12,13 +12,13 @@ builder.Services.AddDbContext<MeethubdbContext>(options =>
 
 builder.Services.AddSession(options =>
 {
-    options.Cookie.Name = "Usuario";
+    options.Cookie.Name = ".AspNetCore.User";
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.Cookie.Name = "ActualSession";
+        options.Cookie.Name = ".AspNetCore.Session";
         options.LoginPath = "/User/Login";
         options.LogoutPath = "/Home/Logout";
         options.SlidingExpiration = true;

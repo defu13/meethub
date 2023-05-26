@@ -114,6 +114,8 @@ public class HomeController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        // Eliminar la cookie "Usuario"
+        Response.Cookies.Delete("Usuario");
         return RedirectToAction("Login", "User");
     }
 

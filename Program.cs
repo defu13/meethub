@@ -1,16 +1,8 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using meethub.Models;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// builder.WebHost.ConfigureKestrel(options =>
-// {
-//     options.ListenAnyIP(20065);
-// });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -19,18 +11,17 @@ builder.Services.AddDbContext<MeethubdbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("Connection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql")));
 
 builder.Services.AddSession(options =>
-    {
-        options.IdleTimeout = TimeSpan.FromMinutes(60);
-        options.Cookie.HttpOnly = true;
-        options.Cookie.IsEssential = true;
-    });
+{
+    options.Cookie.Name = "Usuario";
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
+        options.Cookie.Name = "ActualSession";
         options.LoginPath = "/User/Login";
         options.LogoutPath = "/Home/Logout";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
     });
 
 var app = builder.Build();
@@ -51,6 +42,23 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Redirigir al usuario a home en caso de tener sesion iniciada
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/")
+    {
+        var isAuthenticated = context.User.Identity.IsAuthenticated;
+        if (isAuthenticated)
+        {
+            context.Response.Redirect("/Home/Index");
+            return;
+        }
+    }
+
+    await next();
+});
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(

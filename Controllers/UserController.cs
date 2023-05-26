@@ -2,7 +2,6 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using meethub.Models;
@@ -39,31 +38,27 @@ public class UserController : Controller
         {
             if (usuario != null)
             {
-                // Autenticación exitosa, redirigir a la vista deseada
-
+                // CREAR AUTENTICACION AL USUARIO
                 List<Claim> claims = new List<Claim>(){
                     new Claim(ClaimTypes.Name, usuario.Email),
                 };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
-                AuthenticationProperties p = new();
-                p.AllowRefresh = true;
-                // p.IsPersistent = usuario.MantenerSesion;
+                var authenticationProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(15))
+                };
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperties);
 
-                // if (!usuario.MantenerSesion)
-                // {
-                //     p.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1);
-                // }
-                // else
-                // {
-                //     p.ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1);
-                // }
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, p);
-
-                // Almacena el usuario en una cookie
-                Response.Cookies.Append("Usuario", JsonSerializer.Serialize(usuario));
-
+                // Almacenar el usuario en una cookie
+                var cookieOptions = new CookieOptions
+                {
+                    Path = "/",
+                    IsEssential = true,
+                    Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(15))
+                };
+                Response.Cookies.Append("Usuario", JsonSerializer.Serialize(usuario), cookieOptions);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -104,6 +99,7 @@ public class UserController : Controller
         _context.SaveChanges();
 
         // Redireccionar al usuario a una página de éxito o realizar alguna acción adicional
+        TempData["MensajeError"] = "Usuario registrado correctamente.";
         return RedirectToAction("Login");
     }
 }

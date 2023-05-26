@@ -48,12 +48,20 @@ app.Use(async (context, next) =>
 {
     if (context.Request.Path == "/")
     {
-        var isAuthenticated = context.User.Identity.IsAuthenticated;
-        if (isAuthenticated)
+        try
         {
-            context.Response.Redirect("/Home/Index");
-            return;
+            var isAuthenticated = context.User.Identity.IsAuthenticated;
+            if (isAuthenticated)
+            {
+                context.Response.Redirect("/Home/Index");
+                return;
+            }
         }
+        catch (Exception e)
+        {
+            context.Response.Redirect("/User/Login");
+        }
+
     }
 
     await next();

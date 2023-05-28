@@ -1,4 +1,4 @@
-@model HomeViewModel
+@model EventViewModel
 
 <!DOCTYPE html>
 <html>
@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Meethub</title>
 
     @{
         Layout = null;
@@ -18,7 +18,123 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body style="background-color: #e7e9ec;" class="vh-100">
+<body class="vh-100">
+
+    <div class="eventview-container w-100 h-100 justify-content-center align-items-center d-flex"
+        style="background-color: #e7e9ec;">
+        <div class="h-100 justify-content-start d-flex pb-4 p-3 flex-column" style="width: 600px;">
+            <div class="d-flex w-100 backbutton-container justify-content-start pb-3 pe-3">
+                <a href="@Url.Action("Index", "Home")"
+                    class="btn p-0 rounded-5 d-flex align-items-center justify-content-center"
+                    style="width: 50px; height: 50px;"><i class="fs-2 bi bi-chevron-left"></i></a>
+            </div>
+            <div class="d-flex flex-column w-100 eventdata-container p-3 border rounded-4 bg-light">
+                <div class="d-flex w-100 mb-3">
+                    <button class="d-flex me-auto btn btn-primary rounded-5 justify-content-center edit-button"
+                        style="width: 100px;">Editar</button>
+                    <button class="d-flex ms-auto btn btn-outline-danger rounded-5 justify-content-center"
+                        style="width: 100px;">Eliminar</button>
+                </div>
+                <div class="d-flex flex-column w-100">
+                    <form asp-action="EditarEvento" method="post" class="w-100 needs-validation" id="edit-event-form"
+                        novalidate asp-controller="Home">
+                        <input type="hidden" asp-for="@Model.eventTarget.IdEvent" value="@Model.eventTarget.IdEvent" />
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.eventTarget.Titulo" value="@Model.eventTarget.Titulo" type="text"
+                                class="form-control" id="titulo-input-edit" placeholder="Título" disabled required>
+                            <label for="titulo-input-edit">Título</label>
+                            <div class="invalid-feedback">
+                                Campo vacío.
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.eventTarget.Descripcion" value="@Model.eventTarget.Descripcion"
+                                type="text" class="form-control" id="descripcion-input-edit" placeholder="Descripción"
+                                disabled required>
+                            <label for="descripcion-input-edit">Descripción</label>
+                            <div class="invalid-feedback">
+                                Campo vacío.
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.eventTarget.Direccion" value="@Model.eventTarget.Direccion"
+                                type="text" class="form-control" id="direccion-input-edit" placeholder="Dirección"
+                                disabled required>
+                            <label for="direccion-input-edit">Dirección</label>
+                            <div class="invalid-feedback">
+                                Campo vacío.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            @if (Model.eventTarget.Aforo != null)
+                            {
+                                <div class="form-check form-switch me-auto">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="aforo-check" disabled
+                                        checked>
+                                    <label class="form-check-label" for="aforo-check">Aforo</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check form-switch me-auto">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="aforo-check" disabled>
+                                    <label class="form-check-label" for="aforo-check">Aforo</label>
+                                </div>
+                            }
+                            <div class="form-floating ms-auto">
+                                <input asp-for="@Model.eventTarget.Aforo" value="@Model.eventTarget.Aforo" type="number"
+                                    class="form-control" id="aforo-input-edit" placeholder="Número" disabled>
+                                <label for="aforo-input-edit">Número</label>
+                            </div>
+                        </div>
+
+                        <div class="flex-column flex-sm-row d-flex align-items-center gap-3">
+                            <div class="w-100 me-sm-auto form-floating d-flex flex-column">
+                                <input asp-for="@Model.eventTarget.FechaInicio" type="datetime-local"
+                                    class="form-control" id="inicio-input-edit" placeholder="Inicio"
+                                    value="@Model.eventTarget.FechaInicio.ToString("yyyy-MM-ddTHH:mm")" required
+                                    disabled>
+                                <label for="inicio-input-edit">Inicio</label>
+                                <div class="invalid-feedback">
+                                    Campo vacío.
+                                </div>
+                            </div>
+                            <div class="w-100 ms-sm-auto form-floating d-flex flex-column">
+                                <input asp-for="@Model.eventTarget.FechaFin" type="datetime-local" class="form-control"
+                                    id="fin-input-edit" placeholder="Fin"
+                                    value="@Model.eventTarget.FechaFin.ToString("yyyy-MM-ddTHH:mm")" required disabled>
+                                <label for="fin-input-edit">Fin</label>
+                                <div class="invalid-feedback">
+                                    Campo vacío.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BOTONES FORMULARIO -->
+                        <div class="w-100 mt-3" id="buttons-form" style="display: none;">
+                            <button type="button" class="btn btn-secondary me-auto btn-cancelar">Cancelar</button>
+                            <button type="submit" class="btn btn-success ms-auto btn-guardar">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex w-100 assistants-container p-3"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editEventModalLabel">Alerta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @TempData["TempMessage"]
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- SCRIPTS -->
@@ -26,6 +142,26 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/myscripts.js"></script>
+
+    @if (TempData["TempMessage"] != null)
+    {
+        <script>
+            function deleteTempData(key) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteTempData", "Home")",
+                    data: { key: key },
+                    success: function () { },
+                    error: function () { }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#editEventModal').modal('show');
+                deleteTempData("TempMessage");
+            });
+        </script>
+    }
 
     <script>
         $(document).ready(() => {
@@ -48,7 +184,63 @@
         });
     </script>
 
-    
+    <script>
+        $('.eventview-container .edit-button').on('click', function () {
+            $('.eventview-container .edit-button').prop('disabled', true);
+            $('#buttons-form').addClass('d-flex');
+            $('#buttons-form').show();
+
+            $('.eventview-container input').prop('disabled', false);
+            if ('@Model.eventTarget.Aforo' == '') {
+                $('#aforo-input-edit').prop('disabled', true);
+            } else {
+                $('#aforo-input-edit').prop('disabled', false);
+            }
+        });
+
+        $('.eventview-container .btn-cancelar').on('click', function () {
+            $('.eventview-container .edit-button').prop('disabled', false);
+            $('#buttons-form').removeClass('d-flex');
+            $('#buttons-form').hide();
+
+            $('#titulo-input-edit').val('@Model.eventTarget.Titulo');
+            $('#descripcion-input-edit').val('@Model.eventTarget.Descripcion');
+            $('#direccion-input-edit').val('@Model.eventTarget.Direccion');
+            $('#aforo-input-edit').val('@Model.eventTarget.Aforo');
+            $('#inicio-input-edit').val('@Model.eventTarget.FechaInicio.ToString("yyyy-MM-ddTHH:mm")');
+            $('#fin-input-edit').val('@Model.eventTarget.FechaFin.ToString("yyyy-MM-ddTHH:mm")');
+            if ('@Model.eventTarget.Aforo' != '') {
+                $('#aforo-check').prop('checked', true);
+            } else {
+                $('#aforo-check').prop('checked', false);
+            }
+
+            $('.eventview-container input').prop('disabled', true);
+        });
+
+        $('#aforo-check').on('change', function () {
+            if ($('#aforo-check').prop('checked') == true) {
+                $('#aforo-input-edit').prop('disabled', false);
+            } else {
+                $('#aforo-input-edit').prop('disabled', true);
+                $('#aforo-input-edit').val('');
+            }
+        });
+
+        $("#edit-event-form").submit(function (event) {
+            // Obtener valores de las fechas de inicio y fin
+            var fechaInicio = new Date($("#inicio-input").val());
+            var fechaFin = new Date($("#fin-input").val());
+
+            // Validar la fecha de fin
+            if (fechaFin <= fechaInicio) {
+                event.preventDefault(); // Evitar el envío del formulario
+                alert("La fecha de fin debe ser posterior a la fecha de inicio");
+            }
+        });
+    </script>
+
+
 </body>
 
 </html>

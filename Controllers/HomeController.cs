@@ -110,6 +110,27 @@ public class HomeController : Controller
         return View();
     }
 
+    [Route("Home/Event/{id?}")]
+    public IActionResult Event(int id)
+    {
+        var evento = _context.Events.FirstOrDefault(e => e.IdEvent == id);
+        var asistentes = _context.Assistants.Where(a => a.IdEvent == id).ToList();
+        EventViewModel model = new EventViewModel
+        {
+            eventTarget = evento,
+            AssistantList = asistentes
+        };
+        if (evento != null)
+        {
+            return View(model);
+        }
+        else
+        {
+            TempData["TempMessage"] = "Error al acceder al evento";
+            return RedirectToAction("Index");
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
@@ -227,5 +248,39 @@ public class HomeController : Controller
             }
         }
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult EditarEvento(EventViewModel eventViewModel)
+    {
+        // Obtén el evento actual de la base de datos
+        var evento = _context.Events.FirstOrDefault(e => e.IdEvent == eventViewModel.eventTarget.IdEvent);
+
+        if (evento != null)
+        {
+            try
+            {
+                // Actualiza las propiedades del evento con los valores del modelo
+                evento.Titulo = eventViewModel.eventTarget.Titulo;
+                evento.Descripcion = eventViewModel.eventTarget.Descripcion;
+                evento.Direccion = eventViewModel.eventTarget.Direccion;
+                evento.Aforo = eventViewModel.eventTarget.Aforo;
+                evento.FechaInicio = eventViewModel.eventTarget.FechaInicio;
+                evento.FechaFin = eventViewModel.eventTarget.FechaFin;
+
+                // Guarda los cambios en la base de datos
+                _context.Update(evento);
+                _context.SaveChanges();
+
+                TempData["TempMessage"] = "Evento actualizado correctamente.";
+                return RedirectToAction("Event", new { id = evento.IdEvent });
+            }
+            catch (Exception e)
+            {
+                TempData["TempMessage"] = "Error al actualizar el evento.";
+                return RedirectToAction("Event", new { id = evento.IdEvent });
+            }
+        }
+        return RedirectToAction("Event", new { id = evento.IdEvent });
     }
 }

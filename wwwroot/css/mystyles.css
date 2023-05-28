@@ -29,9 +29,10 @@
         padding-top: 2rem;
         padding-bottom: 4rem;
     }
-    #create-modal .modal-dialog{
-        margin-top: 3rem!important;
-        margin-bottom: 3rem!important;
+
+    #create-modal .modal-dialog {
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
     }
 }
 
@@ -159,6 +160,15 @@
     border-color: #e0883b !important;
 }
 
-.logout-container{
+.logout-container {
     bottom: 0;
+}
+
+.no-link-style {
+    text-decoration: none;
+    color: inherit;
+}
+
+.event-link:hover {
+    
 }

@@ -20,6 +20,27 @@
 
 <body class="vh-100">
 
+    <!-- Confirmar Modal -->
+    <div class="modal fade" id="confirm-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">¿Estás seguro?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer d-flex">
+                    <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal"
+                        style="width: 100px;">No</button>
+                    <form asp-action="EliminarEvento" method="post">
+                        <input type="hidden" name="idEvento" value="@Model.eventTarget.IdEvent" />
+                        <button type="submit" class="btn btn-primary ms-auto confirm-button"
+                            style="width: 100px;">Si</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="eventview-container w-100 h-100 justify-content-center align-items-center d-flex"
         style="background-color: #e7e9ec;">
         <div class="h-100 justify-content-start d-flex pb-4 p-3 flex-column" style="width: 600px;">
@@ -32,7 +53,8 @@
                 <div class="d-flex w-100 mb-3">
                     <button class="d-flex me-auto btn btn-primary rounded-5 justify-content-center edit-button"
                         style="width: 100px;">Editar</button>
-                    <button class="d-flex ms-auto btn btn-outline-danger rounded-5 justify-content-center"
+                    <button data-bs-toggle="modal" data-bs-target="#confirm-modal"
+                        class="d-flex ms-auto btn btn-outline-danger rounded-5 justify-content-center"
                         style="width: 100px;">Eliminar</button>
                 </div>
                 <div class="d-flex flex-column w-100">

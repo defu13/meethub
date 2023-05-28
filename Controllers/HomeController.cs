@@ -283,4 +283,30 @@ public class HomeController : Controller
         }
         return RedirectToAction("Event", new { id = evento.IdEvent });
     }
+
+    [HttpPost]
+    public IActionResult EliminarEvento(int idEvento)
+    {
+        var evento = _context.Events.FirstOrDefault(e => e.IdEvent == idEvento);
+
+        if (evento == null)
+        {
+            TempData["TempMessage"] = "El evento no existe.";
+            return RedirectToAction("Event", new { id = idEvento });
+        }
+
+        try
+        {
+            _context.Events.Remove(evento);
+            _context.SaveChanges();
+
+            TempData["TempMessage"] = "El evento se ha eliminado correctamente.";
+            return RedirectToAction("Index");
+        }
+        catch (Exception ex)
+        {
+            TempData["TempMessage"] = "Error al eliminar el evento.";
+            return RedirectToAction("Event", new { id = idEvento });
+        }
+    }
 }

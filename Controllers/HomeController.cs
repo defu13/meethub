@@ -287,26 +287,38 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult EliminarEvento(int idEvento)
     {
-        var evento = _context.Events.FirstOrDefault(e => e.IdEvent == idEvento);
-
-        if (evento == null)
-        {
-            TempData["TempMessage"] = "El evento no existe.";
-            return RedirectToAction("Event", new { id = idEvento });
-        }
-
         try
         {
-            _context.Events.Remove(evento);
-            _context.SaveChanges();
+            var evento = _context.Events.FirstOrDefault(e => e.IdEvent == idEvento);
+            var asistentes = _context.Assistants.Where(a => a.IdEvent == idEvento);
+
+            if (evento == null)
+            {
+                TempData["TempMessage"] = "El evento no existe.";
+                return RedirectToAction("Event", new { id = idEvento });
+            }
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                if (asistentes.Count() > 0)
+                {
+                    _context.Assistants.RemoveRange(asistentes);
+                }
+
+                _context.Events.Remove(evento);
+                _context.SaveChanges();
+
+                transaction.Commit();
+            }
 
             TempData["TempMessage"] = "El evento se ha eliminado correctamente.";
             return RedirectToAction("Index");
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             TempData["TempMessage"] = "Error al eliminar el evento.";
             return RedirectToAction("Event", new { id = idEvento });
         }
+
     }
 }

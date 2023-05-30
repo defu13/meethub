@@ -43,6 +43,7 @@
 
     <div class="eventview-container w-100 h-100 justify-content-center align-items-center d-flex"
         style="background-color: #e7e9ec;">
+        @* INFO DE EVENTO *@
         <div class="h-100 justify-content-start d-flex pb-4 p-3 flex-column" style="width: 600px;">
             <div class="d-flex w-100 backbutton-container justify-content-start pb-3 pe-3">
                 <a href="@Url.Action("Index", "Home")"
@@ -141,6 +142,48 @@
                 </div>
             </div>
             <div class="d-flex w-100 assistants-container p-3"></div>
+        </div>
+
+        @* LISTA ASISTENTES *@
+        <div class="h-100 justify-content-start d-flex pb-4 p-3 flex-column" style="width: 600px;">
+            <div class="d-flex w-100 justify-content-start pb-3 pe-3">
+                <div style="width: 50px; height: 50px;"></div>
+            </div>
+
+            <div class="d-flex flex-column w-100 assistants-container p-3 border rounded-4 bg-light overflow-y-auto">
+                @if (Model.AssistantList.Count > 0)
+                {
+                    @foreach (var assistant in Model.AssistantList)
+                    {
+                        <div class="d-flex w-100" style="height: 45px;">
+                            <div class="d-flex name-container h-100 flex-grow-1 align-items-center">
+                                <span class="fw-semibold w-50 text-truncate text-start pe-2">@assistant.Nombre
+                                    @assistant.Apellidos</span>
+                                <span class="text-secondary w-50 text-truncate text-end">/ @assistant.Email</span>
+                            </div>
+                            @if (Model.eventTarget.Tipo == "invitacion")
+                            {
+                                <div class="ms-2 d-flex confirm-container h-100 gap-2 align-items-center justify-content-center"
+                                    style="width: 80px;">
+                                    <button class="btn bg-transparent p-0 d-flex align-items-center justify-content-center noconfirm-button"
+                                        style="width: 32px; height: 32px;">
+                                        <i class="bi bi-x" style="font-size: 34px;"></i>
+                                    </button>
+                                    <button class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
+                                        style="width: 32px; height: 32px;">
+                                        <i class="bi bi-check" style="font-size: 34px;"></i>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span class="text-center fs-4 fw-medium" style="color: rgb(193 193 193);">Todavía no hay asistentes en
+                        tu evento.</span>
+                }
+            </div>
         </div>
     </div>
 

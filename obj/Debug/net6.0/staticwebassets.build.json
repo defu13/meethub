@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "txtcThmnQs3/CvlChLGgP/JN71P2HsKcKtJ/dh2h8VM=",
+  "Hash": "QdhYZpRKQNlBNb/S99cxnJKie0pAznmCvN50jjljM8Y=",
   "Source": "meethub",
   "BasePath": "_content/meethub",
   "Mode": "Default",
@@ -34253,6 +34253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
+    },
+    {
+      "Identity": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\wwwroot\\lib\\clipboardjs\\clipboard.min.js",
+      "SourceId": "meethub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\wwwroot\\",
+      "BasePath": "_content/meethub",
+      "RelativePath": "lib/clipboardjs/clipboard.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\clipboardjs\\clipboard.min.js"
     },
     {
       "Identity": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\wwwroot\\lib\\fontawesome\\fontawesome.js",

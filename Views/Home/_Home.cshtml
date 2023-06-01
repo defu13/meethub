@@ -20,10 +20,11 @@
 
 <body style="background-color: #e7e9ec;" class="vh-100">
 
-
-
-    <!-- Menu opciones -->
-
+    @* <div id="spinner" class="align-items-center justify-content-center d-flex">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div> *@
 
     <!-- Create Modal -->
     <div class="modal fade" id="create-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -140,7 +141,7 @@
                 <input class="search-bar-input form-control ms-auto rounded-5" type="search"
                     placeholder="&#xf002; Buscar" aria-label="Search">
             </div>
-            <div class="event-container-element row m-0">
+            <div class="event-container-element row m-0 pt-3">
                 <!-- EVENT CARDS -->
                 @if (Model.EventList.Count != 0)
                 {
@@ -148,7 +149,7 @@
                     {
                         <div class="event-card-container col-lg-6-modify p-4 pt-0 justify-content-center d-flex-notimportant">
                             <a href="Event/@evento.IdEvent" class="w-100 no-link-style event-link">
-                                <div class="w-100 card event-card rounded-4 overflow-hidden">
+                                <div class="w-100 card event-card rounded-4 overflow-hidden slide-top">
                                     <!-- HEADER -->
                                     <div class="flex-column d-flex card-header bg-image position-relative"
                                         style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
@@ -295,6 +296,22 @@
                 $('#inicio-input').val('@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")');
                 $('#fin-input').val('@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")');
             });
+
+            // Función para ocultar el spinner cuando todos los elementos se hayan cargado
+            @* function hideSpinner() {
+                if ($('#event-container .event-card:not(.loaded)').length === 0) {
+                    $('#spinner').removeClass('d-flex');
+                }
+            }
+
+            // Obtener todos los elementos generados dinámicamente
+            var eventCards = $('.event-container-element .event-card-container');
+
+            // Agregar la clase 'loaded' a los elementos cargados
+            eventCards.on('load', function() {
+                $(this).addClass('loaded');
+                hideSpinner();
+            }); *@
         });
     </script>
 </body>

@@ -41,14 +41,29 @@
         </div>
     </div>
 
-    <div class="eventview-container w-100 h-100 justify-content-center align-items-center d-flex"
-        style="background-color: #e7e9ec;">
+    <div class="eventview-container w-100 h-100 d-flex overflow-y-auto" style="background-color: #e7e9ec;">
         @* INFO DE EVENTO *@
-        <div class="h-100 justify-content-start d-flex pb-4 p-3 flex-column" style="width: 600px;">
+        <div class="info-event-container justify-content-start d-flex pb-4 p-3 flex-column">
             <div class="d-flex w-100 backbutton-container justify-content-start pb-3 pe-3">
                 <a href="@Url.Action("Index", "Home")"
                     class="btn p-0 rounded-5 d-flex align-items-center justify-content-center"
                     style="width: 50px; height: 50px;"><i class="fs-2 bi bi-chevron-left"></i></a>
+            </div>
+            <div class="d-flex flex-column w-100 enlace-container p-3 border rounded-4 bg-light mb-2 border">
+                <div class="d-flex w-100 justify-content-end align-items-center rounded-top-3"
+                    style="height: 40px; background-color: #4c4c4c;">
+                    <div id="copy-button"
+                        class="d-flex align-items-center justify-content-center me-3 p-1 m-1 rounded-3">
+                        <label style="font-size: 12px;" class="text-light me-2 copy-text">Copiar</label>
+                        <i class="bi bi-clipboard text-light copy-icon"></i>
+                        <i class="bi bi-check2 text-light copied-icon" style="display: none;"></i>
+                    </div>
+                </div>
+                <div class="d-flex w-100 justify-content-start align-items-center rounded-bottom-3"
+                    style="height: 50px; background-color: #181818;">
+                    <label
+                        class="text-light ms-3 text-truncate text-decoration-underline fw-light enlace-text">http://mvs.sytes.net:20065/AssistantForm/Form/@Model.eventTarget.IdEvent</label>
+                </div>
             </div>
             <div class="d-flex flex-column w-100 eventdata-container p-3 border rounded-4 bg-light">
                 <div class="d-flex w-100 mb-3">
@@ -62,6 +77,13 @@
                     <form asp-action="EditarEvento" method="post" class="w-100 needs-validation" id="edit-event-form"
                         novalidate asp-controller="Home">
                         <input type="hidden" asp-for="@Model.eventTarget.IdEvent" value="@Model.eventTarget.IdEvent" />
+                        <div class="d-flex flex-column mb-3">
+                            <label style="font-size: 16px;">Tipo de evento por <label
+                                    class="fw-bold">@Model.eventTarget.Tipo</label>
+                            </label>
+                            <label class="fst-italic" style="font-size: 13px;">Esta característica no se puede
+                                modificar</label>
+                        </div>
                         <div class="form-floating mb-3">
                             <input asp-for="@Model.eventTarget.Titulo" value="@Model.eventTarget.Titulo" type="text"
                                 class="form-control" id="titulo-input-edit" placeholder="Título" disabled required>
@@ -104,14 +126,14 @@
                                     <label class="form-check-label" for="aforo-check">Aforo</label>
                                 </div>
                             }
-                            <div class="form-floating ms-auto">
+                            <div class="form-floating ms-auto ps-2">
                                 <input asp-for="@Model.eventTarget.Aforo" value="@Model.eventTarget.Aforo" type="number"
                                     class="form-control" id="aforo-input-edit" placeholder="Número" disabled>
-                                <label for="aforo-input-edit">Número</label>
+                                <label class="ms-2" for="aforo-input-edit">Número</label>
                             </div>
                         </div>
 
-                        <div class="flex-column flex-sm-row d-flex align-items-center gap-3">
+                        <div class="my-flex-sm-row d-flex align-items-center gap-3">
                             <div class="w-100 me-sm-auto form-floating d-flex flex-column">
                                 <input asp-for="@Model.eventTarget.FechaInicio" type="datetime-local"
                                     class="form-control" id="inicio-input-edit" placeholder="Inicio"
@@ -141,12 +163,11 @@
                     </form>
                 </div>
             </div>
-            <div class="d-flex w-100 assistants-container p-3"></div>
         </div>
 
         @* LISTA ASISTENTES *@
-        <div class="h-100 justify-content-start d-flex pb-4 p-3 flex-column" style="width: 600px;">
-            <div class="d-flex w-100 justify-content-start pb-3 pe-3">
+        <div class="list-assistants-container justify-content-start d-flex pb-4 p-3 flex-column">
+            <div class="spacer w-100 justify-content-start pb-3 pe-3">
                 <div style="width: 50px; height: 50px;"></div>
             </div>
 
@@ -165,11 +186,13 @@
                             {
                                 <div class="ms-2 d-flex confirm-container h-100 gap-2 align-items-center justify-content-center"
                                     style="width: 80px;">
-                                    <button class="btn bg-transparent p-0 d-flex align-items-center justify-content-center noconfirm-button"
+                                    <button
+                                        class="btn bg-transparent p-0 d-flex align-items-center justify-content-center noconfirm-button"
                                         style="width: 32px; height: 32px;">
                                         <i class="bi bi-x" style="font-size: 34px;"></i>
                                     </button>
-                                    <button class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
+                                    <button
+                                        class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
                                         style="width: 32px; height: 32px;">
                                         <i class="bi bi-check" style="font-size: 34px;"></i>
                                     </button>
@@ -206,6 +229,7 @@
     <script src="~/lib/fontawesome/fontawesome.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/clipboardjs/clipboard.min.js"></script>
     <script src="~/js/myscripts.js"></script>
 
     @if (TempData["TempMessage"] != null)

@@ -8053,6 +8053,10 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
+      "Id": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\wwwroot\\lib\\clipboardjs\\clipboard.min.js",
+      "PackagePath": "staticwebassets\\lib\\clipboardjs\\clipboard.min.js"
+    },
+    {
       "Id": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\wwwroot\\lib\\fontawesome\\fontawesome.js",
       "PackagePath": "staticwebassets\\lib\\fontawesome\\fontawesome.js"
     },

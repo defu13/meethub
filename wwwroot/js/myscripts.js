@@ -82,7 +82,7 @@ $(document).ready(() => {
         $('#invitacion-input').prop('checked', false);
     });
 
-    $('.logout-button').on('click', function(){
+    $('.logout-button').on('click', function () {
         if ($('.modal-backdrop').length > 1) {
             $('.modal-backdrop').not(':first').remove();
         }
@@ -143,5 +143,28 @@ $(document).ready(() => {
         if ($('#invitacion-input').is(':checked')) {
             $('#Tipo').val('invitacion');
         }
+    });
+
+    $('#copy-button').on('click', function () {
+        var clipboard = new ClipboardJS("#copy-button", {
+            text: function () {
+                return $(".enlace-text").text();
+            }
+        });
+
+        clipboard.on("success", function (e) {
+            $('.copy-text').text('¡Copiado!');
+            $('.copy-icon').hide();
+            $('.copied-icon').show();
+            setTimeout(function () {
+                $('.copy-text').text('Copiar');
+                $('.copy-icon').show();
+                $('.copied-icon').hide();
+            }, 2000);
+        });
+
+        clipboard.on("error", function (e) {
+            console.error("Error al copiar el texto al portapapeles:", e.action);
+        });
     });
 });

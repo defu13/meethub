@@ -126,7 +126,7 @@ public class HomeController : Controller
         }
         else
         {
-            TempData["TempMessage"] = "Error al acceder al evento";
+            // TempData["TempMessage"] = "Error al acceder al evento.";
             return RedirectToAction("Index");
         }
     }
@@ -318,6 +318,57 @@ public class HomeController : Controller
         {
             TempData["TempMessage"] = "Error al eliminar el evento.";
             return RedirectToAction("Event", new { id = idEvento });
+        }
+
+    }
+
+    [HttpPost]
+    public IActionResult aprobarAsistente(int idAssistant)
+    {
+        try
+        {
+            var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == idAssistant);
+            if (asistente != null)
+            {
+                asistente.Aprobado = true;
+                _context.Update(asistente);
+                _context.SaveChanges();
+                TempData["ToastMessage"] = "Asistente aprobado correctamente.";
+                return Json(new { success = true, message = "Asistente aprobado correctamente." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Asistente no encontrado." });
+            }
+        }
+        catch (Exception e)
+        {
+            return Json(new { success = false, message = "Error al aprobar el asistente." });
+        }
+
+    }
+
+    [HttpPost]
+    public IActionResult rechazarAsistente(int idAssistant)
+    {
+        try
+        {
+            var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == idAssistant);
+            if (asistente != null)
+            {
+                _context.Assistants.Remove(asistente);
+                _context.SaveChanges();
+                TempData["ToastMessage"] = "Asistente rechazado correctamente.";
+                return Json(new { success = true, message = "Asistente rechazado correctamente." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Asistente no encontrado." });
+            }
+        }
+        catch (Exception e)
+        {
+            return Json(new { success = false, message = "Error al rechazar el asistente." });
         }
 
     }

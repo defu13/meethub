@@ -41,30 +41,17 @@
         </div>
     </div>
 
+    
+
     <div class="eventview-container w-100 h-100 d-flex overflow-y-auto" style="background-color: #e7e9ec;">
         @* INFO DE EVENTO *@
-        <div class="info-event-container justify-content-start d-flex pb-4 p-3 flex-column">
+        <div class="info-event-container justify-content-start d-flex p-3 flex-column">
             <div class="d-flex w-100 backbutton-container justify-content-start pb-3 pe-3">
                 <a href="@Url.Action("Index", "Home")"
                     class="btn p-0 rounded-5 d-flex align-items-center justify-content-center"
                     style="width: 50px; height: 50px;"><i class="fs-2 bi bi-chevron-left"></i></a>
             </div>
-            <div class="d-flex flex-column w-100 enlace-container p-3 border rounded-4 bg-light mb-2 border">
-                <div class="d-flex w-100 justify-content-end align-items-center rounded-top-3"
-                    style="height: 40px; background-color: #4c4c4c;">
-                    <div id="copy-button"
-                        class="d-flex align-items-center justify-content-center me-3 p-1 m-1 rounded-3">
-                        <label style="font-size: 12px;" class="text-light me-2 copy-text">Copiar</label>
-                        <i class="bi bi-clipboard text-light copy-icon"></i>
-                        <i class="bi bi-check2 text-light copied-icon" style="display: none;"></i>
-                    </div>
-                </div>
-                <div class="d-flex w-100 justify-content-start align-items-center rounded-bottom-3"
-                    style="height: 50px; background-color: #181818;">
-                    <label
-                        class="text-light ms-3 text-truncate text-decoration-underline fw-light enlace-text">http://mvs.sytes.net:20065/AssistantForm/Form/@Model.eventTarget.IdEvent</label>
-                </div>
-            </div>
+
             <div class="d-flex flex-column w-100 eventdata-container p-3 border rounded-4 bg-light">
                 <div class="d-flex w-100 mb-3">
                     <button class="d-flex me-auto btn btn-primary rounded-5 justify-content-center edit-button"
@@ -171,31 +158,108 @@
                 <div style="width: 50px; height: 50px;"></div>
             </div>
 
-            <div class="d-flex flex-column w-100 assistants-container p-3 border rounded-4 bg-light overflow-y-auto">
+            <div class="d-flex flex-column w-100 enlace-container p-3 border rounded-4 bg-light mb-2 border">
+                <label class="w-100 text-center mb-3">¡Comparte este enlace con tus invitados para que se unan a tu
+                    evento!</label>
+                <div class="d-flex w-100 justify-content-end align-items-center rounded-top-3"
+                    style="height: 40px; background-color: #4c4c4c;">
+                    <div id="copy-button"
+                        class="d-flex align-items-center justify-content-center me-3 p-1 m-1 rounded-3">
+                        <label style="font-size: 12px;" class="text-light me-2 copy-text">Copiar</label>
+                        <i class="bi bi-clipboard text-light copy-icon"></i>
+                        <i class="bi bi-check2 text-light copied-icon" style="display: none;"></i>
+                    </div>
+                </div>
+                <div class="d-flex w-100 justify-content-start align-items-center rounded-bottom-3 p-3"
+                    style="height: 50px; background-color: #181818;">
+                    <label
+                        class="text-light text-truncate text-decoration-underline fw-light enlace-text">http://mvs.sytes.net:20065/AssistantForm/Form/@Model.eventTarget.IdEvent</label>
+                </div>
+            </div>
+
+
+            <div class="d-flex w-100 py-2 px-3 border border-bottom-0 rounded-top-4 bg-light">
+                <label class="fs-3 fw-semibold me-auto" style="height: 45px;">Asistentes</label>
+                <div class="d-flex ms-auto me-1 reload-button" style="cursor: pointer;">
+                    <i class="bi bi-arrow-clockwise fs-4 align-items-center d-flex"></i>
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100 assistants-container p-3 border rounded-bottom-4 bg-light overflow-y-auto"
+                style="max-height: 500px;">
                 @if (Model.AssistantList.Count > 0)
                 {
                     @foreach (var assistant in Model.AssistantList)
                     {
-                        <div class="d-flex w-100" style="height: 45px;">
-                            <div class="d-flex name-container h-100 flex-grow-1 align-items-center">
-                                <span class="fw-semibold w-50 text-truncate text-start pe-2">@assistant.Nombre
-                                    @assistant.Apellidos</span>
-                                <span class="text-secondary w-50 text-truncate text-end">/ @assistant.Email</span>
-                            </div>
+                        string modalId = "confirm-modal-asistant-" + assistant.IdAssistant;
+                        <div class="d-flex w-100" style="height: 45px; min-height: 45px;">
+                            @if (Model.eventTarget.Tipo == "inscripcion")
+                            {
+                                <div class="d-flex name-container h-100 align-items-center w-100">
+                                    <span class="fw-semibold text-truncate text-start pe-2" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        data-bs-title="@assistant.Nombre @assistant.Apellidos">@assistant.Nombre
+                                        @assistant.Apellidos</span>
+                                    <span class="text-secondary text-truncate text-end" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" data-bs-title="@assistant.Email">/
+                                        @assistant.Email</span>
+                                </div>
+                            }
                             @if (Model.eventTarget.Tipo == "invitacion")
                             {
-                                <div class="ms-2 d-flex confirm-container h-100 gap-2 align-items-center justify-content-center"
+                                <div class="d-flex name-container h-100 align-items-center" style="width: calc(100% - 80px);">
+                                    <span class="fw-semibold text-truncate text-start pe-2" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        data-bs-title="@assistant.Nombre @assistant.Apellidos">@assistant.Nombre
+                                        @assistant.Apellidos</span>
+                                    <span class="text-secondary text-truncate text-end" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" data-bs-title="@assistant.Email">/ @assistant.Email</span>
+                                </div>
+                                <div class="ms-2 d-flex confirm-container h-100 gap-2 align-items-center justify-content-end"
                                     style="width: 80px;">
-                                    <button
-                                        class="btn bg-transparent p-0 d-flex align-items-center justify-content-center noconfirm-button"
-                                        style="width: 32px; height: 32px;">
-                                        <i class="bi bi-x" style="font-size: 34px;"></i>
-                                    </button>
-                                    <button
-                                        class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
-                                        style="width: 32px; height: 32px;">
-                                        <i class="bi bi-check" style="font-size: 34px;"></i>
-                                    </button>
+                                    @if (assistant.Aprobado == false)
+                                    {
+                                        <button data-bs-toggle="modal" data-bs-target="#@modalId"
+                                            class="btn bg-transparent p-0 d-flex align-items-center justify-content-center noconfirm-button"
+                                            style="width: 32px; height: 32px;">
+                                            <i class="bi bi-x" style="font-size: 34px;"></i>
+                                        </button>
+                                        <button
+                                            onclick="aceptarAsistente('@Url.Action("aprobarAsistente", "Home")', @assistant.IdAssistant)"
+                                            class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
+                                            style="width: 32px; height: 32px;">
+                                            <i class="bi bi-check" style="font-size: 34px;"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button
+                                            class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
+                                            style="width: 32px; height: 32px;" disabled>
+                                            <i class="bi bi-check" style="font-size: 34px;"></i>
+                                        </button>
+                                    }
+                                </div>
+
+                                <!-- Confirmar Modal Asistant -->
+                                <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="confirm-modal-asistantLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">¿Estás seguro?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Se eliminará el asistente seleccionado.</p>
+                                            </div>
+                                            <div class="modal-footer d-flex">
+                                                <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal"
+                                                    style="width: 100px;">No</button>
+                                                <button type="submit" class="btn btn-primary ms-auto" style="width: 100px;"
+                                                    onclick="aceptarAsistente('@Url.Action("rechazarAsistente", "Home")', @assistant.IdAssistant)">Si</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -203,37 +267,72 @@
                 }
                 else
                 {
-                    <span class="text-center fs-4 fw-medium" style="color: rgb(193 193 193);">Todavía no hay asistentes en
-                        tu evento.</span>
+                    <span class="text-center fs-5 fw-medium mt-3" style="color: rgb(193 193 193);">Todavía no hay
+                        asistentes
+                        en tu evento.</span>
                 }
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editEventModalLabel">Alerta</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @TempData["TempMessage"]
+        <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editEventModalLabel">Alerta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @TempData["TempMessage"]
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="assistant-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="bi bi-person-fill-check me-2" style="font-size: 20px;"></i>
+                    <strong class="me-auto">Invitación</strong>
+                    <small>Aviso</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    @TempData["ToastMessage"]
+                </div>
+            </div>
+        </div>
 
 
-    <!-- SCRIPTS -->
-    <script src="~/lib/fontawesome/fontawesome.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/clipboardjs/clipboard.min.js"></script>
-    <script src="~/js/myscripts.js"></script>
+        <!-- SCRIPTS -->
+        <script src="~/lib/fontawesome/fontawesome.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/clipboardjs/clipboard.min.js"></script>
+        <script src="~/js/myscripts.js"></script>
 
-    @if (TempData["TempMessage"] != null)
-    {
+        @if (TempData["ToastMessage"] != null)
+        {
+            <script>
+                $(document).ready(function () {
+                    const toastLiveExample = document.getElementById('assistant-toast')
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                    toastBootstrap.show();
+                    deleteTempData("ToastMessage");
+                });
+            </script>
+        }
+
+        @if (TempData["TempMessage"] != null)
+        {
+            <script>
+                $(document).ready(function () {
+                    $('#editEventModal').modal('show');
+                    deleteTempData("TempMessage");
+                });
+            </script>
+        }
+
         <script>
             function deleteTempData(key) {
                 $.ajax({
@@ -245,89 +344,109 @@
                 });
             }
 
-            $(document).ready(function () {
-                $('#editEventModal').modal('show');
-                deleteTempData("TempMessage");
-            });
-        </script>
-    }
+            function aceptarAsistente(url, idAssistant) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { idAssistant: idAssistant },
+                    success: function (response) {
+                        if (response.success) {
+                            // Acciones a realizar en caso de éxito
+                            location.reload();
+                        } else {
+                            // Acciones a realizar en caso de error
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        // Acciones a realizar en caso de error de comunicación
+                        alert('Error al comunicarse con el servidor.');
+                    }
+                });
+            }
 
-    <script>
-        $(document).ready(() => {
-            'use strict'
+            $(document).ready(() => {
+                'use strict'
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
 
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+
+                $('.eventview-container .edit-button').on('click', function () {
+                    $('.eventview-container .edit-button').prop('disabled', true);
+                    $('#buttons-form').addClass('d-flex');
+                    $('#buttons-form').show();
+
+                    $('.eventview-container input').prop('disabled', false);
+                    if ('@Model.eventTarget.Aforo' == '') {
+                        $('#aforo-input-edit').prop('disabled', true);
+                    } else {
+                        $('#aforo-input-edit').prop('disabled', false);
+                    }
+                });
+
+                $('.eventview-container .btn-cancelar').on('click', function () {
+                    $('.eventview-container .edit-button').prop('disabled', false);
+                    $('#buttons-form').removeClass('d-flex');
+                    $('#buttons-form').hide();
+
+                    $('#titulo-input-edit').val('@Model.eventTarget.Titulo');
+                    $('#descripcion-input-edit').val('@Model.eventTarget.Descripcion');
+                    $('#direccion-input-edit').val('@Model.eventTarget.Direccion');
+                    $('#aforo-input-edit').val('@Model.eventTarget.Aforo');
+                    $('#inicio-input-edit').val('@Model.eventTarget.FechaInicio.ToString("yyyy-MM-ddTHH:mm")');
+                    $('#fin-input-edit').val('@Model.eventTarget.FechaFin.ToString("yyyy-MM-ddTHH:mm")');
+                    if ('@Model.eventTarget.Aforo' != '') {
+                        $('#aforo-check').prop('checked', true);
+                    } else {
+                        $('#aforo-check').prop('checked', false);
                     }
 
-                    form.classList.add('was-validated');
-                }, false);
+                    $('.eventview-container input').prop('disabled', true);
+                });
+
+                $('#aforo-check').on('change', function () {
+                    if ($('#aforo-check').prop('checked') == true) {
+                        $('#aforo-input-edit').prop('disabled', false);
+                    } else {
+                        $('#aforo-input-edit').prop('disabled', true);
+                        $('#aforo-input-edit').val('');
+                    }
+                });
+
+                $("#edit-event-form").submit(function (event) {
+                    // Obtener valores de las fechas de inicio y fin
+                    var fechaInicio = new Date($("#inicio-input").val());
+                    var fechaFin = new Date($("#fin-input").val());
+
+                    // Validar la fecha de fin
+                    if (fechaFin <= fechaInicio) {
+                        event.preventDefault(); // Evitar el envío del formulario
+                        alert("La fecha de fin debe ser posterior a la fecha de inicio");
+                    }
+                });
+
+                $('[data-bs-toggle="tooltip"]').tooltip();
+
+                $('.reload-button').on('click', function () {
+                    $('.bi-arrow-clockwise').toggleClass('rotate-diagonal-1');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
+                });
             });
-        });
-    </script>
-
-    <script>
-        $('.eventview-container .edit-button').on('click', function () {
-            $('.eventview-container .edit-button').prop('disabled', true);
-            $('#buttons-form').addClass('d-flex');
-            $('#buttons-form').show();
-
-            $('.eventview-container input').prop('disabled', false);
-            if ('@Model.eventTarget.Aforo' == '') {
-                $('#aforo-input-edit').prop('disabled', true);
-            } else {
-                $('#aforo-input-edit').prop('disabled', false);
-            }
-        });
-
-        $('.eventview-container .btn-cancelar').on('click', function () {
-            $('.eventview-container .edit-button').prop('disabled', false);
-            $('#buttons-form').removeClass('d-flex');
-            $('#buttons-form').hide();
-
-            $('#titulo-input-edit').val('@Model.eventTarget.Titulo');
-            $('#descripcion-input-edit').val('@Model.eventTarget.Descripcion');
-            $('#direccion-input-edit').val('@Model.eventTarget.Direccion');
-            $('#aforo-input-edit').val('@Model.eventTarget.Aforo');
-            $('#inicio-input-edit').val('@Model.eventTarget.FechaInicio.ToString("yyyy-MM-ddTHH:mm")');
-            $('#fin-input-edit').val('@Model.eventTarget.FechaFin.ToString("yyyy-MM-ddTHH:mm")');
-            if ('@Model.eventTarget.Aforo' != '') {
-                $('#aforo-check').prop('checked', true);
-            } else {
-                $('#aforo-check').prop('checked', false);
-            }
-
-            $('.eventview-container input').prop('disabled', true);
-        });
-
-        $('#aforo-check').on('change', function () {
-            if ($('#aforo-check').prop('checked') == true) {
-                $('#aforo-input-edit').prop('disabled', false);
-            } else {
-                $('#aforo-input-edit').prop('disabled', true);
-                $('#aforo-input-edit').val('');
-            }
-        });
-
-        $("#edit-event-form").submit(function (event) {
-            // Obtener valores de las fechas de inicio y fin
-            var fechaInicio = new Date($("#inicio-input").val());
-            var fechaFin = new Date($("#fin-input").val());
-
-            // Validar la fecha de fin
-            if (fechaFin <= fechaInicio) {
-                event.preventDefault(); // Evitar el envío del formulario
-                alert("La fecha de fin debe ser posterior a la fecha de inicio");
-            }
-        });
-    </script>
+        </script>
 
 
 </body>

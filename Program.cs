@@ -64,6 +64,12 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=User}/{action=Login}/{id?}");
+    
+    endpoints.MapControllerRoute(
+        name: "event",
+        pattern: "Home/Event/{id?}",
+        defaults: new { controller = "Home", action = "Event" }
+    );
 });
 app.MapControllers();
 

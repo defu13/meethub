@@ -148,7 +148,7 @@
                     @foreach (var evento in Model.EventList)
                     {
                         <div class="event-card-container col-lg-6-modify p-4 pt-0 justify-content-center d-flex-notimportant">
-                            <a href="Event/@evento.IdEvent" class="w-100 no-link-style event-link">
+                            <a href="@Url.Action("Event", "Home", new { id = evento.IdEvent })" class="w-100 no-link-style event-link">
                                 <div class="w-100 card event-card rounded-4 overflow-hidden slide-top">
                                     <!-- HEADER -->
                                     <div class="flex-column d-flex card-header bg-image position-relative"

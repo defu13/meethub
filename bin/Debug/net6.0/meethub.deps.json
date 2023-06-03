@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.0",
           "MySql.Data.EntityFrameworkCore": "8.0.22",
+          "PdfSharpCore": "1.3.56",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0"
         },
         "runtime": {
@@ -1602,6 +1603,24 @@
           }
         }
       },
+      "PdfSharpCore/1.3.56": {
+        "dependencies": {
+          "SharpZipLib": "1.3.3",
+          "SixLabors.Fonts": "1.0.0-beta17",
+          "SixLabors.ImageSharp": "1.0.4"
+        },
+        "runtime": {
+          "lib/net6.0/PdfSharpCore.dll": {
+            "assemblyVersion": "1.3.56.0",
+            "fileVersion": "1.3.56.0"
+          }
+        },
+        "resources": {
+          "lib/net6.0/de/PdfSharpCore.resources.dll": {
+            "locale": "de"
+          }
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/7.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "7.0.5",
@@ -1662,6 +1681,30 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
+      "SharpZipLib/1.3.3": {
+        "runtime": {
+          "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll": {
+            "assemblyVersion": "1.3.3.11",
+            "fileVersion": "1.3.3.11"
+          }
+        }
+      },
+      "SixLabors.Fonts/1.0.0-beta17": {
+        "runtime": {
+          "lib/netcoreapp3.1/SixLabors.Fonts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SixLabors.ImageSharp/1.0.4": {
+        "runtime": {
+          "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.4.0"
+          }
+        }
+      },
       "SSH.NET/2016.1.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.3.0",
@@ -3312,6 +3355,13 @@
       "path": "nuget.versioning/5.11.0",
       "hashPath": "nuget.versioning.5.11.0.nupkg.sha512"
     },
+    "PdfSharpCore/1.3.56": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-722Df/czLsmO3sqXLJ/rRg19a5NzkFds3WX6UuMGJ9KTDfthnV87uuGII+E9kp7iJx5XjdaiHv5Ky+jZmRxeIQ==",
+      "path": "pdfsharpcore/1.3.56",
+      "hashPath": "pdfsharpcore.1.3.56.nupkg.sha512"
+    },
     "Pomelo.EntityFrameworkCore.MySql/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3430,6 +3480,27 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
+    },
+    "SharpZipLib/1.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N8+hwhsKZm25tDJfWpBSW7EGhH/R7EMuiX+KJ4C4u+fCWVc1lJ5zg1u3S1RPPVYgTqhx/C3hxrqUpi6RwK5+Tg==",
+      "path": "sharpziplib/1.3.3",
+      "hashPath": "sharpziplib.1.3.3.nupkg.sha512"
+    },
+    "SixLabors.Fonts/1.0.0-beta17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qubgVovAoSR7vyv9tJ68gSzRIPWz7HBjTM9rwAaLjpcJ6T50arnX+GHAZcC0r2mVagyRMknCNda3DGoe8StUUQ==",
+      "path": "sixlabors.fonts/1.0.0-beta17",
+      "hashPath": "sixlabors.fonts.1.0.0-beta17.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-H2rPiEr2ddBOltOuqRYhpLBAsQXDAhbzMMhhuksnBG2oefup1MXMchALe7yYkKJksNbtxbZHKeM6dn/68I75qw==",
+      "path": "sixlabors.imagesharp/1.0.4",
+      "hashPath": "sixlabors.imagesharp.1.0.4.nupkg.sha512"
     },
     "SSH.NET/2016.1.0": {
       "type": "package",

@@ -1,5 +1,7 @@
 using meethub.Models;
 using Microsoft.AspNetCore.Mvc;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 
 namespace meethub.Controllers;
 
@@ -24,8 +26,9 @@ public class AssistantFormController : Controller
         return View(evento);
     }
 
-    public IActionResult Success()
+    public IActionResult Success(int EventId)
     {
+        ViewBag.EventId = EventId;
         return View();
     }
 
@@ -73,11 +76,36 @@ public class AssistantFormController : Controller
             _context.Assistants.Update(newAssistant);
             _context.SaveChanges();
 
-            return RedirectToAction("Success");
+            return RedirectToAction("Success", new { EventId = id });
         }
         catch (Exception e)
         {
             return RedirectToAction("Failed");
         }
+    }
+
+    public IActionResult GeneratePDF(int id)
+    {
+        // Crear un nuevo documento PDF
+        var document = new PdfDocument();
+
+        // Agregar una página al documento
+        var page = document.AddPage();
+
+        // Obtener el objeto XGraphics para dibujar en la página
+        var gfx = XGraphics.FromPdfPage(page);
+
+        // Dibujar contenido en la página
+        gfx.DrawString("Hola, mundo!", new XFont("Arial", 12), XBrushes.Black,
+            new XRect(10, 10, page.Width - 20, page.Height - 20),
+            XStringFormats.Center);
+
+        // Guardar el documento en un MemoryStream
+        var memoryStream = new MemoryStream();
+        document.Save(memoryStream);
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        // Devolver el PDF para mostrarlo en una ventana nueva del navegador
+        return File(memoryStream, "application/pdf", "entrada.pdf", true);
     }
 }

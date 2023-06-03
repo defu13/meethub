@@ -281,3 +281,8 @@ C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\obj\Debug\net6.0\refint\meethub.d
 C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\obj\Debug\net6.0\meethub.pdb
 C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\obj\Debug\net6.0\meethub.genruntimeconfig.cache
 C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\obj\Debug\net6.0\ref\meethub.dll
+C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\bin\Debug\net6.0\PdfSharpCore.dll
+C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\bin\Debug\net6.0\ICSharpCode.SharpZipLib.dll
+C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\bin\Debug\net6.0\SixLabors.Fonts.dll
+C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\bin\Debug\net6.0\SixLabors.ImageSharp.dll
+C:\Users\Yubal\Desktop\cosas clase\tfg\meethub\bin\Debug\net6.0\de\PdfSharpCore.resources.dll

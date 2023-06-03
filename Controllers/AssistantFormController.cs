@@ -9,10 +9,12 @@ namespace meethub.Controllers;
 public class AssistantFormController : Controller
 {
     private readonly MeethubdbContext _context;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
-    public AssistantFormController(MeethubdbContext context)
+    public AssistantFormController(MeethubdbContext context, IWebHostEnvironment hostEnvironment)
     {
         _context = context;
+        _hostEnvironment = hostEnvironment;
     }
 
     [Route("AssistantForm/Form/{id?}")]
@@ -77,7 +79,7 @@ public class AssistantFormController : Controller
             _context.Assistants.Update(newAssistant);
             _context.SaveChanges();
 
-            return RedirectToAction("Success", new { EventId = newAssistant.IdAssistant });
+            return RedirectToAction("Success", new { AssistantId = newAssistant.IdAssistant });
         }
         catch (Exception e)
         {
@@ -88,53 +90,75 @@ public class AssistantFormController : Controller
     public IActionResult GeneratePDF(int id)
     {
         var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == id);
-        var evento = _context.Events.FirstOrDefault(e => e.IdEvent == asistente.IdEvent);
 
-        // Crear un nuevo documento PDF
-        var document = new PdfDocument();
-
-        // Agregar una página al documento
-        var page = document.AddPage();
-
-        // Obtener el objeto XGraphics para dibujar en la página
-        var gfx = XGraphics.FromPdfPage(page);
-
-        // Definir las fuentes y estilos
-        var fontTitle = new XFont("Arial", 14, XFontStyle.Bold);
-        var fontContent = new XFont("Arial", 12);
-
-        // Escribir los datos del evento
-        gfx.DrawString("Datos del Evento:", fontTitle, XBrushes.Black, new XPoint(10, 10));
-        gfx.DrawString("Evento: " + evento.Titulo, fontContent, XBrushes.Black, new XPoint(10, 30));
-        gfx.DrawString("Fecha: " + evento.FechaInicio.ToString() + " - " + evento.FechaFin.ToString(), fontContent, XBrushes.Black, new XPoint(10, 50));
-        // Agregar más datos del evento según sea necesario
-
-        // Escribir los datos del asistente
-        gfx.DrawString("Datos del Asistente:", fontTitle, XBrushes.Black, new XPoint(10, 80));
-        gfx.DrawString("Nombre: " + asistente.Nombre, fontContent, XBrushes.Black, new XPoint(10, 100));
-        gfx.DrawString("Apellidos: " + asistente.Apellidos, fontContent, XBrushes.Black, new XPoint(10, 120));
-        // Agregar más datos del asistente según sea necesario
-
-        // Obtener el código QR del asistente
-        var qrCodeUrl = asistente.QrCode;
-
-        // Cargar la imagen del código QR desde la URL
-        using (var webClient = new WebClient())
+        if (asistente != null)
         {
-            var qrImageData = webClient.DownloadData(qrCodeUrl);
-            using (var qrImageStream = new MemoryStream(qrImageData))
+            var evento = _context.Events.FirstOrDefault(e => e.IdEvent == asistente.IdEvent);
+            if (evento != null)
             {
-                var qrImage = XImage.FromStream(() => qrImageStream);
-                gfx.DrawImage(qrImage, new XPoint(10, 150));
+                try
+                {
+                    // Crear un nuevo documento PDF
+                    var document = new PdfDocument();
+
+                    // Agregar una página al documento
+                    var page = document.AddPage();
+
+                    // Obtener el objeto XGraphics para dibujar en la página
+                    var gfx = XGraphics.FromPdfPage(page);
+
+                    // Definir las fuentes y estilos
+                    var fontTitle = new XFont("Arial", 14, XFontStyle.Bold);
+                    var fontContent = new XFont("Arial", 12);
+
+                    gfx.TranslateTransform(0, 20);
+                    // Logo
+                    string logoPath = Path.Combine(_hostEnvironment.WebRootPath, "images", "logo.png");
+                    XImage logoImage = XImage.FromFile(logoPath);
+                    double logoWidth = 200;
+                    double logoHeight = logoWidth * (logoImage.PixelHeight / (double)logoImage.PixelWidth);
+                    gfx.DrawImage(logoImage, new XRect(10, 10, logoWidth, logoHeight));
+
+                    gfx.TranslateTransform(0, 80);
+                    gfx.DrawString("Datos del Evento:", fontTitle, XBrushes.Black, new XPoint(10, 10));
+                    gfx.DrawString("Evento: " + evento.Titulo, fontContent, XBrushes.Black, new XPoint(10, 30));
+                    gfx.DrawString("Dirección: " + evento.Direccion, fontContent, XBrushes.Black, new XPoint(10, 50));
+                    gfx.DrawString("Fecha: " + evento.FechaInicio.ToString("dd/MM/yyyy HH:mm") + " - " + evento.FechaFin.ToString("dd/MM/yyyy HH:mm"), fontContent, XBrushes.Black, new XPoint(10, 70));
+
+                    // Escribir los datos del asistente
+                    gfx.DrawString("Datos del Asistente:", fontTitle, XBrushes.Black, new XPoint(10, 100));
+                    gfx.DrawString("Nombre: " + asistente.Nombre, fontContent, XBrushes.Black, new XPoint(10, 120));
+                    gfx.DrawString("Apellidos: " + asistente.Apellidos, fontContent, XBrushes.Black, new XPoint(10, 140));
+                    // Agregar más datos del asistente según sea necesario
+
+                    // Obtener el código QR del asistente
+                    var qrCodeUrl = asistente.QrCode;
+
+                    // Cargar la imagen del código QR desde la URL
+                    using (var webClient = new WebClient())
+                    {
+                        var qrImageData = webClient.DownloadData(qrCodeUrl);
+                        using (var qrImageStream = new MemoryStream(qrImageData))
+                        {
+                            var qrImage = XImage.FromStream(() => qrImageStream);
+                            gfx.DrawImage(qrImage, new XPoint(10, 170));
+                        }
+                    }
+
+                    // Guardar el documento en un MemoryStream
+                    var memoryStream = new MemoryStream();
+                    document.Save(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    // Devolver el PDF para mostrarlo en una ventana nueva del navegador
+                    return File(memoryStream, "application/pdf", "entrada.pdf", true);
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Success", new { AssistantId = asistente.IdAssistant });
+                }
             }
         }
-
-        // Guardar el documento en un MemoryStream
-        var memoryStream = new MemoryStream();
-        document.Save(memoryStream);
-        memoryStream.Seek(0, SeekOrigin.Begin);
-
-        // Devolver el PDF para mostrarlo en una ventana nueva del navegador
-        return File(memoryStream, "application/pdf", "entrada.pdf", true);
+        return RedirectToAction("Index", "home");
     }
 }

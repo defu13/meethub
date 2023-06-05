@@ -498,21 +498,26 @@
         <script>
             // GENERAR ESCANER QR
             $(document).ready(function () {
-                const video = document.getElementById('qr-video');
+                const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
 
-                const scanner = new QrScanner(video, result => {
-                    console.log('Código QR escaneado:', result);
-                    // Realizar acciones con el resultado del escaneo
-                });
+                scanButton.addEventListener('click', function () {
+                    // Solicitar el permiso de la cámara
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function (stream) {
+                            // Permiso de la cámara concedido
+                            //videoElement.srcObject = stream; // Asigna el stream de la cámara al elemento de video
 
-                scanButton.addEventListener('click', () => {
-                    scanner.start().then(() => {
-                        // Permiso de la cámara concedido
-                        console.log('Permiso permitido');
-                    }).catch(error => {
-                        console.error('Error al acceder a la cámara:', error);
-                    });
+                            // Iniciar el escaneo de QR
+                            const scanner = new QrScanner(videoElement, result => {
+                                console.log('Código QR escaneado:', result);
+                                // Realizar acciones con el resultado del escaneo
+                            });
+                            scanner.start();
+                        })
+                        .catch(function (error) {
+                            console.error('Error al acceder a la cámara:', error);
+                        });
                 });
             });
         </script>

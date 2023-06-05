@@ -108,8 +108,13 @@ public class AssistantFormController : Controller
                     var gfx = XGraphics.FromPdfPage(page);
 
                     // Definir las fuentes y estilos
-                    var fontTitle = new XFont("Arial", 14, XFontStyle.Bold);
-                    var fontContent = new XFont("Arial", 12);
+                    // var regularFontPath = Path.Combine(_hostEnvironment.WebRootPath, "fonts", "Mont-Regular.otf");
+                    // var boldFontPath = Path.Combine(_hostEnvironment.WebRootPath, "fonts", "Mont-Bold.otf");
+
+                    int fontSize = 12;
+
+                    var fontTitle = new XFont("Tahoma", fontSize, XFontStyle.Bold);
+                    var fontContent = new XFont("Tahoma", fontSize);
 
                     gfx.TranslateTransform(0, 20);
                     // Logo
@@ -129,7 +134,6 @@ public class AssistantFormController : Controller
                     gfx.DrawString("Datos del Asistente:", fontTitle, XBrushes.Black, new XPoint(10, 100));
                     gfx.DrawString("Nombre: " + asistente.Nombre, fontContent, XBrushes.Black, new XPoint(10, 120));
                     gfx.DrawString("Apellidos: " + asistente.Apellidos, fontContent, XBrushes.Black, new XPoint(10, 140));
-                    // Agregar más datos del asistente según sea necesario
 
                     // Obtener el código QR del asistente
                     var qrCodeUrl = asistente.QrCode;
@@ -141,7 +145,29 @@ public class AssistantFormController : Controller
                         using (var qrImageStream = new MemoryStream(qrImageData))
                         {
                             var qrImage = XImage.FromStream(() => qrImageStream);
-                            gfx.DrawImage(qrImage, new XPoint(10, 170));
+
+                            // Especificar el tamaño de la página (A4 estándar)
+                            var pageWidth = XUnit.FromCentimeter(21);
+                            var pageHeight = XUnit.FromCentimeter(29.7);
+
+                            // Calcular el tamaño y la posición de la imagen centrada
+                            var maxWidth = pageWidth - XUnit.FromCentimeter(2);  // Ancho máximo de la página con un margen de 1 cm en cada lado
+                            var maxHeight = pageHeight - XUnit.FromCentimeter(10);  // Alto máximo de la página con un margen de 5 cm en la parte superior
+
+                            var aspectRatio = (double)qrImage.PixelWidth / qrImage.PixelHeight;
+                            var width = Math.Min(maxWidth, qrImage.PixelWidth);
+                            var height = width / aspectRatio;
+
+                            if (height > maxHeight)
+                            {
+                                height = maxHeight;
+                                width = height * aspectRatio;
+                            }
+
+                            var x = (pageWidth - width) / 2;  // Posición x centrada
+                            var y = XUnit.FromCentimeter(5) + (maxHeight - height) / 2;  // Posición y centrada
+
+                            gfx.DrawImage(qrImage, x, y, width, height);
                         }
                     }
 

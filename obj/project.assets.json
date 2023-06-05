@@ -11646,23 +11646,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ydefuentec\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Yubal\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ydefuentec\\projects\\meethub\\meethub.csproj",
+      "projectUniqueName": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\meethub.csproj",
       "projectName": "meethub",
-      "projectPath": "C:\\Users\\ydefuentec\\projects\\meethub\\meethub.csproj",
-      "packagesPath": "C:\\Users\\ydefuentec\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ydefuentec\\projects\\meethub\\obj\\",
+      "projectPath": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\meethub.csproj",
+      "packagesPath": "C:\\Users\\Yubal\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yubal\\Desktop\\cosas clase\\tfg\\meethub\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ydefuentec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yubal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11670,6 +11671,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11742,7 +11744,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

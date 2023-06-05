@@ -41,15 +41,28 @@
         </div>
     </div>
 
-    
 
     <div class="eventview-container w-100 h-100 d-flex overflow-y-auto" style="background-color: #e7e9ec;">
         @* INFO DE EVENTO *@
         <div class="info-event-container justify-content-start d-flex p-3 flex-column">
-            <div class="d-flex w-100 backbutton-container justify-content-start pb-3 pe-3">
+            <div class="d-flex w-100 backbutton-container justify-content-start pb-3">
                 <a href="@Url.Action("Index", "Home")"
-                    class="btn p-0 rounded-5 d-flex align-items-center justify-content-center"
+                    class="btn p-0 rounded-5 d-flex align-items-center justify-content-center me-auto"
                     style="width: 50px; height: 50px;"><i class="fs-2 bi bi-chevron-left"></i></a>
+
+                <button class="btn btn-success d-none ms-auto align-items-center justify-content-center rounded-4"
+                    id="qr-button" type="button" data-bs-toggle="collapse" data-bs-target="#qr-container"
+                    aria-expanded="false" aria-controls="qr-container">
+                    Escanear
+                    <i class="bi bi-qr-code-scan ms-2"></i>
+                </button>
+
+            </div>
+
+            <div class="collapse" id="qr-container">
+                <div class="card card-body p-3 border rounded-4 bg-light mb-2">
+                    <video id="qr-video" class="w-100 h-auto"></video>
+                </div>
             </div>
 
             <div class="d-flex flex-column w-100 eventdata-container p-3 border rounded-4 bg-light">
@@ -247,7 +260,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">¿Estás seguro?</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p>Se eliminará el asistente seleccionado.</p>
@@ -309,6 +323,7 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/lib/clipboardjs/clipboard.min.js"></script>
+        <script src="~/lib/qr-scanner/qr-scanner.umd.min.js"></script>
         <script src="~/js/myscripts.js"></script>
 
         @if (TempData["ToastMessage"] != null)
@@ -363,6 +378,31 @@
                         alert('Error al comunicarse con el servidor.');
                     }
                 });
+            }
+
+            function getDateFromFormattedString(dateString) {
+                var parts = dateString.split(/[\s/:]+/);
+                var day = parseInt(parts[0], 10);
+                var month = parseInt(parts[1], 10) - 1;
+                var year = parseInt(parts[2], 10);
+                var hour = parseInt(parts[3], 10);
+                var minute = parseInt(parts[4], 10);
+
+                return new Date(year, month, day, hour, minute);
+            }
+
+            var isProgress = false;
+            function checkProgress() {
+                var currentDate = new Date();
+                var fechaInicio = getDateFromFormattedString("@Model.eventTarget.FechaInicio.ToString("dd/MM/yyyy HH:mm")");
+                var fechaFin = getDateFromFormattedString("@Model.eventTarget.FechaFin.ToString("dd/MM/yyyy HH:mm")");
+
+                if (currentDate >= fechaInicio && currentDate <= fechaFin) {
+                    isProgress = true;
+                    console.log("en curso");
+                } else {
+                    console.log("no en curso");
+                }
             }
 
             $(document).ready(() => {
@@ -444,6 +484,35 @@
                     setTimeout(function () {
                         location.reload();
                     }, 500);
+                });
+
+                // MOSTRAR BOTON ESCANER QR
+                checkProgress();
+                if (isProgress) {
+                    $("#qr-button").removeClass('d-none');
+                    $('#qr-button').addClass('d-flex');
+                }
+            });
+        </script>
+
+        <script>
+            // GENERAR ESCANER QR
+            $(document).ready(function () {
+                const video = document.getElementById('qr-video');
+                const scanButton = document.getElementById('qr-button');
+
+                const scanner = new QrScanner(video, result => {
+                    console.log('Código QR escaneado:', result);
+                    // Realizar acciones con el resultado del escaneo
+                });
+
+                scanButton.addEventListener('click', () => {
+                    scanner.start().then(() => {
+                        // Permiso de la cámara concedido
+                        console.log('Permiso permitido');
+                    }).catch(error => {
+                        console.error('Error al acceder a la cámara:', error);
+                    });
                 });
             });
         </script>

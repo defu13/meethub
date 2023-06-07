@@ -376,6 +376,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult confirmarAsistente(int result, int idEvent)
     {
+        
         try
         {
             var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == result && a.IdEvent == idEvent);

@@ -51,7 +51,7 @@ app.Use(async (context, next) =>
         var isAuthenticated = context.User.Identity.IsAuthenticated;
         if (isAuthenticated)
         {
-            context.Response.Redirect("/meethub/Home/Index");
+            context.Response.Redirect("/Home/Index");
             return;
         }
     }

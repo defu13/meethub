@@ -324,20 +324,33 @@
             </div>
         </div>
 
-        <div class="position-fixed bottom-0 end-0 p-3">
-            <div id="toast-prueba" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <i class="bi bi-person-fill-check me-2" style="font-size: 20px;"></i>
-                    <strong class="me-auto">Invitación</strong>
-                    <small>Aviso</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Qr escaneado
+        <div class="modal fade" id="qr-modal-success" tabindex="-1" aria-labelledby="qr-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="qr-modalLabel">Alerta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex">
+                        <i class="bi bi-check-circle ms-auto text-success"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="modal fade" id="qr-modal-error" tabindex="-1" aria-labelledby="qr-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="qr-modalLabel">Alerta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <i class="bi bi-x-circle ms-auto text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- SCRIPTS -->
         <script src="~/lib/fontawesome/fontawesome.js"></script>
@@ -515,12 +528,32 @@
 
         <script>
             // GENERAR ESCANER QR
+            function confirmarAsistente(result) {
+                scanner.stop();
+                $.ajax({
+                    url: "@Url.Action("confirmarAsistente", "Home")",
+                    type: 'POST',
+                    data: { result: result, idEvent: "@Model.eventTarget.IdEvent" },
+                    success: function (response) {
+                        console.log('Respuesta del servidor:', response);
+                        if (response.success) {
+                            $('#qr-modal-success .modal-body').text(response.message);
+                            $('#qr-modal-success').modal('show');
+                        } else {
+                            $('#qr-modal-error .modal-body').text(response.message);
+                            $('#qr-modal-error').modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        console.log('Error en la petición AJAX:', error);
+                    }
+                });
+            }
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
                 const scanner = new QrScanner(videoElement, result => {
-                    console.log('Código QR escaneado:', result);
-                    $('#toast-prueba').toast('show');
+                    confirmarAsistente(result);
                 }, {
                     highlightScanRegion: true,
                     highlightCodeOutline: true
@@ -535,6 +568,10 @@
                     scanner.stop();
                     $('#qr-container').collapse('hide');
                     $('#qr-button').prop('disabled', false);
+                });
+
+                $('#qr-modal-success, #qr-modal-error').on('hidden.bs.modal', function () {
+                    scanner.start();
                 });
             });
         </script>

@@ -372,4 +372,38 @@ public class HomeController : Controller
         }
 
     }
+
+    [HttpPost]
+    public IActionResult confirmarAsistente(int result, int idEvent)
+    {
+        try
+        {
+            var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == result && a.IdEvent == idEvent);
+            if (asistente != null)
+            {
+                if (asistente.Confirmado == true)
+                {
+                    return Json(new { success = false, message = "Este código QR ya ha sido confirmado." });
+                }
+                else
+                {
+                    asistente.Confirmado = true;
+                    _context.Assistants.Update(asistente);
+                    _context.SaveChanges();
+                    return Json(new { success = true, message = "Asistente confirmado." });
+                }
+            }
+            else
+            {
+                return Json(new { success = false, message = "Asistente no encontrado o QR inválido." });
+            }
+        }
+        catch (Exception e)
+        {
+            return Json(new { success = false, message = "Error al confirmar el asistente." });
+        }
+
+    }
+
+
 }

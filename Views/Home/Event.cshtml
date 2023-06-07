@@ -516,7 +516,6 @@
             // GENERAR ESCANER QR
 
             function confirmarAsistente(result) {
-                scanner.stop();
                 $.ajax({
                     url: "@Url.Action("confirmarAsistente", "Home")",
                     type: 'POST',
@@ -540,8 +539,13 @@
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
-                const scanner = new QrScanner(videoElement, function(result) {
-                    confirmarAsistente(result)
+                var scanningEnabled = true;
+
+                const scanner = new QrScanner(videoElement, result => {
+                    if (scanningEnabled) {
+                        scanningEnabled = false;
+                        confirmarAsistente(result)
+                    }
                 }, {
                     highlightScanRegion: true,
                     highlightCodeOutline: true
@@ -549,16 +553,19 @@
 
                 scanButton.addEventListener('click', function () {
                     $('#qr-button').prop('disabled', true);
+                    scanningEnabled = true;
                     scanner.start();
                 });
 
                 $('.close-cam-button').on('click', function () {
+                    scanningEnabled = false;
                     scanner.stop();
                     $('#qr-container').collapse('hide');
                     $('#qr-button').prop('disabled', false);
                 });
 
                 $('#qr-modal-success, #qr-modal-error').on('hidden.bs.modal', function () {
+                    scanningEnabled = true;
                     scanner.start();
                 });
             });

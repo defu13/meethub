@@ -9,61 +9,61 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = meethub
 build_property.RootNamespace = meethub
-build_property.ProjectDir = C:\Users\ydefuentec\projects\meethub\
+build_property.ProjectDir = c:\Users\Yubal\Desktop\cosas clase\tfg\meethub\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ydefuentec\projects\meethub
+build_property.MSBuildProjectDirectory = c:\Users\Yubal\Desktop\cosas clase\tfg\meethub
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/AssistantForm/Failed.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/AssistantForm/Failed.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaXN0YW50Rm9ybVxGYWlsZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/AssistantForm/Form.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/AssistantForm/Form.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaXN0YW50Rm9ybVxGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/AssistantForm/Success.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/AssistantForm/Success.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNzaXN0YW50Rm9ybVxTdWNjZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Home/Event.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Home/Event.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFdmVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Home/Index.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Home/_Home.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Home/_Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfSG9tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Home/_Profile.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Home/_Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Home/_Stats.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Home/_Stats.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfU3RhdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/User/Login.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/_ViewImports.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/_ViewStart.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ydefuentec/projects/meethub/Views/Shared/_Layout.cshtml]
+[c:/Users/Yubal/Desktop/cosas clase/tfg/meethub/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-2q6rmoxkpk

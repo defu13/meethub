@@ -157,7 +157,7 @@
                 });
             }
 
-            cargarVista("/Home/Home");
+            cargarVista("/meethub/Home/Home");
 
             $('.menu-button').on('click', (event) => {
 
@@ -171,19 +171,19 @@
                     $('.menu-button-user svg.icon-empty').addClass('d-none');
                     console.log('user');
                     // $('#contenedor-paginas').load('Profile');
-                    cargarVista("/Home/Profile");
+                    cargarVista("/meethub/Home/Profile");
                 } else if ($(event.target).closest('.menu-button').hasClass('menu-button-barchart')) {
                     $('.menu-button-barchart svg.icon-fill').removeClass('d-none');
                     $('.menu-button-barchart svg.icon-empty').addClass('d-none');
                     console.log('stats');
                     // $('#contenedor-paginas').load('Stats');
-                    cargarVista("/Home/Stats");
+                    cargarVista("/meethub/Home/Stats");
                 } else if ($(event.target).closest('.menu-button').hasClass('menu-button-home')) {
                     $('.menu-button-home svg.icon-fill').removeClass('d-none');
                     $('.menu-button-home svg.icon-empty').addClass('d-none');
                     console.log('home');
                     // $('#contenedor-paginas').load('Home');
-                    cargarVista("/Home/Home");
+                    cargarVista("/meethub/Home/Home");
                 }
             });
         });

@@ -521,7 +521,10 @@
                 const scanner = new QrScanner(videoElement, result => {
                     console.log('Código QR escaneado:', result);
                     $('#toast-prueba').toast('show');
-                });;
+                },
+                    highlightScanRegion: true,
+                    highlightCodeOutline: true
+                );;
 
                 scanButton.addEventListener('click', function () {
                     $('#qr-button').prop('disabled', true);

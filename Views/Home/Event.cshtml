@@ -214,7 +214,7 @@
                         <div class="d-flex w-100" style="height: 45px; min-height: 45px;">
                             @if (Model.eventTarget.Tipo == "inscripcion")
                             {
-                                <div class="d-flex name-container h-100 align-items-center w-100">
+                                <div class="d-flex name-container h-100 align-items-center" style="width: calc(100% - 80px);">
                                     <span class="fw-semibold text-truncate text-start pe-2" data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         data-bs-title="@assistant.Nombre @assistant.Apellidos">@assistant.Nombre
@@ -222,6 +222,17 @@
                                     <span class="text-secondary text-truncate text-end" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-title="@assistant.Email">/
                                         @assistant.Email</span>
+                                </div>
+                                <div class="ms-2 d-flex confirm-container h-100 gap-2 align-items-center justify-content-end"
+                                    style="width: 80px;">
+                                    @if (assistant.Confirmado == true)
+                                    {
+                                        <button
+                                            class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
+                                            style="width: 32px; height: 32px;" disabled>
+                                            <i class="bi bi-check" style="font-size: 34px;"></i>
+                                        </button>
+                                    }
                                 </div>
                             }
                             @if (Model.eventTarget.Tipo == "invitacion")

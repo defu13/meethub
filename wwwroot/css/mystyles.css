@@ -288,3 +288,31 @@
 .confirm-container button:not(:disabled):hover{
     background-color: #e7e7e7 !important;
 }
+
+.back-button:hover .back-icon {
+    animation: slide-left-icon 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  
+  .back-button .back-icon {
+    animation: slide-right-icon 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  
+  @keyframes slide-left-icon {
+    0% {
+      transform: translateX(0);
+    }
+  
+    100% {
+      transform: translateX(-4px);
+    }
+  }
+  
+  @keyframes slide-right-icon {
+    0% {
+      transform: translateX(-4px);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }

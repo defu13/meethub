@@ -26,6 +26,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
+app.UsePathBase("/meethub");
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -46,7 +48,7 @@ app.UseAuthorization();
 // Redirigir al usuario a home en caso de tener sesion iniciada
 app.Use(async (context, next) =>
 {
-    if (context.Request.Path == "/")
+    if (context.Request.Path == "/meethub")
     {
         var isAuthenticated = context.User.Identity.IsAuthenticated;
         if (isAuthenticated)

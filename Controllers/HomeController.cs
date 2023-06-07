@@ -379,7 +379,7 @@ public class HomeController : Controller
         
         try
         {
-            var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == result && a.IdEvent == idEvent);
+            var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == result && a.IdEvent == idEvent && a.Aprobado == true);
             if (asistente != null)
             {
                 if (asistente.Confirmado == true)

@@ -324,7 +324,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="qr-modal-success" tabindex="-1" aria-labelledby="qr-modalLabel" aria-hidden="true">
+        <div class="modal fade" id="qr-modal" tabindex="-1" aria-labelledby="qr-modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -332,21 +332,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body d-flex">
-                        <i class="bi bi-check-circle ms-auto text-success"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="qr-modal-error" tabindex="-1" aria-labelledby="qr-modalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="qr-modalLabel">Alerta</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <i class="bi bi-x-circle ms-auto text-danger"></i>
+                        
                     </div>
                 </div>
             </div>
@@ -528,6 +514,7 @@
 
         <script>
             // GENERAR ESCANER QR
+
             function confirmarAsistente(result) {
                 scanner.stop();
                 $.ajax({
@@ -537,12 +524,12 @@
                     success: function (response) {
                         console.log('Respuesta del servidor:', response);
                         if (response.success) {
-                            $('#qr-modal-success .modal-body').text(response.message);
-                            $('#qr-modal-success').modal('show');
+                            var mensajeModal = $('<label class"me-auto text-success fw-semibold fs-5">' + response.message + '</label><i class="bi bi-check-circle ms-auto text-success" style="font-size: 40px;"></i>');
                         } else {
-                            $('#qr-modal-error .modal-body').text(response.message);
-                            $('#qr-modal-error').modal('show');
+                            var mensajeModal = $('<label class"me-auto text-danger fw-semibold fs-5">' + response.message + '</label><i class="bi bi-x-circle ms-auto text-danger" style="font-size: 40px;"></i>');
                         }
+                        $('#qr-modal .modal-body').append(mensajeModal);
+                        $('#qr-modal').modal('show');
                     },
                     error: function (error) {
                         console.log('Error en la petición AJAX:', error);
@@ -552,9 +539,7 @@
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
-                const scanner = new QrScanner(videoElement, result => {
-                    confirmarAsistente(result);
-                }, {
+                const scanner = new QrScanner(videoElement, result => confirmarAsistente(result), {
                     highlightScanRegion: true,
                     highlightCodeOutline: true
                 });

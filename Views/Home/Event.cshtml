@@ -503,7 +503,7 @@
 
                 scanButton.addEventListener('click', function () {
                     // Solicitar el permiso de la cámara
-                    navigator.mediaDevices.getUserMedia({ video: true })
+                    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
                         .then(function (stream) {
                             // Permiso de la cámara concedido
                             //videoElement.srcObject = stream; // Asigna el stream de la cámara al elemento de video

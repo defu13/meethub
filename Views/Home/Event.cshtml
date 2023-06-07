@@ -420,9 +420,6 @@
 
                 if (currentDate >= fechaInicio && currentDate <= fechaFin) {
                     isProgress = true;
-                    console.log("en curso");
-                } else {
-                    console.log("no en curso");
                 }
             }
 
@@ -521,7 +518,7 @@
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
-                const scanner;
+                const scanner = null;
 
                 scanButton.addEventListener('click', function () {
                     $('#qr-button').prop('disabled', true);

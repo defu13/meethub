@@ -41,6 +41,13 @@ public class AssistantFormController : Controller
     }
 
     [HttpPost]
+    public IActionResult DeleteTempData(string key)
+    {
+        TempData.Remove(key);
+        return Ok();
+    }
+
+    [HttpPost]
     public async Task<IActionResult> RegisterToEvent(String nombre, String apellidos, String email, String telefono, int id)
     {
         // COMPROBAR TIPO DE EVENTO
@@ -67,23 +74,31 @@ public class AssistantFormController : Controller
             QrCode = ""
         };
 
-        try
-        {
-            // Guardar el nuevo asistente en la base de datos
-            _context.Assistants.Add(newAssistant);
-            _context.SaveChanges();
+        var asistenteRepetido = _context.Assistants.FirstOrDefault(a => a.Email == newAssistant.Email && a.IdEvent == id);
 
-            // CREACION DE QR
-            String qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|3&chl=" + newAssistant.IdAssistant;
-            newAssistant.QrCode = qrUrl;
-            _context.Assistants.Update(newAssistant);
-            _context.SaveChanges();
-
-            return RedirectToAction("Success", new { AssistantId = newAssistant.IdAssistant });
-        }
-        catch (Exception e)
+        if (asistenteRepetido == null)
         {
-            return RedirectToAction("Failed");
+            try
+            {
+                // Guardar el nuevo asistente en la base de datos
+                _context.Assistants.Add(newAssistant);
+                _context.SaveChanges();
+
+                // CREACION DE QR
+                String qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|3&chl=" + newAssistant.IdAssistant;
+                newAssistant.QrCode = qrUrl;
+                _context.Assistants.Update(newAssistant);
+                _context.SaveChanges();
+
+                return RedirectToAction("Success", new { AssistantId = newAssistant.IdAssistant });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Failed");
+            }
+        }else{
+            TempData["InvalidEmail"] = "Este email ya ha sido registrado a este evento.";
+            return RedirectToAction("Form", new {id = id});
         }
     }
 

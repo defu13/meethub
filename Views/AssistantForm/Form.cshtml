@@ -102,11 +102,47 @@
         </div>
     </div>
 
+    <div class="modal fade" id="InvalidEmailModal" tabindex="-1" aria-labelledby="InvalidEmailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="InvalidEmailModalLabel">Alerta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @TempData["InvalidEmail"]
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script src="~/lib/fontawesome/fontawesome.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/myscripts.js"></script>
+
+    @if (TempData["InvalidEmail"] != null)
+    {
+        <script>
+            function deleteTempData(key) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteTempData", "AssistantForm")",
+                    data: { key: key },
+                    success: function () { },
+                    error: function () { }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#InvalidEmailModal').modal('show');
+                deleteTempData("InvalidEmail");
+            });
+        </script>
+    }
+
     <script>
         $(document).ready(() => {
             'use strict'

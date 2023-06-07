@@ -523,9 +523,9 @@
                     success: function (response) {
                         console.log('Respuesta del servidor:', response);
                         if (response.success) {
-                            var mensajeModal = $('<label class="me-auto text-success fw-semibold fs-5">' + response.message + '</label><i class="bi bi-check-circle ms-auto text-success" style="font-size: 40px;"></i>');
+                            var mensajeModal = $('<label class="me-auto text-success fw-semibold fs-5 d-flex align-items-center">' + response.message + '</label><i class="bi bi-check-circle ms-auto text-success" style="font-size: 40px;"></i>');
                         } else {
-                            var mensajeModal = $('<label class="me-auto text-danger fw-semibold fs-5">' + response.message + '</label><i class="bi bi-x-circle ms-auto text-danger" style="font-size: 40px;"></i>');
+                            var mensajeModal = $('<label class="me-auto text-danger fw-semibold fs-5 d-flex align-items-center">' + response.message + '</label><i class="bi bi-x-circle ms-auto text-danger" style="font-size: 40px;"></i>');
                         }
                         $('#qr-modal .modal-body').empty();
                         $('#qr-modal .modal-body').append(mensajeModal);
@@ -544,7 +544,10 @@
                 const scanner = new QrScanner(videoElement, result => {
                     if (scanningEnabled) {
                         scanningEnabled = false;
-                        confirmarAsistente(result)
+                        $('#qr-modal .modal-body').empty();
+                        $('#qr-modal .modal-body').append(result);
+                        $('#qr-modal').modal('show');
+                        @* confirmarAsistente(result); *@
                     }
                 }, {
                     highlightScanRegion: true,
@@ -564,7 +567,7 @@
                     $('#qr-button').prop('disabled', false);
                 });
 
-                $('#qr-modal-success, #qr-modal-error').on('hidden.bs.modal', function () {
+                $('#qr-modal').on('hidden.bs.modal', function () {
                     scanningEnabled = true;
                     scanner.start();
                 });

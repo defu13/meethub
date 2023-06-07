@@ -17,7 +17,7 @@ public class AssistantFormController : Controller
         _hostEnvironment = hostEnvironment;
     }
 
-    [Route("AssistantForm/Form/{id?}")]
+    [Route("/meethub/AssistantForm/Form/{id?}")]
     public IActionResult Form(int id)
     {
         var evento = _context.Events.FirstOrDefault(e => e.IdEvent == id);

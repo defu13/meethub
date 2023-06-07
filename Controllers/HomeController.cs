@@ -110,7 +110,7 @@ public class HomeController : Controller
         return View();
     }
 
-    [Route("Home/Event/{id?}")]
+    [Route("/meethub/Home/Event/{id?}")]
     public IActionResult Event(int id)
     {
         var evento = _context.Events.FirstOrDefault(e => e.IdEvent == id);

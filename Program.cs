@@ -19,8 +19,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = ".AspNetCore.Session";
-        options.LoginPath = "/User/Login";
-        options.LogoutPath = "/Home/Logout";
+        options.LoginPath = "/meethub/User/Login";
+        options.LogoutPath = "/meethub/Home/Logout";
         options.SlidingExpiration = true;
     });
 
@@ -29,7 +29,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/meethub/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -51,7 +51,7 @@ app.Use(async (context, next) =>
         var isAuthenticated = context.User.Identity.IsAuthenticated;
         if (isAuthenticated)
         {
-            context.Response.Redirect("/Home/Index");
+            context.Response.Redirect("/meethub/Home/Index");
             return;
         }
     }
@@ -67,7 +67,7 @@ app.UseEndpoints(endpoints =>
     
     endpoints.MapControllerRoute(
         name: "event",
-        pattern: "Home/Event/{id?}",
+        pattern: "/meethub/Home/Event/{id?}",
         defaults: new { controller = "Home", action = "Event" }
     );
 });

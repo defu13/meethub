@@ -252,11 +252,14 @@
                                     }
                                     else
                                     {
-                                        <button
-                                            class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
-                                            style="width: 32px; height: 32px;" disabled>
-                                            <i class="bi bi-check" style="font-size: 34px;"></i>
-                                        </button>
+                                        @if (assistant.Confirmado == true)
+                                        {
+                                            <button
+                                                class="btn bg-transparent p-0 d-flex align-items-center justify-content-center confirm-button"
+                                                style="width: 32px; height: 32px;" disabled>
+                                                <i class="bi bi-check" style="font-size: 34px;"></i>
+                                            </button>
+                                        }
                                     }
                                 </div>
 

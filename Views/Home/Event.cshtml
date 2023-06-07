@@ -516,7 +516,7 @@
             // GENERAR ESCANER QR
 
             function confirmarAsistente(result) {
-                @* scanner.stop(); *@
+                scanner.stop();
                 $.ajax({
                     url: "@Url.Action("confirmarAsistente", "Home")",
                     type: 'POST',

@@ -62,8 +62,10 @@
             <div class="collapse" id="qr-container">
                 <div class="card card-body p-3 border rounded-4 bg-light mb-2 d-flex flex-column">
                     <div class="d-flex w-100 align-items-start justify-content-start">
-                        <button class="btn bg-transparent d-flex align-items-center justify-content-center close-cam-button">
-                            <i class="bi bi-x"></i>
+                        <button
+                            class="mb-2 p-0 btn bg-transparent d-flex align-items-center justify-content-center close-cam-button"
+                            style="height: 40px; width: 40px;">
+                            <i class="bi bi-x" style="font-size: 40px;"></i>
                         </button>
                     </div>
                     <video id="qr-video" class="w-100 h-auto"></video>
@@ -322,6 +324,20 @@
             </div>
         </div>
 
+        <div class="position-fixed bottom-0 end-0 p-3">
+            <div id="toast-prueba" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="bi bi-person-fill-check me-2" style="font-size: 20px;"></i>
+                    <strong class="me-auto">Invitación</strong>
+                    <small>Aviso</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Qr escaneado
+                </div>
+            </div>
+        </div>
+
 
         <!-- SCRIPTS -->
         <script src="~/lib/fontawesome/fontawesome.js"></script>
@@ -505,29 +521,18 @@
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
+                const scanner;
 
                 scanButton.addEventListener('click', function () {
-                $('#qr-button').prop('disabled', true);
-                    // Solicitar el permiso de la cámara
-            @* navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                        .then(function (stream) {
-                        // Permiso de la cámara concedido
-                        //videoElement.srcObject = stream; // Asigna el stream de la cámara al elemento de video
-
-                        // Iniciar el escaneo de QR
-
-                        })
-                        .catch(function (error) {
-                        console.error('Error al acceder a la cámara:', error);
-                        }); *@
-                        const scanner = new QrScanner(videoElement, result => {
-                            console.log('Código QR escaneado:', result);
-                            $('#assistant-toast').show();
-                        });
+                    $('#qr-button').prop('disabled', true);
+                    scanner = new QrScanner(videoElement, result => {
+                        console.log('Código QR escaneado:', result);
+                        $('#toast-prueba').toast('show');
+                    });
                     scanner.start();
                 });
 
-                $('.close-cam-button').on('click', function(){
+                $('.close-cam-button').on('click', function () {
                     scanner.stop();
                     $('#qr-container').collapse('hide');
                     $('#qr-button').prop('disabled', false);

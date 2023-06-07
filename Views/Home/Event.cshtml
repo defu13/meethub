@@ -518,14 +518,13 @@
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
-                const scanner = null;
+                const scanner = new QrScanner(videoElement, result => {
+                    console.log('Código QR escaneado:', result);
+                    $('#toast-prueba').toast('show');
+                });;
 
                 scanButton.addEventListener('click', function () {
                     $('#qr-button').prop('disabled', true);
-                    scanner = new QrScanner(videoElement, result => {
-                        console.log('Código QR escaneado:', result);
-                        $('#toast-prueba').toast('show');
-                    });
                     scanner.start();
                 });
 

@@ -544,10 +544,7 @@
                 const scanner = new QrScanner(videoElement, result => {
                     if (scanningEnabled) {
                         scanningEnabled = false;
-                        $('#qr-modal .modal-body').empty();
-                        $('#qr-modal .modal-body').append(result);
-                        $('#qr-modal').modal('show');
-                        @* confirmarAsistente(result); *@
+                        confirmarAsistente(result.data);
                     }
                 }, {
                     highlightScanRegion: true,

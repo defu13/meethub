@@ -332,7 +332,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body d-flex">
-                        
+
                     </div>
                 </div>
             </div>
@@ -516,7 +516,7 @@
             // GENERAR ESCANER QR
 
             function confirmarAsistente(result) {
-                scanner.stop();
+                @* scanner.stop(); *@
                 $.ajax({
                     url: "@Url.Action("confirmarAsistente", "Home")",
                     type: 'POST',
@@ -539,7 +539,9 @@
             $(document).ready(function () {
                 const videoElement = document.getElementById('qr-video');
                 const scanButton = document.getElementById('qr-button');
-                const scanner = new QrScanner(videoElement, result => confirmarAsistente(result), {
+                const scanner = new QrScanner(videoElement, result => {
+                    confirmarAsistente(result)
+                }, {
                     highlightScanRegion: true,
                     highlightCodeOutline: true
                 });

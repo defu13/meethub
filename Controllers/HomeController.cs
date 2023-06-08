@@ -67,11 +67,12 @@ public class HomeController : Controller
             // Manejar el caso en el que el usuario no existe
             return null;
         }
-        Debug.WriteLine("Id usuario: " + usuario.IdUser);
+
+        DateTime fechaActual = DateTime.Now;
 
         // Realiza la consulta a la base de datos
         var eventos = _context.Events
-            .Where(e => e.IdUser == usuario.IdUser)
+            .Where(e => e.IdUser == usuario.IdUser && e.FechaFin >= fechaActual)
             .Select(e => new Event
             {
                 IdEvent = e.IdEvent,
@@ -84,12 +85,11 @@ public class HomeController : Controller
                 FechaInicio = e.FechaInicio,
                 FechaFin = e.FechaFin,
                 Tipo = e.Tipo
-            })
-            .ToList();
-        if (eventos != null)
-        {
-            eventos.Reverse();
-        }
+            }).OrderByDescending(e => e.FechaInicio).ToList();
+        // if (eventos != null)
+        // {
+        //     eventos.Reverse();
+        // }
         return eventos;
     }
 

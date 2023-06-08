@@ -38,15 +38,6 @@
                     <div class="modal-body">
                         <label class="form-label mb-4 fw-light">Los campos obligatorios están marcados con <span
                                 class="text-danger fw-semibold">*</span></label>
-                        <div class="input-group d-flex flex-column mb-3">
-                            <label for="inputGroupFile" class="form-label label-input-file">Imagen</label>
-                            <div class="d-flex input-group">
-                                <input name="image" type="file" class="form-control"
-                                    id="inputGroupFile" aria-label="Erase" title="Imagen">
-                                <button class="btn btn-outline-danger delete-file-button" type="button"
-                                    id="inputGroupFile">Eliminar</button>
-                            </div>
-                        </div>
                         <div class="form-floating mb-3">
                             <input asp-for="@Model.NewEvent.Titulo" type="text" class="form-control" id="titulo-input"
                                 placeholder="Título" required>
@@ -62,6 +53,15 @@
                                     class="text-danger fw-semibold">*</span></label>
                             <div class="invalid-tooltip">
                                 Campo vacío.
+                            </div>
+                        </div>
+                        <div class="input-group d-flex flex-column mb-3">
+                            <label for="inputGroupFile" class="form-label label-input-file">Imagen</label>
+                            <div class="d-flex input-group">
+                                <input name="image" type="file" class="form-control"
+                                    id="inputGroupFile" aria-label="Erase" title="Imagen">
+                                <button class="btn btn-outline-danger delete-file-button" type="button"
+                                    id="inputGroupFile">Eliminar</button>
                             </div>
                         </div>
                         <div class="form-check form-switch d-flex align-items-center mb-3">

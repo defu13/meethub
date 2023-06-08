@@ -7,25 +7,45 @@ _Este proyecto consiste es una aplicación multiplataforma para la gestión de e
 _Estas instrucciones te permitirán obtener una guía para la utilización de esta aplicación._
 
 
-### Accesibilidad 📋
+### Accesibilidad 💻
 
-_A esta aplicación podrás acceder desde cualquier dispositivo a traves de esté enlace desde de un navegador web._
-
-```
-Da un ejemplo
-```
-
-### Instalación 🔧
-
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
-
-_Dí cómo será ese paso_
+A esta aplicación podrás acceder desde cualquier dispositivo a traves de esté enlace desde de un navegador web.
 
 ```
-Da un ejemplo
+https://mvs.sytes.net/meethub
 ```
 
-_Y repite_
+También puedes utilizar una aplicación android en lugar de acceder a través de un navegador, puedes descargar el archivo .apk a través de este enlace.
+
+```
+https://drive.google.com/file/d/1Ptt9V4424ujsV7KQoyz-WaT1P83EqCwU/view?usp=drive_link
+```
+
+## Manual de uso ⚙️
+
+_Este manual estará orientado a explicar la funcionalidad y la usabilidad de la aplicación._
+
+### Login
+
+_Lo primero que encontraremos en la aplicación es una vista que contiene un formulario de login con la opción de también registrarnos._
+
+Podremos crear una cuenta introduciendo los siguientes datos:
+
+* Nombre
+* Apellidos
+* Correo electrónico
+* Contraseña
+
+_Para iniciar sesión se utilizará el correo electrónico._
+
+### Inicio
+
+_Después de iniciar sesión entraremos a la vista de inicio la cual, si existen, nos muestra un listado de eventos que estén en curso o programados y toda su información al respecto. Desde esta vista podremos crear nuevos eventos y gestionarlos._
+
+Para crear un evento debemos pulsar el botón "Nuevo", se desplegará una ventana en la cual debemos de introducir los datos del evento en un formulario, entre estos datos se incluyen:
+
+* Título
+* Descripción
 
 ```
 hasta finalizar

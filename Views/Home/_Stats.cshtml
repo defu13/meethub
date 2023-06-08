@@ -19,7 +19,7 @@
 
     <div class="justify-content-center align-items-start d-flex w-100 h-100" style="background-color: #e7e9ec;">
         <div class="stats-card-container h-100 p-3">
-            <div class="flex-column d-flex h-100 w-100 gap-2">
+            <div class="flex-column d-flex h-100 w-100 gap-3 overflow-y-auto pe-3">
                 @if (Model != null && Model.Count > 0)
                 {
                     @foreach (var evento in Model)
@@ -44,13 +44,18 @@
                                             data-bs-title="Total de asistentes"
                                             style="color: #5b5b5b; font-size: 20px; margin-bottom: 2px;">/@evento.Assistants.Count</label>
                                     </div>
+                                    @{
+                                        int totalAsistentes = evento.Assistants.Count;
+                                        int asistentesConfirmados = evento.Assistants.Count(a => a.Confirmado);
+                                        int porcentajeAsistencia = totalAsistentes > 0 ? (asistentesConfirmados * 100) / totalAsistentes : 0;
+                                    }
                                     <div class="end-0 top-0 d-flex position-absolute me-3 align-items-center justify-content-center rounded-4 bg-dark"
                                         style="height: 30px; width: 55px;">
                                         <label class="fw-bold text-light" data-bs-toggle="tooltip"
-                                            data-bs-title="Porcentaje de asistencia" style="font-size: 18px;">50%</label>
+                                            data-bs-title="Porcentaje de asistencia" style="font-size: 18px;">@porcentajeAsistencia.ToString("0")%</label>
                                     </div>
                                 </div>
-                                <div class="d-flex mt-2 bg-success rounded-bottom-4 porcentaje-bar" style="height: 10px;">
+                                <div class="d-flex mt-2 bg-success rounded-bottom-4 porcentaje-bar" style="height: 10px; width: @porcentajeAsistencia.ToString("0")%;">
                                 </div>
                             </div>
                         </div>
@@ -70,6 +75,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/myscripts.js"></script>
+    <script>
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </body>
 
 </html>

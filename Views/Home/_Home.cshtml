@@ -180,14 +180,14 @@
                                     <!-- FOOTER -->
                                     <div class="card-footer d-flex text-body-secondary ">
                                         <div class="d-flex align-items-center">
-                                            <i class="event-card-icon bi bi-clock-fill ms-2" style="color: #ff9d46;"></i>
+                                            <i class="event-card-icon bi bi-clock-fill" style="color: #ff9d46;"></i>
                                             <span class="ms-2 me-1 fecha-evento-inicio">@evento.FechaInicio.ToString("dd/MM/yy HH:mm")</span>-<span class="ms-1 fecha-evento-fin">@evento.FechaFin.ToString("dd/MM/yy HH:mm")</span>
                                         </div>
                                         @if (@evento.Aforo != 0)
                                         {
                                             <div class="d-flex ms-auto align-items-center">
                                                 <i class=" event-card-icon bi bi-people-fill" style="color: #ff9d46;"></i>
-                                                <span class="ms-2 me-2">@evento.Aforo</span>
+                                                <span class="ms-2">@evento.Aforo</span>
                                             </div>
                                         }
                                     </div>

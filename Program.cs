@@ -52,19 +52,34 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Redirigir al usuario a home en caso de tener sesion iniciada
-app.Use(async (context, next) =>
+// app.Use(async (context, next) =>
+// {
+//     if (context.Request.Path.StartsWithSegments("/meethub"))
+//     {
+//         var isAuthenticated = context.User.Identity.IsAuthenticated;
+//         if (isAuthenticated)
+//         {
+//             context.Response.Redirect("/meethub/Home/Index");
+//             return;
+//         }
+//     }
+
+//     await next();
+// });
+app.Map("/meethub", app =>
 {
-    if (context.Request.Path.StartsWithSegments("/meethub"))
+    app.Run(async context =>
     {
         var isAuthenticated = context.User.Identity.IsAuthenticated;
         if (isAuthenticated)
         {
             context.Response.Redirect("/meethub/Home/Index");
-            return;
         }
-    }
-
-    await next();
+        else
+        {
+            context.Response.Redirect("/meethub");
+        }
+    });
 });
 
 app.UseEndpoints(endpoints =>

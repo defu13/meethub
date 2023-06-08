@@ -45,7 +45,7 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(User user)
     {
-        var usuario = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+        var usuario = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
 
         try
         {

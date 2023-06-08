@@ -25,7 +25,15 @@ public class HomeController : Controller
 
     public IActionResult Stats()
     {
-        return PartialView("_Stats");
+        User usuario = null;
+        List<Event> eventos = null;
+        DateTime fechaActual = DateTime.Now;
+        if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
+        {
+            usuario = JsonSerializer.Deserialize<User>(usuarioJson);
+            eventos = _context.Events.Include(e => e.Assistants).Where(e => e.IdUser == usuario.IdUser && e.FechaFin < fechaActual).OrderByDescending(e => e.FechaInicio).ToList();
+        }
+        return PartialView("_Stats", eventos);
     }
 
     public IActionResult Profile()

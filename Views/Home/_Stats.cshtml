@@ -1,3 +1,4 @@
+@model List<Event>
 <!DOCTYPE html>
 <html>
 
@@ -10,15 +11,33 @@
     }
     <!-- CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/mystyles.css"/>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/css/mystyles.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body style="background-color: #e7e9ec;" class="vh-100">
 
     <div class="justify-content-center align-items-start d-flex w-100 h-100" style="background-color: #e7e9ec;">
         <div class="stats-card-container h-100 p-3">
-            <div class="d-flex h-100 w-100 bg-light rounded-3 border"></div>
+            <div class="d-flex h-100 w-100 bg-light rounded-3 border gap-2">
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var evento in Model)
+                    {
+                        <div>
+                            <h3>@evento.Titulo</h3>
+                            <p>Fecha de inicio: @evento.FechaInicio</p>
+                            <p>Fecha de fin: @evento.FechaFin</p>
+                            <p>Número de asistentes: @evento.Assistants.Count</p>
+                            <p>Número de asistentes confirmados: @evento.Assistants.Count(a => a.Confirmado)</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span class="text-center fs-5 fw-medium mt-3" style="color: rgb(193 193 193);">Todavía no hay eventos finalizados.</span>
+                }
+            </div>
         </div>
     </div>
 

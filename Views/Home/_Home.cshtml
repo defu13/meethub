@@ -147,48 +147,52 @@
                 {
                     @foreach (var evento in Model.EventList)
                     {
-                        <div class="event-card-container col-lg-6-modify p-4 pt-0 justify-content-center d-flex-notimportant">
-                            <a href="@Url.Action("Event", "Home", new { id = evento.IdEvent })" class="w-100 no-link-style event-link">
-                                <div class="w-100 card event-card rounded-4 overflow-hidden slide-top">
-                                    <!-- HEADER -->
-                                    <div class="flex-column d-flex card-header bg-image position-relative"
-                                        style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
-                                        <div class="event-card-element d-flex align-items-center justify-content-start">
-                                            <span class="badge estado-evento"></span>
-                                        </div>
-                                        <div class="event-card-element flex-grow-1 d-flex justify-content-start align-items-end">
-                                            <div class="d-flex rounded-3 p-2 align-items-center" style="background-color: #e7e9ec;">
-                                                <i class="event-card-icon mx-1 bi bi-geo-alt-fill" style="color: #ff9d46;"></i>
-                                                <span class="fw-semibold fs-6 me-1">@evento.Direccion</span>
+                        DateTime fechaActual = DateTime.Now;
+                        if (fechaActual >= evento.FechaInicio && fechaActual <= evento.FechaFin)
+                        {
+                            <div class="event-card-container col-lg-6-modify p-4 pt-0 justify-content-center d-flex-notimportant">
+                                <a href="@Url.Action("Event", "Home", new { id = evento.IdEvent })" class="w-100 no-link-style event-link">
+                                    <div class="w-100 card event-card rounded-4 overflow-hidden slide-top">
+                                        <!-- HEADER -->
+                                        <div class="flex-column d-flex card-header bg-image position-relative"
+                                            style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
+                                            <div class="event-card-element d-flex align-items-center justify-content-start">
+                                                <span class="badge estado-evento"></span>
+                                            </div>
+                                            <div class="event-card-element flex-grow-1 d-flex justify-content-start align-items-end">
+                                                <div class="d-flex rounded-3 p-2 align-items-center" style="background-color: #e7e9ec;">
+                                                    <i class="event-card-icon mx-1 bi bi-geo-alt-fill" style="color: #ff9d46;"></i>
+                                                    <span class="fw-semibold fs-6 me-1">@evento.Direccion</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- BODY -->
-                                    <div class="card-body p-0 d-flex flex-column align-items-start">
-                                        <div class="d-flex rounded-3 p-2 m-3" style="background-color: #e7e9ec;">
-                                            <span class="event-title fw-bold">@evento.Titulo</span>
-                                        </div>
-                                        <div class="d-flex rounded-3 p-2 m-3 mt-0" style="background-color: #e7e9ec;">
-                                            <span class="fw-semibold fs-6">@evento.Descripcion</span>
-                                        </div>
-                                    </div>
-                                    <!-- FOOTER -->
-                                    <div class="card-footer d-flex text-body-secondary ">
-                                        <div class="d-flex align-items-center">
-                                            <i class="event-card-icon bi bi-clock-fill ms-2" style="color: #ff9d46;"></i>
-                                            <span class="ms-2 me-1 fecha-evento-inicio">@evento.FechaInicio.ToString("dd/MM/yyyy HH:mm")</span>-<span class="ms-1 fecha-evento-fin">@evento.FechaFin.ToString("dd/MM/yyyy HH:mm")</span>
-                                        </div>
-                                        @if (@evento.Aforo != 0)
-                                        {
-                                            <div class="d-flex ms-auto align-items-center">
-                                                <i class=" event-card-icon bi bi-people-fill" style="color: #ff9d46;"></i>
-                                                <span class="ms-2 me-2">@evento.Aforo</span>
+                                        <!-- BODY -->
+                                        <div class="card-body p-0 d-flex flex-column align-items-start">
+                                            <div class="d-flex rounded-3 p-2 m-3" style="background-color: #e7e9ec;">
+                                                <span class="event-title fw-bold">@evento.Titulo</span>
                                             </div>
-                                        }
+                                            <div class="d-flex rounded-3 p-2 m-3 mt-0" style="background-color: #e7e9ec;">
+                                                <span class="fw-semibold fs-6">@evento.Descripcion</span>
+                                            </div>
+                                        </div>
+                                        <!-- FOOTER -->
+                                        <div class="card-footer d-flex text-body-secondary ">
+                                            <div class="d-flex align-items-center">
+                                                <i class="event-card-icon bi bi-clock-fill ms-2" style="color: #ff9d46;"></i>
+                                                <span class="ms-2 me-1 fecha-evento-inicio">@evento.FechaInicio.ToString("dd/MM/yy HH:mm")</span>-<span class="ms-1 fecha-evento-fin">@evento.FechaFin.ToString("dd/MM/yy HH:mm")</span>
+                                            </div>
+                                            @if (@evento.Aforo != 0)
+                                            {
+                                                <div class="d-flex ms-auto align-items-center">
+                                                    <i class=" event-card-icon bi bi-people-fill" style="color: #ff9d46;"></i>
+                                                    <span class="ms-2 me-2">@evento.Aforo</span>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        }
                     }
                 }
                 else

@@ -18,19 +18,19 @@
 <body style="background-color: #e7e9ec;" class="vh-100">
 
     <div class="justify-content-center align-items-start d-flex w-100 h-100" style="background-color: #e7e9ec;">
-        <div class="stats-card-container h-100 p-3">
-            <div class="flex-column d-flex h-100 w-100 gap-3 overflow-y-auto pe-3">
+        <div class="stats-card-container h-100 p-3 pt-0">
+            <div class="flex-column d-flex h-100 w-100 gap-3 overflow-y-auto pe-3 pt-3">
                 @if (Model != null && Model.Count > 0)
                 {
                     @foreach (var evento in Model)
                     {
-                        <div class="d-flex w-100 flex-column">
+                        <div class="d-flex w-100 flex-column slide-top" style="cursor: pointer;">
                             <div class="w-100 d-flex flex-column p-2 border rounded-top-4 bg-light">
                                 <label class="fs-3 fw-semibold ms-2 evento-titulo">@evento.Titulo</label>
                                 <div class="ms-2 d-flex align-items-center">
                                     <i class="bi bi-clock-fill" style="color: #ff9d46;"></i>
-                                    <span class="ms-2 me-1 evento-fechaInicio">@evento.FechaInicio.ToString("dd/MM/yyyy HH:mm")</span>-
-                                    <span class="ms-1 evento-fechaFin">@evento.FechaFin.ToString("dd/MM/yyyy HH:mm")</span>
+                                    <span class="ms-2 me-1 evento-fechaInicio">@evento.FechaInicio.ToString("dd/MM/yy HH:mm")</span>-
+                                    <span class="ms-1 evento-fechaFin">@evento.FechaFin.ToString("dd/MM/yy HH:mm")</span>
                                 </div>
                             </div>
                             <div class="w-100 d-flex flex-column pt-2 border border-top-0 rounded-bottom-4 bg-light">

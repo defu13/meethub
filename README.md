@@ -29,6 +29,8 @@ _Este manual estará orientado a explicar la funcionalidad y la usabilidad de la
 
 _Lo primero que encontraremos en la aplicación es una vista que contiene un formulario de login con la opción de también registrarnos._
 
+![Login view](https://raw.githubusercontent.com/defu13/meethub/master/wwwroot/images/fondo1.jpg)
+
 Podremos crear una cuenta introduciendo los siguientes datos:
 
 * Nombre

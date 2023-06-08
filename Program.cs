@@ -20,8 +20,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = ".AspNetCore.Session";
-        options.LoginPath = "/meethub/User/Login";
-        options.LogoutPath = "/meethub/Home/Logout";
+        options.LoginPath = "/User/Login";
+        options.LogoutPath = "/Home/Logout";
         options.SlidingExpiration = true;
     });
 

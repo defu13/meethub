@@ -16,6 +16,7 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = ".AspNetCore.User";
 });
 
+// Configuración de autenticación
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {

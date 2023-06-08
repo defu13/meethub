@@ -23,6 +23,7 @@ public class HomeController : Controller
         _hostEnvironment = hostEnvironment;
     }
 
+    // VISTA ESTADISTICAS
     public IActionResult Stats()
     {
         User usuario = null;
@@ -39,6 +40,7 @@ public class HomeController : Controller
         return PartialView("_Stats", eventos);
     }
 
+    // VISTA PERFIL
     public IActionResult Profile()
     {
         User usuario = null;
@@ -49,6 +51,7 @@ public class HomeController : Controller
         return PartialView("_Profile", usuario);
     }
 
+    // SELECCIONAR IMAGEN POR DEFECTO
     private byte[] GetDefaultImage()
     {
         string path = Path.Combine(_hostEnvironment.WebRootPath, "images", "fondoprueba.jpg");
@@ -63,6 +66,7 @@ public class HomeController : Controller
         }
     }
 
+    // OBTENER EVENTOS POR USUARIO
     public List<Event> obtenerEventos(User usuario)
     {
         if (usuario == null)
@@ -90,13 +94,10 @@ public class HomeController : Controller
                 FechaFin = e.FechaFin,
                 Tipo = e.Tipo
             }).OrderByDescending(e => e.FechaInicio).ToList();
-        // if (eventos != null)
-        // {
-        //     eventos.Reverse();
-        // }
         return eventos;
     }
 
+    // VISTA INICIO
     public IActionResult Home()
     {
 
@@ -117,11 +118,13 @@ public class HomeController : Controller
         }
     }
 
+    // VISTA DEL MENU Y CONTENEDOR DE VISTAS
     public IActionResult Index()
     {
         return View();
     }
 
+    // VISTA EVENTO
     [Route("meethub/Home/Event/{id?}")]
     public IActionResult Event(int id)
     {
@@ -142,11 +145,11 @@ public class HomeController : Controller
         }
         else
         {
-            // TempData["TempMessage"] = "Error al acceder al evento.";
             return RedirectToAction("Index");
         }
     }
 
+    // METODO LOGOUT
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
@@ -169,11 +172,13 @@ public class HomeController : Controller
         return Ok();
     }
 
+    // METODO CREAR EVENTO
     [HttpPost]
     public async Task<IActionResult> CreateEvent(HomeViewModel model, IFormFile image)
     {
         User usuario = null;
 
+        // OBTENER USUARIO DE COOKIE
         if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
         {
             usuario = JsonSerializer.Deserialize<User>(usuarioJson);
@@ -224,8 +229,6 @@ public class HomeController : Controller
         {
             _context.Events.Add(newEvent);
             _context.SaveChanges();
-
-            // Redirigir a la página de éxito o realizar alguna otra acción
             TempData["TempMessage"] = "Evento creado correctamente";
         }
         catch (Exception e)
@@ -235,6 +238,7 @@ public class HomeController : Controller
         return RedirectToAction("Index");
     }
 
+    // METODO EDITAR USUARIO
     [HttpPost]
     public IActionResult EditarUsuario(string nombre, string apellidos)
     {
@@ -266,6 +270,7 @@ public class HomeController : Controller
         return RedirectToAction("Index");
     }
 
+    // METODO EDITAR EVENTO
     [HttpPost]
     public IActionResult EditarEvento(EventViewModel eventViewModel)
     {
@@ -276,7 +281,7 @@ public class HomeController : Controller
         {
             try
             {
-                // Actualiza las propiedades del evento con los valores del modelo
+                // ActualizaR las propiedades del evento con los valores del modelo
                 evento.Titulo = eventViewModel.eventTarget.Titulo;
                 evento.Descripcion = eventViewModel.eventTarget.Descripcion;
                 evento.Direccion = eventViewModel.eventTarget.Direccion;
@@ -284,7 +289,7 @@ public class HomeController : Controller
                 evento.FechaInicio = eventViewModel.eventTarget.FechaInicio;
                 evento.FechaFin = eventViewModel.eventTarget.FechaFin;
 
-                // Guarda los cambios en la base de datos
+                // GuardaR los cambios en la base de datos
                 _context.Update(evento);
                 _context.SaveChanges();
 
@@ -300,6 +305,7 @@ public class HomeController : Controller
         return RedirectToAction("Event", new { id = evento.IdEvent });
     }
 
+    // METODO ELIMINAR EVENTO
     [HttpPost]
     public IActionResult EliminarEvento(int idEvento)
     {
@@ -314,6 +320,7 @@ public class HomeController : Controller
                 return RedirectToAction("Event", new { id = idEvento });
             }
 
+            // Si contiene asistentes, los elimina primero
             using (var transaction = _context.Database.BeginTransaction())
             {
                 if (asistentes.Count() > 0)
@@ -338,6 +345,7 @@ public class HomeController : Controller
 
     }
 
+    // METODO APROBAR ASISTENTE
     [HttpPost]
     public IActionResult aprobarAsistente(int idAssistant)
     {
@@ -364,6 +372,7 @@ public class HomeController : Controller
 
     }
 
+    // RECHAZAR ASISTENTE
     [HttpPost]
     public IActionResult rechazarAsistente(int idAssistant)
     {
@@ -389,6 +398,7 @@ public class HomeController : Controller
 
     }
 
+    // CONFIRMAR ASISTENTE
     [HttpPost]
     public IActionResult confirmarAsistente(int result, int idEvent)
     {
@@ -419,8 +429,5 @@ public class HomeController : Controller
         {
             return Json(new { success = false, message = "Error al confirmar el asistente." });
         }
-
     }
-
-
 }

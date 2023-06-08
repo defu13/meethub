@@ -42,6 +42,7 @@ public class UserController : Controller
             numBytesRequested: 256 / 8).SequenceEqual(hashedPasswordBytes);
     }
 
+    // METODO LOGIN
     [HttpPost]
     public async Task<IActionResult> Login(User user)
     {
@@ -86,6 +87,7 @@ public class UserController : Controller
         }
     }
 
+    // METODO DE REGISTRO DE USUARIOS
     [HttpPost]
     public async Task<IActionResult> Register(User model)
     {
@@ -93,7 +95,7 @@ public class UserController : Controller
         var existingUser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
         if (existingUser != null)
         {
-            // El usuario ya existe, mostrar un mensaje de error o redireccionar a una página de error
+            // El usuario ya existe
             TempData["MensajeError"] = "El usuario ya existe.";
             return RedirectToAction("Login");
         }
@@ -115,11 +117,11 @@ public class UserController : Controller
             numBytesRequested: 256 / 8));
         user.Password = hashedPassword;
 
-        // Guardar el usuario en la base de datos (código según tu implementación)
+        // Guardar el usuario en la base de datos
         _context.Users.Add(user);
         _context.SaveChanges();
 
-        // Redireccionar al usuario a una página de éxito o realizar alguna acción adicional
+        // Redireccionar al usuario al login de nuevo
         TempData["MensajeError"] = "Usuario registrado correctamente.";
         return RedirectToAction("Login");
     }

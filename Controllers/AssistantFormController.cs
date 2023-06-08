@@ -17,6 +17,7 @@ public class AssistantFormController : Controller
         _hostEnvironment = hostEnvironment;
     }
 
+    // VISTA FORMULARIO
     [Route("AssistantForm/Form/{id?}")]
     public IActionResult Form(int id)
     {
@@ -29,12 +30,14 @@ public class AssistantFormController : Controller
         return View(evento);
     }
 
+    // VISTA REGISTRO EXITOSO
     public IActionResult Success(int AssistantId)
     {
         ViewBag.AssistantId = AssistantId;
         return View();
     }
 
+    // VISTA REGISTRO FALLIDO
     public IActionResult Failed()
     {
         return View();
@@ -47,6 +50,7 @@ public class AssistantFormController : Controller
         return Ok();
     }
 
+    // METODO REGISTRAR ASISTENTE
     [HttpPost]
     public async Task<IActionResult> RegisterToEvent(String nombre, String apellidos, String email, String telefono, int id)
     {
@@ -61,7 +65,7 @@ public class AssistantFormController : Controller
             }
         }
 
-        // Por ejemplo, podrías crear un nuevo registro de asistente
+        // crear modelo del nuevo asistente
         var newAssistant = new Assistant
         {
             IdEvent = id,
@@ -74,6 +78,7 @@ public class AssistantFormController : Controller
             QrCode = ""
         };
 
+        // Comprobar si el asistente ya se ha registrado al evento
         var asistenteRepetido = _context.Assistants.FirstOrDefault(a => a.Email == newAssistant.Email && a.IdEvent == id);
 
         if (asistenteRepetido == null)
@@ -102,6 +107,7 @@ public class AssistantFormController : Controller
         }
     }
 
+    // METODO GENERAR ENTRADA PDF
     public IActionResult GeneratePDF(int id)
     {
         var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == id);
@@ -122,16 +128,13 @@ public class AssistantFormController : Controller
                     // Obtener el objeto XGraphics para dibujar en la página
                     var gfx = XGraphics.FromPdfPage(page);
 
-                    // Definir las fuentes y estilos
-                    // var regularFontPath = Path.Combine(_hostEnvironment.WebRootPath, "fonts", "Mont-Regular.otf");
-                    // var boldFontPath = Path.Combine(_hostEnvironment.WebRootPath, "fonts", "Mont-Bold.otf");
-
+                    // Fuente
                     int fontSize = 12;
-
                     var fontTitle = new XFont("Tahoma", fontSize, XFontStyle.Bold);
                     var fontContent = new XFont("Tahoma", fontSize);
 
                     gfx.TranslateTransform(0, 20);
+
                     // Logo
                     string logoPath = Path.Combine(_hostEnvironment.WebRootPath, "images", "logo.png");
                     XImage logoImage = XImage.FromFile(logoPath);
@@ -139,13 +142,14 @@ public class AssistantFormController : Controller
                     double logoHeight = logoWidth * (logoImage.PixelHeight / (double)logoImage.PixelWidth);
                     gfx.DrawImage(logoImage, new XRect(10, 10, logoWidth, logoHeight));
 
+                    // Datos del evento
                     gfx.TranslateTransform(0, 80);
                     gfx.DrawString("Datos del Evento:", fontTitle, XBrushes.Black, new XPoint(10, 10));
                     gfx.DrawString("Evento: " + evento.Titulo, fontContent, XBrushes.Black, new XPoint(10, 30));
                     gfx.DrawString("Dirección: " + evento.Direccion, fontContent, XBrushes.Black, new XPoint(10, 50));
                     gfx.DrawString("Fecha: " + evento.FechaInicio.ToString("dd/MM/yyyy HH:mm") + " - " + evento.FechaFin.ToString("dd/MM/yyyy HH:mm"), fontContent, XBrushes.Black, new XPoint(10, 70));
 
-                    // Escribir los datos del asistente
+                    // Datos del asistente
                     gfx.DrawString("Datos del Asistente:", fontTitle, XBrushes.Black, new XPoint(10, 100));
                     gfx.DrawString("Nombre: " + asistente.Nombre, fontContent, XBrushes.Black, new XPoint(10, 120));
                     gfx.DrawString("Apellidos: " + asistente.Apellidos, fontContent, XBrushes.Black, new XPoint(10, 140));
@@ -191,7 +195,7 @@ public class AssistantFormController : Controller
                     document.Save(memoryStream);
                     memoryStream.Seek(0, SeekOrigin.Begin);
 
-                    // Devolver el PDF para mostrarlo en una ventana nueva del navegador
+                    // Devolver el archivo PDF
                     return File(memoryStream, "application/pdf", "entrada.pdf", true);
                 }
                 catch (Exception e)

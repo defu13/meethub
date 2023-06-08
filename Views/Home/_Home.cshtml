@@ -268,6 +268,11 @@
         </script>
     }
 
+    @{
+        TimeZoneInfo madridTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time");
+        DateTime madridTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, madridTimeZone);
+    }
+
     <script>
         $(document).ready(function() {
             @* var currentDate = new Date();
@@ -300,8 +305,8 @@
             } *@
 
             $('.create-event-button').on('click', () => {
-                $('#inicio-input').val('@DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm")');
-                $('#fin-input').val('@DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm")');
+                $('#inicio-input').val('@madridTime.ToString("yyyy-MM-ddTHH:mm")');
+                $('#fin-input').val('@madridTime.ToString("yyyy-MM-ddTHH:mm")');
             });
 
         });

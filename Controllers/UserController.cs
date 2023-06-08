@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using meethub.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace meethub.Controllers;
 public class UserController : Controller
@@ -29,6 +30,18 @@ public class UserController : Controller
         return Ok();
     }
 
+    // Función para verificar la contraseña hasheada
+    private bool VerifyPasswordHash(string password, string hashedPassword)
+    {
+        var hashedPasswordBytes = Convert.FromBase64String(hashedPassword);
+        return KeyDerivation.Pbkdf2(
+            password: password,
+            salt: new byte[0],
+            prf: KeyDerivationPrf.HMACSHA1,
+            iterationCount: 10000,
+            numBytesRequested: 256 / 8).SequenceEqual(hashedPasswordBytes);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Login(User user)
     {
@@ -36,7 +49,7 @@ public class UserController : Controller
 
         try
         {
-            if (usuario != null)
+            if (usuario != null && VerifyPasswordHash(user.Password, usuario.Password))
             {
                 // CREAR AUTENTICACION AL USUARIO
                 List<Claim> claims = new List<Claim>(){
@@ -91,8 +104,16 @@ public class UserController : Controller
             Apellidos = model.Apellidos,
             Email = model.Email,
             Password = model.Password
-            // Otros campos del usuario si es necesario
         };
+
+        // Hashear la contraseña antes de guardarla en la base de datos
+        var hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            password: model.Password,
+            salt: new byte[0],
+            prf: KeyDerivationPrf.HMACSHA1,
+            iterationCount: 10000,
+            numBytesRequested: 256 / 8));
+        user.Password = hashedPassword;
 
         // Guardar el usuario en la base de datos (código según tu implementación)
         _context.Users.Add(user);

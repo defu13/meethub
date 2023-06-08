@@ -25,6 +25,12 @@ https://drive.google.com/file/d/1Ptt9V4424ujsV7KQoyz-WaT1P83EqCwU/view?usp=drive
 
 _Este manual estará orientado a explicar la funcionalidad y la usabilidad de la aplicación._
 
+#### Videotutorial
+
+```
+https://drive.google.com/file/d/1VTNfgM5GLOVEu3zW2qvrv6KZuUhdQEti/view?usp=drive_link
+```
+
 ### Login
 
 _Lo primero que encontraremos en la aplicación es una vista que contiene un formulario de login con la opción de también registrarnos._

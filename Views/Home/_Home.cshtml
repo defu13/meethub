@@ -154,7 +154,14 @@
                                     <div class="flex-column d-flex card-header bg-image position-relative"
                                         style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
                                         <div class="event-card-element d-flex align-items-center justify-content-start">
-                                            <span class="badge estado-evento"></span>
+                                            @if (DateTime.Now >= evento.FechaInicio && DateTime.Now <= evento.FechaFin)
+                                            {
+                                                <span class="badge estado-evento text-bg-success">En curso</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge estado-evento text-bg-warning">Programado</span>
+                                            }
                                         </div>
                                         <div class="event-card-element flex-grow-1 d-flex justify-content-start align-items-end">
                                             <div class="d-flex rounded-3 p-2 align-items-center" style="background-color: #e7e9ec;">
@@ -263,7 +270,7 @@
 
     <script>
         $(document).ready(function() {
-            var currentDate = new Date();
+            @* var currentDate = new Date();
 
             $(".event-card-container").each(function() {
                 var fechaInicio = getDateFromFormattedString($(this).find(".fecha-evento-inicio").text());
@@ -290,7 +297,7 @@
                 var minute = parseInt(parts[4], 10);
 
                 return new Date(year, month, day, hour, minute);
-            }
+            } *@
 
             $('.create-event-button').on('click', () => {
                 $('#inicio-input').val('@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")');

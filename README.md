@@ -42,16 +42,17 @@ _Para iniciar sesión se utilizará el correo electrónico._
 
 _Después de iniciar sesión entraremos a la vista de inicio la cual, si existen, nos muestra un listado de eventos que estén en curso o programados y toda su información al respecto. Desde esta vista podremos crear nuevos eventos y gestionarlos._
 
-Para crear un evento debemos pulsar el botón "Nuevo", se desplegará una ventana en la cual debemos de introducir los datos del evento en un formulario, entre estos datos se incluyen:
+Para crear un evento debemos pulsar el botón "Nuevo", se desplegará una ventana en la cual debemos de introducir los datos del evento en un formulario.
 
-* Título
-* Descripción
+Haciendo click o pulsando en un evento nos llevara a la vista de **evento**.
 
-```
-hasta finalizar
-```
+### Evento
 
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
+_En esta vista podremos, mediante una interfaz intuitiva, editar y eliminar el evento en cuestión, así como gestionar la asistencia de tus invitados._
+
+Desde esta vista es posible copiar el enlace de invitación para compartirlo con los asistentes deseados, los cuales se unirán rellenando un formulario de acceso.
+
+Cuando hayamos compartido nuestro enlace de evento, irán apareciendo los asistentes que se registren en una lista de invitados
 
 ## Ejecutando las pruebas ⚙️
 

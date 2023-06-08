@@ -127,6 +127,10 @@ public class HomeController : Controller
     {
         var evento = _context.Events.FirstOrDefault(e => e.IdEvent == id);
         var asistentes = _context.Assistants.Where(a => a.IdEvent == id).ToList();
+        if (asistentes.Count > 0)
+        {
+            asistentes.Reverse();
+        }
         EventViewModel model = new EventViewModel
         {
             eventTarget = evento,

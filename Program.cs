@@ -54,7 +54,7 @@ app.UseAuthorization();
 // Redirigir al usuario a home en caso de tener sesion iniciada
 app.Use(async (context, next) =>
 {
-    if (context.Request.Path == "/meethub")
+    if (context.Request.Path == "/")
     {
         var isAuthenticated = context.User.Identity.IsAuthenticated;
         if (isAuthenticated)

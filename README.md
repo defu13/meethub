@@ -52,7 +52,12 @@ _En esta vista podremos, mediante una interfaz intuitiva, editar y eliminar el e
 
 Desde esta vista es posible copiar el enlace de invitación para compartirlo con los asistentes deseados, los cuales se unirán rellenando un formulario de acceso.
 
-Cuando hayamos compartido nuestro enlace de evento, irán apareciendo los asistentes que se registren en una lista de invitados
+Cuando hayamos compartido nuestro enlace de evento, irán apareciendo los asistentes que se registren en una lista de invitados.
+
+Existen dos tipos de eventos:
+
+* Eventos por **inscripción**: Los asistentes se unirán
+* Eventos por **invitación**: 
 
 ## Ejecutando las pruebas ⚙️
 

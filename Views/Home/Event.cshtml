@@ -86,8 +86,13 @@
                         novalidate asp-controller="Home">
                         <input type="hidden" asp-for="@Model.eventTarget.IdEvent" value="@Model.eventTarget.IdEvent" />
                         <div class="d-flex flex-column mb-3">
-                            <label style="font-size: 16px;">Tipo de evento por <label
-                                    class="fw-bold">@Model.eventTarget.Tipo</label>
+                            <label style="font-size: 16px;">Tipo de evento por 
+                                @if (Model.eventTarget.Tipo == "invitacion")
+                                {
+                                    <label class="fw-bold">invitación</label>
+                                }else{
+                                    <label class="fw-bold">inscripción</label>
+                                }
                             </label>
                             <label class="fst-italic" style="font-size: 13px;">Esta característica no se puede
                                 modificar</label>

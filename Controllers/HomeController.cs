@@ -27,11 +27,14 @@ public class HomeController : Controller
     {
         User usuario = null;
         List<Event> eventos = null;
-        DateTime fechaActual = DateTime.Now;
+
+        TimeZoneInfo madridTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time");
+        DateTime madridTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, madridTimeZone);
+
         if (Request.Cookies.TryGetValue(".AspNetCore.User", out string usuarioJson))
         {
             usuario = JsonSerializer.Deserialize<User>(usuarioJson);
-            eventos = _context.Events.Include(e => e.Assistants).Where(e => e.IdUser == usuario.IdUser && e.FechaFin < fechaActual).OrderByDescending(e => e.FechaInicio).ToList();
+            eventos = _context.Events.Include(e => e.Assistants).Where(e => e.IdUser == usuario.IdUser && e.FechaFin < madridTime).OrderByDescending(e => e.FechaInicio).ToList();
         }
         return PartialView("_Stats", eventos);
     }
@@ -68,11 +71,12 @@ public class HomeController : Controller
             return null;
         }
 
-        DateTime fechaActual = DateTime.Now;
+        TimeZoneInfo madridTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time");
+        DateTime madridTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, madridTimeZone);
 
         // Realiza la consulta a la base de datos
         var eventos = _context.Events
-            .Where(e => e.IdUser == usuario.IdUser && e.FechaFin >= fechaActual)
+            .Where(e => e.IdUser == usuario.IdUser && e.FechaFin >= madridTime)
             .Select(e => new Event
             {
                 IdEvent = e.IdEvent,
@@ -384,7 +388,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult confirmarAsistente(int result, int idEvent)
     {
-        
+
         try
         {
             var asistente = _context.Assistants.FirstOrDefault(a => a.IdAssistant == result && a.IdEvent == idEvent && a.Aprobado == true);

@@ -20,11 +20,10 @@
 
 <body style="background-color: #e7e9ec;" class="vh-100">
 
-    @* <div id="spinner" class="align-items-center justify-content-center d-flex">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">Cargando...</span>
-        </div>
-    </div> *@
+    @{
+        TimeZoneInfo madridTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time");
+        DateTime madridTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, madridTimeZone);
+    }
 
     <!-- Create Modal -->
     <div class="modal fade" id="create-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -87,12 +86,12 @@
                             <div class="w-100 me-sm-auto form-floating d-flex">
                                 <input asp-for="@Model.NewEvent.FechaInicio" type="datetime-local" class="form-control"
                                     id="inicio-input" placeholder="Inicio"
-                                    value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required>
+                                    value="@madridTime.ToString("yyyy-MM-ddTHH:mm")" required>
                                 <label for="inicio-input">Inicio <span class="text-danger fw-semibold">*</span></label>
                             </div>
                             <div class="w-100 ms-sm-auto form-floating d-flex">
                                 <input asp-for="@Model.NewEvent.FechaFin" type="datetime-local" class="form-control"
-                                    id="fin-input" placeholder="Fin" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                                    id="fin-input" placeholder="Fin" value="@madridTime.ToString("yyyy-MM-ddTHH:mm")"
                                     required>
                                 <label for="fin-input">Fin <span class="text-danger fw-semibold">*</span></label>
                             </div>
@@ -126,7 +125,6 @@
         </div>
     </div>
 
-
     <div class="w-100 h-100 justify-content-center align-items-start d-flex" style="background-color: #e7e9ec;">
         <div class="event-container h-100 d-flex flex-column align-items-center">
             <div class="event-container-header d-flex w-100 btn-add-event px-4 pt-4 m-0 mb-4">
@@ -154,7 +152,7 @@
                                     <div class="flex-column d-flex card-header bg-image position-relative"
                                         style="background-image: url('data:image/jpeg;base64,@Convert.ToBase64String(evento.Image)'); background-size: cover; background-repeat: no-repeat; height: 9rem;">
                                         <div class="event-card-element d-flex align-items-center justify-content-start">
-                                            @if (DateTime.Now >= evento.FechaInicio && DateTime.Now <= evento.FechaFin)
+                                            @if (madridTime >= evento.FechaInicio && madridTime <= evento.FechaFin)
                                             {
                                                 <span class="badge estado-evento text-bg-success">En curso</span>
                                             }
@@ -266,11 +264,6 @@
                 deleteTempData("TempMessage");
             });
         </script>
-    }
-
-    @{
-        TimeZoneInfo madridTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time");
-        DateTime madridTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, madridTimeZone);
     }
 
     <script>

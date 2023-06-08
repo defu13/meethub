@@ -300,25 +300,10 @@
             } *@
 
             $('.create-event-button').on('click', () => {
-                $('#inicio-input').val('@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")');
-                $('#fin-input').val('@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")');
+                $('#inicio-input').val('@DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm")');
+                $('#fin-input').val('@DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm")');
             });
 
-            // Función para ocultar el spinner cuando todos los elementos se hayan cargado
-            @* function hideSpinner() {
-                if ($('#event-container .event-card:not(.loaded)').length === 0) {
-                    $('#spinner').removeClass('d-flex');
-                }
-            }
-
-            // Obtener todos los elementos generados dinámicamente
-            var eventCards = $('.event-container-element .event-card-container');
-
-            // Agregar la clase 'loaded' a los elementos cargados
-            eventCards.on('load', function() {
-                $(this).addClass('loaded');
-                hideSpinner();
-            }); *@
         });
     </script>
 </body>

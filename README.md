@@ -21,6 +21,12 @@ También puedes utilizar una aplicación android en lugar de acceder a través d
 https://drive.google.com/file/d/1Ptt9V4424ujsV7KQoyz-WaT1P83EqCwU/view?usp=drive_link
 ```
 
+Puedes acceder al proyecto de Android Studio desde este enlace.
+
+```
+http://mvs.sytes.net:15002/tfg-repository/meethub-app
+```
+
 ## Manual de uso ⚙️
 
 _Este manual estará orientado a explicar la funcionalidad y la usabilidad de la aplicación._

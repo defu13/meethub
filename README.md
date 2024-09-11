@@ -41,7 +41,7 @@ https://drive.google.com/file/d/1VTNfgM5GLOVEu3zW2qvrv6KZuUhdQEti/view?usp=drive
 
 _Lo primero que encontraremos en la aplicación es una vista que contiene un formulario de login con la opción de también registrarnos._
 
-![Login view](https://raw.githubusercontent.com/defu13/meethub/master/wwwroot/images/login.PNG)
+![Login view](https://github.com/defu13/meethub/blob/master/wwwroot/images/login.PNG)
 
 Podremos crear una cuenta introduciendo los siguientes datos:
 
@@ -56,7 +56,7 @@ _Para iniciar sesión se utilizará el correo electrónico._
 
 _Después de iniciar sesión entraremos a la vista de inicio la cual, si existen, nos muestra un listado de eventos que estén en curso o programados y toda su información al respecto. Desde esta vista podremos crear nuevos eventos y gestionarlos._
 
-![Login view](https://raw.githubusercontent.com/defu13/meethub/master/wwwroot/images/home.PNG)
+![Login view](https://github.com/defu13/meethub/blob/master/wwwroot/images/home.PNG)
 
 Para crear un evento debemos pulsar el botón "Nuevo", se desplegará una ventana en la cual debemos de introducir los datos del evento en un formulario.
 
@@ -66,7 +66,7 @@ Haciendo click o pulsando en un evento nos llevara a la vista de **evento**.
 
 _En esta vista podremos, mediante una interfaz intuitiva, editar y eliminar el evento en cuestión, así como gestionar la asistencia de tus invitados._
 
-![Login view](https://raw.githubusercontent.com/defu13/meethub/master/wwwroot/images/evento.PNG)
+![Login view](https://github.com/defu13/meethub/blob/master/wwwroot/images/evento.PNG)
 
 Desde esta vista es posible copiar el enlace de invitación para compartirlo con los asistentes deseados, los cuales se unirán rellenando un formulario de acceso.
 
@@ -81,13 +81,13 @@ Existen dos tipos de eventos:
 
 _Esta vista ofrece una visión de los eventos ya finalizados con información sobre la asistencia que han logrado._
 
-![Login view](https://raw.githubusercontent.com/defu13/meethub/master/wwwroot/images/stats.PNG)
+![Login view](https://github.com/defu13/meethub/blob/master/wwwroot/images/stats.PNG)
 
 ### Perfil
 
 _Desde aquí podrás cambiar algunos datos de tu perfil y cerrar la sesión actual._
 
-![Login view](https://raw.githubusercontent.com/defu13/meethub/master/wwwroot/images/perfil.PNG)
+![Login view](https://github.com/defu13/meethub/blob/master/wwwroot/images/perfil.PNG)
 
 ## Autores ✒️
 
